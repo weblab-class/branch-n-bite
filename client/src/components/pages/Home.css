@@ -2,12 +2,9 @@
   padding: var(--m) var(--m);
   margin: 0;
   justify-content: center;
-<<<<<<< Updated upstream
   width: 100%;
-=======
   align-items: center;
   height: 100vh;
->>>>>>> Stashed changes
 }
 
 .Home-title {
