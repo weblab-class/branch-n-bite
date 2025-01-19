@@ -18,11 +18,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,300;1,75..100,300&display=swap");
 
 :root {
-  --green: #BFE2B4;
-  --red: ffb3b3;
-  --purple: E6CCFF;
-  --orange: F5DAB8;
-  --blue: ADD8E6;
+  --green: #bfe2b4;
+  --red: #ffb3b3;
+  --purple: #e6ccff;
+  --orange: #f5dab8;
+  --blue: #add8e6;
   /* old colors */
   --primary: #396dff;
   --primary--dim: #6987db;
