@@ -18,7 +18,7 @@ const GOOGLE_CLIENT_ID = "{process.env.GOOGLE_CLIENT_ID}";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound />} element={<App />}>
-      <Route path="/" element={<Skeleton />} />
+      <Route path="/" element={<Home />} />
     </Route>
   )
 );
