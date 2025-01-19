@@ -30,6 +30,9 @@ const Home = () => {
           Next
         </Link>
       </div>
+
+      <hr />
+      <div className="Home-about"> About Us </div>
     </div>
   );
 };
