@@ -9,7 +9,9 @@ import { socket } from "../client-socket";
 
 import { get, post } from "../utilities";
 
-export const UserContext = createContext(null);
+import NavBar from "./modules/NavBar";
+
+import { UserContext } from "./context/UserContext";
 
 /**
  * Define the "App" component
@@ -49,6 +51,8 @@ const App = () => {
 
   return (
     <UserContext.Provider value={authContextValue}>
+      {/* <NavBar /> */}
+      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} />
       <Outlet />
     </UserContext.Provider>
   );
