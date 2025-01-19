@@ -10,11 +10,14 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-title u-inlineBlock">Catbook</div>
+      {/* <div className="NavBar-title u-inlineBlock"> */}
       <div className="NavBar-linkContainer u-inlineBlock"></div>
-      {/* <Link to="/" className="NavBar-link">
+      <Link to="/" className="NavBar-link">
         Home
-      </Link> */}
+      </Link>
+      <Link to="/profile" className="NavBar-link">
+        Profile
+      </Link>
       {/* {userId ? (
         <>
           <span>Welcome, User {userId}</span>
@@ -29,6 +32,7 @@ const NavBar = () => {
           Login
         </button>
       )} */}
+      {/* </div> */}
     </nav>
   );
 };
