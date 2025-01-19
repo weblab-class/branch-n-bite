@@ -13,7 +13,13 @@ import {
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const GOOGLE_CLIENT_ID = "{process.env.GOOGLE_CLIENT_ID}";
+// Retrieve the client ID from the environment variable
+const GOOGLE_CLIENT_ID = "FILL ME IN";
+
+if (!GOOGLE_CLIENT_ID) {
+  console.error("Google Client ID is not set. Please check your .env file.");
+  throw new Error("Missing Google Client ID");
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +29,7 @@ const router = createBrowserRouter(
   )
 );
 
-// renders React Component "Root" into the DOM element with ID "root"
+// Render React Component "Root" into the DOM element with ID "root"
 ReactDOM.createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
     <RouterProvider router={router} />

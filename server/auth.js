@@ -1,10 +1,12 @@
+require("dotenv").config();
+
 const { OAuth2Client } = require("google-auth-library");
 const User = require("./models/user");
 const socketManager = require("./server-socket");
 
 // create a new OAuth client used to verify google sign-in
 //    TODO: replace with your own CLIENT_ID
-const CLIENT_ID = "{process.env.GOOGLE_CLIENT_ID}";
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(CLIENT_ID);
 
 // accepts a login token from the frontend, and verifies that it's legit
