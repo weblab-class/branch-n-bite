@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import Skeleton from "./components/pages/Skeleton";
+import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 
 import {
@@ -13,7 +14,7 @@ import {
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const GOOGLE_CLIENT_ID = "{process.env.GOOGLE_CLIENT_ID}";
+const GOOGLE_CLIENT_ID = "28102359689-hls8va0uqvcgj43cop6kg92qbim6c4fo.apps.googleusercontent.com";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

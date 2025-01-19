@@ -14,6 +14,21 @@ const Home = () => {
         <Link to="/Maseeh" className="Home-link">
           Maseeh
         </Link>
+        <Link to="/McCormick" className="Home-link">
+          McCormick
+        </Link>
+        <Link to="/Baker" className="Home-link">
+          Baker
+        </Link>
+        <Link to="/New-Vassar" className="Home-link">
+          New Vassar
+        </Link>
+        <Link to="/Simmons" className="Home-link">
+          Simmons
+        </Link>
+        <Link to="/Next" className="Home-link">
+          Next
+        </Link>
       </div>
     </div>
   );

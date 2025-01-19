@@ -1,6 +1,7 @@
 .Home-container {
   padding: var(--m) var(--m);
   margin: auto;
+  justify-content: center;
 }
 
 .Home-title {
