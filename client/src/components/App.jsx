@@ -25,12 +25,9 @@ const App = () => {
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
-        // they are registered in the database, and currently logged in.
         setUserId(user._id);
-        // Optionally fetch the user's profile picture here if needed
-        axios.get(`/api/user/${user._id}/profile-picture`).then((response) => {
-          setUserPicture(response.data.pictureUrl);
-        });
+        setUserName(user.name);
+        setUserPicture(user.picture);
       }
     });
   }, []);
@@ -39,10 +36,11 @@ const App = () => {
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken);
     console.log(`Logged in as ${decodedCredential.name}`);
+
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
-      setUserName(decodedCredential.name);
-      setUserPicture(decodedCredential.picture);
+      setUserName(user.name);
+      setUserPicture(user.picture);
       post("/api/initsocket", { socketid: socket.id });
     });
   };
