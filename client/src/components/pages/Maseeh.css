@@ -24,7 +24,7 @@
   width: 60vh;
   height: 60vh;
   border-radius: 50%;
-  border: 0.3vw solid var(--black);
+  border: 0.3vw solid var(--darkgrey);
   position: relative;
   overflow: hidden;
 }
@@ -56,6 +56,11 @@
   background-color: var(--red);
 }
 
+.Maseeh-top-left:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkred);
+}
+
 .Maseeh-bottom-left {
   bottom: -1%;
   left: -6%;
@@ -66,6 +71,11 @@
   transform: rotate(270deg);
   font-size: 4vw;
   text-align: center;
+}
+
+.Maseeh-bottom-left:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkgreen);
 }
 
 .Maseeh-text-bottom-left {
@@ -82,6 +92,11 @@
   transform: rotate(90deg);
 }
 
+.Maseeh-top-right:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkorange);
+}
+
 .Maseeh-text-top-right {
   transform: rotate(-90deg);
 }
@@ -96,6 +111,51 @@
   transform: rotate(180deg);
 }
 
+.Maseeh-bottom-right:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkpurple);
+}
+
 .Maseeh-text-bottom-right {
   transform: rotate(180deg);
+}
+
+.Maseeh-box-button {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.Maseeh-box-button:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkred);
+}
+
+.Maseeh-dairy-circle {
+  width: 20vh;
+  height: 20vh;
+  border-radius: 50%;
+  border: 0.3vw solid var(--darkgrey);
+  position: relative;
+  top: 0;
+  right: 0;
+  transform: translate(30%, -60%);
+  overflow: hidden;
+}
+
+.Maseeh-dairy-inner-circle {
+  width: 17vh;
+  height: 17vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--blue);
+  display: flex;
+}
+
+.Maseeh-dairy-inner-circle:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkblue);
 }

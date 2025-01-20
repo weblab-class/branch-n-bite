@@ -13,14 +13,14 @@ const Home = () => {
   return (
     <div className="Home-container">
       {/* Title and links */}
-      <div className="Home-title">Branch & Bite @ MIT</div>
+      <div className="Home-title">🌱 Branch & Bite @ MIT 🌱</div>
       <Link to="/maseeh" style={{ textDecoration: "none", display: "inline-block" }}>
         <button>Maseeh</button>
       </Link>
-      <div className="Home-linkContainer u-inlineBlock">
+      {/* <div className="Home-linkContainer u-inlineBlock">
         <Link to="/Maseeh" className="Home-link">
           Maseeh
-        </Link>
+        </Link> */}
         {/* future dorms: */}
         {/* <Link to="/McCormick" className="Home-link">
           McCormick
@@ -37,7 +37,7 @@ const Home = () => {
         <Link to="/Next" className="Home-link">
           Next
         </Link> */}
-      </div>
+      {/* </div> */}
 
       {/* ///////////////////////////////////////// */}
 

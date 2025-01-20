@@ -19,11 +19,15 @@
 
 :root {
   --green: #bfe2b4;
+  --darkgreen: #89ba83;
   --red: #ffb3b3;
   --darkred: #f97676;
   --purple: #e6ccff;
+  --darkpurple: #b499e0;
   --orange: #f5dab8;
+  --darkorange: #d9a870;
   --blue: #add8e6;
+  --darkblue: #679cc2;
   --black: #000;
   --white: #fff;
   /* old colors */
@@ -121,6 +125,7 @@ button:hover {
 }
 
 .u-link:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
   color: var(--primary--dim);
 }
 
@@ -132,4 +137,10 @@ button:hover {
 .u-backarrow {
   width: 50px;
   height: 50px;
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  fill: var(--red);
+}
+
+.u-backarrow:hover {
+  fill: var(--darkred);
 }
