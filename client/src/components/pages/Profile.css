@@ -1,0 +1,36 @@
+.Profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.Profile-details {
+  text-align: center;
+}
+
+.Profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.Profile-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.Profile-logoutButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Profile-logoutButton:hover {
+  background-color: #0056b3;
+}

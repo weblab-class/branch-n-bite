@@ -44,13 +44,3 @@
 .Home-link + .NavBar-link {
   margin-left: var(--m);
 }
-
-.Home-about {
-  font-weight: 700;
-  font-size: 35px;
-}
-
-.hr {
-  margin: 0;
-  width: 90%;
-}

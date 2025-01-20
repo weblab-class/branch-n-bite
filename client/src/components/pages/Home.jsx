@@ -11,7 +11,6 @@ const Home = () => {
 
   return (
     <div className="Home-container">
-
       {/* Title and links */}
       <div className="Home-title">Branch & Bite @ MIT</div>
       <div className="Home-linkContainer u-inlineBlock">
@@ -36,10 +35,10 @@ const Home = () => {
         </Link> */}
       </div>
 
-{/* ///////////////////////////////////////// */}
+      {/* ///////////////////////////////////////// */}
 
       <hr />
-      <div className="Home-about"> About Us </div>
+      <div className="u-heading"> About Us </div>
     </div>
   );
 };

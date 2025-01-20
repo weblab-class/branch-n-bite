@@ -93,3 +93,8 @@ form {
 .u-link:hover {
   color: var(--primary--dim);
 }
+
+.u-heading {
+  font-weight: 700;
+  font-size: 35px;
+}
