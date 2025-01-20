@@ -1,5 +1,5 @@
 .Home-container {
-  padding: var(--m) var(--m);
+  padding: calc(2 * var(--l));
   margin: 0;
   justify-content: center;
   width: 100%;
@@ -43,4 +43,16 @@
 
 .Home-link + .NavBar-link {
   margin-left: var(--m);
+}
+
+.Home-plate-container {
+  width: 30%;
+}
+
+.Home-about-container {
+  display: flex;
+  gap: var(--l);
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
 }

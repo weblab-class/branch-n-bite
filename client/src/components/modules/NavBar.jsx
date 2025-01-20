@@ -15,22 +15,26 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-linkContainer u-inlineBlock"></div>
-      <Link to="/" className="NavBar-link">
-        Home
-      </Link>
-      <Link to="/profile" className="NavBar-link">
-        Profile
-      </Link>
-      {userId ? (
-        <button onClick={onLogout}>Logout</button>
-      ) : (
-        <GoogleLogin
-          onSuccess={handleLogin}
-          onError={(err) => console.log(err)}
-          scope="profile email" // Ensure the 'profile' scope is requested
-        />
-      )}
+      <div className="NavBar-leftcontent">
+        <Link to="/" className="NavBar-link">
+          Home
+        </Link>
+        <Link to="/profile" className="NavBar-link">
+          Profile
+        </Link>
+      </div>
+      <div className="NavBar-linkContainer"></div> {/* This will take up the middle space */}
+      <div className="NavBar-rightcontent">
+        {userId ? (
+          <button onClick={onLogout}>Logout</button>
+        ) : (
+          <GoogleLogin
+            onSuccess={handleLogin}
+            onError={(err) => console.log(err)}
+            scope="profile email" // Ensure the 'profile' scope is requested
+          />
+        )}
+      </div>
     </nav>
   );
 };

@@ -2,20 +2,21 @@
   padding: var(--s) var(--m);
   background-color: var(--red);
   display: flex;
+  justify-content: space-between; /* Spread left and right content */
+  align-items: center; /* Vertically center the items */
 }
 
-.NavBar-title {
-  color: var(--black);
-  font-size: 20px;
+.NavBar-leftcontent {
+  display: flex; /* Make the left content a flex container to align items */
+  gap: var(--m); /* Add spacing between links */
 }
 
-.NavBar-linkContainer {
-  margin-left: var(--l);
-  justify-content: flex-end;
+.NavBar-rightcontent {
+  display: flex; /* Flex container to handle login/logout button */
+  align-items: center; /* Vertically center button */
 }
 
-.NavBar-link,
-.NavBar-link:visited {
+.NavBar-link {
   color: var(--black);
   opacity: 0.6;
   text-decoration: none;
@@ -32,5 +33,5 @@
 }
 
 .NavBar-link + .NavBar-link {
-  margin-left: var(--m);
+  margin-left: var(--m); /* Spacing between links */
 }

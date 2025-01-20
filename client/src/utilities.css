@@ -20,6 +20,7 @@
 :root {
   --green: #bfe2b4;
   --red: #ffb3b3;
+  --darkred: #f97676;
   --purple: #e6ccff;
   --orange: #f5dab8;
   --blue: #add8e6;
@@ -45,6 +46,35 @@ body {
 
 form {
   flex-grow: 1;
+}
+
+button {
+  background-color: var(--red); /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid #000;
+  display: flex;
+  gap: var(--s);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--darkred);
+}
+
+.u-heading-container {
+  margin: var(--l);
+  display: flex;
+  gap: var(--m);
+  align-items: center;
 }
 
 .u-flex {
@@ -97,4 +127,9 @@ form {
 .u-heading {
   font-weight: 700;
   font-size: 35px;
+}
+
+.u-backarrow {
+  width: 50px;
+  height: 50px;
 }
