@@ -12,10 +12,18 @@ const Maseeh = () => {
       <div className="Maseeh-container">
         <div className="Maseeh-circle">
           <div className="Maseeh-inner-circle">
-            <div className="Maseeh-quarter-circle Maseeh-top-left"></div>
-            <div className="Maseeh-quarter-circle Maseeh-bottom-left"></div>
-            <div className="Maseeh-quarter-circle Maseeh-top-right"></div>
-            <div className="Maseeh-quarter-circle Maseeh-bottom-right"></div>
+            <div className="Maseeh-quarter-circle Maseeh-top-left">
+              <span className="Maseeh-text">Fruit</span>
+            </div>
+            <div className="Maseeh-quarter-circle Maseeh-bottom-left">
+              <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
+            </div>
+            <div className="Maseeh-quarter-circle Maseeh-top-right">
+              <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
+            </div>
+            <div className="Maseeh-quarter-circle Maseeh-bottom-right">
+              <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
+            </div>
           </div>
         </div>
       </div>
