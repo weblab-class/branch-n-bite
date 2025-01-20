@@ -11,18 +11,6 @@ const Home = () => {
 
   return (
     <div className="Home-container">
-      {userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-      )}
 
       {/* Title and links */}
       <div className="Home-title">Branch & Bite @ MIT</div>
@@ -30,7 +18,8 @@ const Home = () => {
         <Link to="/Maseeh" className="Home-link">
           Maseeh
         </Link>
-        <Link to="/McCormick" className="Home-link">
+        {/* future dorms: */}
+        {/* <Link to="/McCormick" className="Home-link">
           McCormick
         </Link>
         <Link to="/Baker" className="Home-link">
@@ -44,8 +33,10 @@ const Home = () => {
         </Link>
         <Link to="/Next" className="Home-link">
           Next
-        </Link>
+        </Link> */}
       </div>
+
+{/* ///////////////////////////////////////// */}
 
       <hr />
       <div className="Home-about"> About Us </div>

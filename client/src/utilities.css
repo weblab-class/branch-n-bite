@@ -23,13 +23,12 @@
   --purple: #e6ccff;
   --orange: #f5dab8;
   --blue: #add8e6;
+  --black: #000;
+  --white: #fff;
   /* old colors */
-  --primary: #396dff;
-  --primary--dim: #6987db;
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
   --grey: #f7f7f7;
-  --white: #fff;
 
   --xs: 4px;
   --s: 8px;

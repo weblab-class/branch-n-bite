@@ -18,6 +18,18 @@ const NavBar = () => {
       <Link to="/profile" className="NavBar-link">
         Profile
       </Link>
+      {userId ? (
+        <button
+          onClick={() => {
+            googleLogout();
+            handleLogout();
+          }}
+        >
+          Logout
+        </button>
+      ) : (
+        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
+      )}
       {/* {userId ? (
         <>
           <span>Welcome, User {userId}</span>
