@@ -25,4 +25,16 @@ const Profile = () => {
   );
 };
 
+const NewBio = (props) => {
+  const addStory = (value) => {
+    const body = { content: value };
+    post("/api/story", body).then((story) => {
+      // display this story on the screen
+      props.addNewStory(story);
+    });
+  };
+
+  return <NewPostInput defaultText="New Story" onSubmit={addStory} />;
+};
+
 export default Profile;

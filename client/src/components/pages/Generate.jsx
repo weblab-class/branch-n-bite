@@ -8,6 +8,22 @@ import { UserContext } from "../context/UserContext";
 
 const Generate = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const [generatedPlate, setGeneratedPlate] = useState({});
+
+  function generateMeal(date, dorm, meal, group, inclusions, exclusions) {
+    get("/api/generateMeal", {
+      date: date,
+      dorm: dorm,
+      meal: meal,
+      group: group,
+      // inclusions: inclusions,
+      // exclusions: exclusions
+    }).then((plate) => {
+      // plate is a dictionary mapping each group to item
+      setGeneratedPlate(plate);
+    });
+  }
+
   return (
     <>
       <div className="u-heading-container">

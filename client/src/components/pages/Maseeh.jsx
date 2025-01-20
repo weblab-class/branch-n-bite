@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
@@ -8,6 +8,25 @@ import { UserContext } from "../context/UserContext";
 
 const Maseeh = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const [leftList, setLeftList] = useState([]);
+  const [rightList, setRightList] = useState([]);
+  
+
+  function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
+    get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
+      (foodList) => {
+        if (group === "fruits" || group === "vegetables") {
+          setLeftList(foodList);
+          setRightList([]);
+        }
+        if (group === "grains" || group === "protein" || group === "dairy") {
+          setRightList(foodList);
+          setLeftList([]);
+        }
+      }
+    );
+  }
+
   return (
     <>
       <div className="u-heading-container">
@@ -28,25 +47,44 @@ const Maseeh = () => {
         </a>
         <div className="u-heading">Maseeh Dining</div>
       </div>
+      <script type="text/javascript">
+        {`
+
+        `}
+      </script>
       <div className="Maseeh-container">
         <div className="Maseeh-circle">
           <div className="Maseeh-inner-circle">
-            <div className="Maseeh-quarter-circle Maseeh-top-left">
-              <span className="Maseeh-text">Fruit</span>
+            <div
+              className="Maseeh-quarter-circle Maseeh-top-left"
+              onClick={() => {
+                showFoodGroup(today.getDate(), "maseeh", "dinner", "fruits");
+              }}
+            >
+              <span className="Maseeh-text">Fruits</span>
             </div>
-            <div className="Maseeh-quarter-circle Maseeh-bottom-left">
+            <div
+              className="Maseeh-quarter-circle Maseeh-bottom-left"
+              onclick="showFoodGroup('vegetables')"
+            >
               <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
             </div>
-            <div className="Maseeh-quarter-circle Maseeh-top-right">
+            <div
+              className="Maseeh-quarter-circle Maseeh-top-right"
+              onclick="showFoodGroup('grains')"
+            >
               <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
             </div>
-            <div className="Maseeh-quarter-circle Maseeh-bottom-right">
+            <div
+              className="Maseeh-quarter-circle Maseeh-bottom-right"
+              onclick="showFoodGroup('protein')"
+            >
               <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
             </div>
           </div>
         </div>
         <div className="Maseeh-dairy-circle">
-          <div className="Maseeh-dairy-inner-circle">
+          <div className="Maseeh-dairy-inner-circle" onclick="showFoodGroup('dairy')">
             <span className="Maseeh-text">Dairy</span>
           </div>
         </div>
