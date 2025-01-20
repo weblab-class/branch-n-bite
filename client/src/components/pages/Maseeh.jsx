@@ -11,8 +11,12 @@ const Maseeh = () => {
     <>
       <div className="Maseeh-container">
         <div className="Maseeh-circle">
-          <div className="Maseeh-quarter-circle Maseeh-top-left"></div>
-          <div className="Maseeh-quarter-circle Maseeh-bottom-left"></div>
+          <div className="Maseeh-inner-circle">
+            <div className="Maseeh-quarter-circle Maseeh-top-left"></div>
+            <div className="Maseeh-quarter-circle Maseeh-bottom-left"></div>
+            <div className="Maseeh-quarter-circle Maseeh-top-right"></div>
+            <div className="Maseeh-quarter-circle Maseeh-bottom-right"></div>
+          </div>
         </div>
       </div>
     </>
