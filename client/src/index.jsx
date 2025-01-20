@@ -5,6 +5,7 @@ import Skeleton from "./components/pages/Skeleton";
 import Home from "./components/pages/Home";
 import Maseeh from "./components/pages/Maseeh";
 import Profile from "./components/pages/Profile";
+import Generate from "./components/pages/Generate";
 import NotFound from "./components/pages/NotFound";
 
 import {
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
       <Route path="/maseeh" element={<Maseeh />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/generate" element={<Generate />} />
     </Route>
   )
 );
