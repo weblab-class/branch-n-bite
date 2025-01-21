@@ -1,8 +1,9 @@
 {
   "name": "weblab-skeleton",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "scraper.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

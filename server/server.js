@@ -84,50 +84,6 @@ app.use("/api", api);
 const reactPath = path.resolve(__dirname, "..", "client", "dist");
 app.use(express.static(reactPath));
 
-/* getFoodList
- * parameters:
- *  date - Date object with the date we want to support
- *  dorm - which dorm it is, lowercase
- *    choices: "maseeh"
- *  meal - which meal it is
- *    choices: "lunch", "dinner"
- *  group - one of the five food groups
- *    choices: "fruits", "vegetables", "grains", "protein", "dairy"
- *  includes - list of restrictions to include. gets intersection of all
- *  excludes - 
- * returns:
- *  a list of Foods served on that date, the dorm, and meal
- *  if group is specified, only contains items in that food group
- */
-app.get("/getFoodList", (req, res) => {
-  console.log("Got food from ${req.query.parent}")
-  res.status(200);
-  res.send({
-    status: 200,
-    message: "Hi bestie"
-  })
-});
-
-/*
- * generateMeal
- * parameters:
- *  
- */
-app.get("/generateMeal", (req, res) => {
-
-});
-
-/*
- * updatedBio
- */
-app.post("/updatedBio", (req, res) => {
-
-});
-
-/*
- * bio
- */
-
 // for all other routes, render index.html and let react router handle it
 app.get("*", (req, res) => {
   res.sendFile(path.join(reactPath, "index.html"), (err) => {
