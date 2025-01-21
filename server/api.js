@@ -82,7 +82,10 @@ router.post("/updatedBio", (req, res) => {
 /*
  * bio
  */
-router.post("/bio", (req, res) => {
+router.get("/bio", (req, res) => {
+  console.log("Loaded new bio for ${req.query.userid}");
+  res.status(200);
+  res.send("I love to eat <3");
 });
 
 router.post("/initsocket", (req, res) => {

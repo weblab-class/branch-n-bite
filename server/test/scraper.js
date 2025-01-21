@@ -1,9 +1,25 @@
-console.log("Hello!!")
 
 import assert from 'assert';
 import puppeteer from "puppeteer";
+import foundationFoods from './foundationDownload.json' with { type: 'json' };
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import 'dotenv/config'
+import express from 'express'
 
 const url = "https://mit.cafebonappetit.com/cafe//"
+
+const foodAssignment = {
+    "Fruits and Fruit Juices": "fruits",
+    "Vegetables and Vegetable Products": "vegetables",
+    "Cereal Grains and Pasta": "grains",
+    "Finfish and Shellfish Products": "protein",
+    "Lamb, Veal, and Game Products": "protein",
+    "Pork Products": "protein",
+    "Beef Products": "protein",
+    "Poultry Products": "protein",
+    "Sausages and Luncheon Meats": "protein",
+    "Dairy and Egg Products": "dairy",
+};
 
 /**
  * Scrapes the Bon Appetit website for MIT and determines
@@ -27,7 +43,7 @@ async function getMenu(date, dorm, meal) {
     const allMeals = ["breakfast", "brunch", "lunch", "dinner", "late-night"];
     assert(allMeals.includes(meal))
     const url = `https://mit.cafebonappetit.com/cafe/${dormString}/${dateString}`
-    console.log(url)
+    console.log(`Scraping food from ${url}`)
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -61,17 +77,76 @@ async function getMenu(date, dorm, meal) {
     return (await foodTest);
 }
 
-/**
- * Computers
- * @param {String} foodName title of a food item
- * @returns an array of distinct strings containing all food groups
- * the food is a part of, which may be empty
- * These are only "fruits", "vegetables", "grains", "protein", or "dairy". 
- */
-async function getFoodGroup(foodName) {
-    return "fruits"
+function getFoodGroupsFromFoundation(foodName) {
+    const tokenizedFood = foodName.split(' ');
+    const foodGroupSet = new Set([]);
+    for(foodString of tokenizedFood) {
+    }
+    return [...foodGroupSet];
 }
 
-// console.log(await getMenu("2025-01-16", "maseeh", "breakfast"));
+async function getFoodGroupsFromGemini(foodsArray) {
+
+    console.log(process.env);
+    console.log(`It is ${process.env.GEMINI_API_KEY}`);
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `You will be given a food item, and the task is to classify it into zero or more of the following five food groups: "fruits", "vegetables", "protein", "grains", "dairy". 
+These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array.
+
+Here are some examples.
+
+Input: 
+Pork bacon
+Output: 
+[
+    ["protein"],
+]
+
+Input: 
+Yogurt and Blueberries
+Asparagus fried rice
+Output:
+[
+    ["fruits", "dairy"],
+    ["vegetables", "grains"],
+]
+
+Input: 
+Sweet Chili Chicken Pizza
+Coca-Cola
+Carnitas Burrito
+Output: 
+[
+    ["protein", "grains", "dairy"]
+    [],
+    ["protein", "grains"]
+]
+
+Now, here are the food items we want to classify:
+${foodsArray.join('\n')}`
+
+    const result = await model.generateContent(prompt);
+    console.log(result.response.text());
+
+    return result.response.text();
+
+}
+
+/**
+ * Computes which food groups a certain food is part.
+ * @param {Array<String>} foodArray strings representing titles of food items
+ * @returns an Array of Arrays of distinct strings containing all food groups
+ * each food is a part of, which may be empty
+ * These are only "fruits", "vegetables", "grains", "protein", or "dairy". 
+ */
+async function getFoodGroups(foodsArray) {
+    return await getFoodGroupsFromGemini(foodsArray);
+    // return getFoodGroupsFromFoundation(foodName);
+}
+
+console.log(getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
+// console.log(await getMenu("2024-02-18", "next", "dinner"));
 
 export { getMenu }
