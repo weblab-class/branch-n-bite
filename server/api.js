@@ -87,7 +87,7 @@ router.get("/generateMeal", (req, res) => {
  * updatedBio
  */
 router.post("/updatedBio", (req, res) => {
-
+  res.send([req.body]);
 });
 
 /*
