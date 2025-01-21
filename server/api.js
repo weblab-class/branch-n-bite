@@ -96,7 +96,7 @@ router.post("/updatedBio", (req, res) => {
 router.get("/bio", (req, res) => {
   console.log(`Loaded new bio for ${req.query.userid}`);
   res.status(200);
-  res.send(["I love to eat <3"]);
+  res.send(["I love to eat 😘😘😘 this is from the api so u know its working :3"]);
 });
 
 // anything else falls to this "not found" case
