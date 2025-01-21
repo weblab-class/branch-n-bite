@@ -35,6 +35,17 @@ router.get("/whoami", (req, res) => {
 // import scrape
 const scraper = require('./test/scraper.js')
 
+router.post("/initsocket", (req, res) => {
+  // do nothing if user not logged in
+  if (req.user)
+    socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
+  res.send({});
+});
+
+// |------------------------------|
+// | write your API methods below!|
+// |------------------------------|
+
 /* getFoodList
  * parameters of request body:
  *  date - Date object with the date we want to support
@@ -85,19 +96,8 @@ router.post("/updatedBio", (req, res) => {
 router.get("/bio", (req, res) => {
   console.log(`Loaded new bio for ${req.query.userid}`);
   res.status(200);
-  res.send({bio: "I love to eat <3"});
+  res.send("I love to eat <3");
 });
-
-router.post("/initsocket", (req, res) => {
-  // do nothing if user not logged in
-  if (req.user)
-    socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
-  res.send({});
-});
-
-// |------------------------------|
-// | write your API methods below!|
-// |------------------------------|
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
