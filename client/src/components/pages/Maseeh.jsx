@@ -10,7 +10,6 @@ const Maseeh = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [leftList, setLeftList] = useState([]);
   const [rightList, setRightList] = useState([]);
-  
 
   function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
@@ -53,7 +52,7 @@ const Maseeh = () => {
         `}
       </script>
       <div className="Maseeh-container">
-        <div className="Maseeh-circle">
+        <section className="Maseeh-circle">
           <div className="Maseeh-inner-circle">
             <div
               className="Maseeh-quarter-circle Maseeh-top-left"
@@ -82,12 +81,14 @@ const Maseeh = () => {
               <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
             </div>
           </div>
-        </div>
+        </section>
         <div className="Maseeh-dairy-circle">
           <div className="Maseeh-dairy-inner-circle" onclick="showFoodGroup('dairy')">
             <span className="Maseeh-text">Dairy</span>
           </div>
         </div>
+
+        
       </div>
       <div className="Generate-container">
         <a href="/generate" className="Maseeh-box-button">
