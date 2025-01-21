@@ -50,14 +50,15 @@ const scraper = require('./test/scraper.js')
  *  a list of Foods served on that date, the dorm, and meal
  *  if group is specified, only contains items in that food group
  */
-router.get("/getFoodList", (req, res) => {
+router.get("/getFoodList", async (req, res) => {
   console.log(`Got food from ${req.query.dorm}`)
   res.status(200);
   // for now, returns all the food
   // also for now, scrapes the food from the site
   // instead of getting from the database
-  const menu = scraper.getMenu(req.query.date, req.query.dorm, req.query.meal)
-  res.send(menu)
+  const menu = await scraper.getMenu(req.query.date, req.query.dorm, req.query.meal)
+  console.log(menu);
+  res.send(menu.map(x => x.foodName));
 });
 
 /*

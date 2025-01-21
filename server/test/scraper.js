@@ -60,10 +60,9 @@ async function getMenu(date, dorm, meal) {
         })
         return menu;
     }, meal);
-    console.log(await foodTest);
-    console.log("Done!")
+    return (await foodTest);
 }
 
-getMenu("2023-10-16", "baker", "breakfast");
+// getMenu("2023-10-16", "baker", "breakfast");
 
 export { getMenu }
