@@ -56,7 +56,7 @@ router.get("/getFoodList", async (req, res) => {
   // for now, returns all the food
   // also for now, scrapes the food from the site
   // instead of getting from the database
-  const menu = ["placeholder"]
+  const menu = [{foodName: "placeholder"}]
   // uncomment below line to scrape food from the database
   // const menu = await scraper.getMenu(req.query.date, req.query.dorm, req.query.meal)
   console.log(menu);

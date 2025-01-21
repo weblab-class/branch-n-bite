@@ -9,7 +9,7 @@ const url = "https://mit.cafebonappetit.com/cafe//"
  * Scrapes the Bon Appetit website for MIT and determines
  * the list of foods served on a given date,
  * in a given dorm, for a given meal.
- * @param {Date} date a Date object 
+ * @param {String} date a date of the form YYYY-MM-DD
  * @param {String} dorm a dorm, one of "maseeh", "mccormick", "next", "simmons", "new-vassar"
  * @param {String} meal a mealtime, one of "breakfast", "brunch", "lunch", "dinner", "late-night"
  * @returns a list of Food objects of the form {
@@ -27,14 +27,12 @@ async function getMenu(date, dorm, meal) {
     const allMeals = ["breakfast", "brunch", "lunch", "dinner", "late-night"];
     assert(allMeals.includes(meal))
     const url = `https://mit.cafebonappetit.com/cafe/${dormString}/${dateString}`
-    console.log("Hello 1")
     console.log(url)
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
 
-    console.log("Hello 2")
     const foodTest = page.evaluate((meal) => {
         const allRestrictions = ["Vegetarian", "Vegan", "Halal"];
         const allAllergies = ["Peanut", "Tree Nut", "Fish", "Wheat/Gluten", "Milk", "Egg", "Soy", "Sesame"]
@@ -63,6 +61,17 @@ async function getMenu(date, dorm, meal) {
     return (await foodTest);
 }
 
-// getMenu("2023-10-16", "baker", "breakfast");
+/**
+ * Computers
+ * @param {String} foodName title of a food item
+ * @returns an array of distinct strings containing all food groups
+ * the food is a part of, which may be empty
+ * These are only "fruits", "vegetables", "grains", "protein", or "dairy". 
+ */
+async function getFoodGroup(foodName) {
+    return "fruits"
+}
+
+// console.log(await getMenu("2025-01-16", "maseeh", "breakfast"));
 
 export { getMenu }
