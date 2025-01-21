@@ -160,6 +160,34 @@
   background-color: var(--darkblue);
 }
 
-.Maseeh-list-container {
+.Maseeh-food-list {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+}
+
+/* have a flex container, make alignement, make iterdivs
+make three divs
+div container
+ */
+
+.Maseeh-left-list {
+  flex: 0 0 auto;
+  margin-right: 2rem; /* Space between the list and the circles */
+  /* width: 20%; */
+  height: auto;
+  /* max-height: 90%; */
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.Maseeh-list-text {
+  position: absolute;
+  display: flex;
+  color: var(--black);
+  font-size: 2vw;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
