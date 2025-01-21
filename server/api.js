@@ -32,8 +32,11 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
+// import scrape
+const scraper = require('./test/scraper.js')
+
 /* getFoodList
- * parameters:
+ * parameters of request body:
  *  date - Date object with the date we want to support
  *  dorm - which dorm it is, lowercase
  *    choices: "maseeh"
@@ -48,12 +51,13 @@ router.get("/whoami", (req, res) => {
  *  if group is specified, only contains items in that food group
  */
 router.get("/getFoodList", (req, res) => {
-  console.log("Got food from ${req.query.parent}")
+  console.log(`Got food from ${req.query.dorm}`)
   res.status(200);
-  res.send({
-    status: 200,
-    message: "Hi bestie"
-  })
+  // for now, returns all the food
+  // also for now, scrapes the food from the site
+  // instead of getting from the database
+  const menu = scraper.getMenu(req.query.date, req.query.dorm, req.query.meal)
+  res.send(menu)
 });
 
 /*

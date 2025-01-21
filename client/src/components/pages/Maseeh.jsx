@@ -59,8 +59,10 @@ const Maseeh = () => {
             <div
               className="Maseeh-quarter-circle Maseeh-top-left"
               onClick={() => {
-                const today = new Date();
-                showFoodGroup(today.getDate(), "maseeh", "dinner", "fruits");
+                // Gets today's date in YYYY-MM-DD format
+                const todayDate = (new Date()).toJSON().slice(0, 10);
+                console.log(todayDate);
+                showFoodGroup(todayDate, "maseeh", "dinner", "fruits");
               }}
             >
               <span className="Maseeh-text">Fruits</span>
