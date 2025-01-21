@@ -146,7 +146,7 @@ async function getFoodGroups(foodsArray) {
     // return getFoodGroupsFromFoundation(foodName);
 }
 
-console.log(getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
+// console.log(getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
 // console.log(await getMenu("2024-02-18", "next", "dinner"));
 
 export { getMenu }
