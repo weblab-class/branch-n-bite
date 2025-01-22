@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
-        setUserId(user._id);
+        setUserId(user.googleid);
         setUserName(user.name);
         setUserPicture(user.picture || defaultImg);
       }
@@ -41,7 +41,7 @@ const App = () => {
     console.log(`Picture link: ${decodedCredential.picture}`);
 
     post("/api/login", { token: userToken }).then((user) => {
-      setUserId(user._id);
+      setUserId(user.googleid);
       setUserName(user.name);
       setUserPicture(user.picture || defaultImg);
       post("/api/initsocket", { socketid: socket.id });
