@@ -6,14 +6,17 @@ import "./Profile.css";
 import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
+  console.log(useContext(UserContext));
   const { userId, userName, userPicture } = useContext(UserContext);
   const [editingBio, setEditingBio] = useState(false);
   const [newBio, setNewBio] = useState("");
   const [currentBio, setCurrentBio] = useState("I love to eat 😋");
 
   useEffect(() => {
-    get("/api/bio", { userid: userId }).then((bio) => setCurrentBio(bio));
-  }, []);
+    get("/api/bio", { userid: userId }).then((bio) => {
+      setCurrentBio(bio[0].bio);
+    });
+  }, [userId]);
 
   const handlePencilClick = () => {
     setEditingBio((prev) => !prev);
@@ -29,9 +32,9 @@ const Profile = () => {
 
   // const NewBio = (props) => {
   const handleNewBio = () => {
-    const body = { content: newBio };
+    const body = { userid: userId, content: newBio };
     post("/api/updatedBio", body).then((bio) => {
-      setCurrentBio(bio[0].content);
+      setCurrentBio(bio[0]);
       setEditingBio(false);
       // props.addNewBio(bio);
       deleteTextArea();

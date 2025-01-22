@@ -11,8 +11,8 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
-const Menu = require("./models/menu")
-const Foodgroup = require("./models/foodgroup")
+const Menu = require("./models/menu");
+const Foodgroup = require("./models/foodgroup");
 
 // import authentication library
 const auth = require("./auth");
@@ -26,7 +26,7 @@ const socketManager = require("./server-socket");
 // setting up mongoose
 const mongoose = require("mongoose"); // library to connect to MongoDB
 
-const getFoodGroups = require("./test/scraper.js")
+const getFoodGroups = require("./test/scraper.js");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -40,7 +40,7 @@ router.get("/whoami", (req, res) => {
 });
 
 // import scrape
-const scraper = require('./test/scraper.js');
+const scraper = require("./test/scraper.js");
 const menu = require("./models/menu");
 
 router.post("/initsocket", (req, res) => {
@@ -75,10 +75,10 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
     date: date,
     dorm: dorm,
     meal: meal,
-  }
-  
+  };
+
   // cache, so that clicking within plate is fast
-  if(JSON.stringify(menuData) === JSON.stringify(prevData)) {
+  if (JSON.stringify(menuData) === JSON.stringify(prevData)) {
     return prevMenuWithGroups;
   }
 
@@ -102,27 +102,29 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   const menuWithGroups = [];
   const noFoodGroup = [];
 
-  for(const foodItem of dietFilteredMenu) {
-    const foodGroups = await Foodgroup.findOne({
-      foodName: foodItem
-    }, 'foodName foodGroups');
+  for (const foodItem of dietFilteredMenu) {
+    const foodGroups = await Foodgroup.findOne(
+      {
+        foodName: foodItem,
+      },
+      "foodName foodGroups"
+    );
     // console.log(`The foodgroups is ${foodGroups}`);
-    if(foodGroups === null) {
+    if (foodGroups === null) {
       noFoodGroup.push(foodItem);
-    }
-    else {
+    } else {
       menuWithGroups.push(foodGroups);
     }
   }
-  if(noFoodGroup.length !== 0) {
+  if (noFoodGroup.length !== 0) {
     const newFoodGroups = await scraper.getFoodGroups(noFoodGroup);
     // console.log(noFoodGroup.length)
     // console.log(newFoodGroups.length)
-    for(let i = 0; i < noFoodGroup.length; i++) {
+    for (let i = 0; i < noFoodGroup.length; i++) {
       foodgroupInstance = {
         foodName: noFoodGroup[i],
         foodGroups: newFoodGroups[i],
-      }
+      };
       menuWithGroups.push(foodgroupInstance);
       const newFoodGroup = new Foodgroup(foodgroupInstance);
       await newFoodGroup.save();
@@ -155,20 +157,18 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
  *  if group is specified, only contains items in that food group
  */
 router.get("/getFoodList", async (req, res) => {
-  console.log(`Got food from ${req.query.dorm}`)
+  console.log(`Got food from ${req.query.dorm}`);
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
     req.query.dorm,
     req.query.meal,
     req.query.includes,
     req.query.excludes
-  )
+  );
   console.log(menuWithGroups);
   const group = req.query.group;
   res.status(200);
-  res.send(menuWithGroups
-    .filter(x => x.foodGroups.includes(group))
-    .map(x => x.foodName));
+  res.send(menuWithGroups.filter((x) => x.foodGroups.includes(group)).map((x) => x.foodName));
 });
 
 /*
@@ -177,7 +177,6 @@ router.get("/getFoodList", async (req, res) => {
  */
 router.get("/generateMeal", async (req, res) => {
   console.log(`Got food from ${req.query.dorm}`)
-  console.log(req.query);
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
     req.query.dorm,
@@ -186,11 +185,11 @@ router.get("/generateMeal", async (req, res) => {
     req.query.exclusions
   );
   const allFoodGroups = ["fruits", "vegetables", "grains", "protein", "dairy"];
-  const retDict = {}
-  for(const foodGroupName of allFoodGroups) {
+  const retDict = {};
+  for (const foodGroupName of allFoodGroups) {
     const foodsInGroup = menuWithGroups
-      .filter(x => x.foodGroups.includes(foodGroupName))
-      .map(x => x.foodName);
+      .filter((x) => x.foodGroups.includes(foodGroupName))
+      .map((x) => x.foodName);
     const randInd = Math.floor(Math.random() * foodsInGroup.length);
     retDict[foodGroupName] = foodsInGroup[randInd];
   }
@@ -215,17 +214,21 @@ mongoose
 /*
  * updatedBio
  */
-router.post("/updatedBio", (req, res) => {
-  res.send([req.body]);
+router.post("/updatedBio", async (req, res) => {
+  console.log(req.body);
+  res.send([req.body.content]);
+  await User.findOneAndUpdate({ googleid: req.body.userid }, { bio: req.body.content });
 });
 
 /*
  * bio
  */
-router.get("/bio", (req, res) => {
+router.get("/bio", async (req, res) => {
   console.log(`Loaded new bio for ${req.query.userid}`);
   res.status(200);
-  res.send(["I love to eat 😘😘😘 this is from the api so u know its working :3"]);
+  const userBio = await User.findOne({ googleid: req.query.userid }, "bio");
+  console.log(userBio);
+  res.send([userBio]);
 });
 
 // anything else falls to this "not found" case
