@@ -50,11 +50,9 @@ const Generate = () => {
             </g>
           </svg>
         </a>
-        <div className="u-heading">Maseeh Dining</div>
+        <div className="u-heading">Maseeh Dining: Generate new balanced meal combinations!</div>
       </div>
       <section className="Maseeh-container">
-        <p className="Generate-text">{dummy_plate.fruits}</p>
-        <p className="Generate-text">{dummy_plate.vegetables}</p>
         <div className="Maseeh-grid">
           <div className="Maseeh-plate-wrapper">
             <div className="Maseeh-circle">
@@ -80,9 +78,21 @@ const Generate = () => {
             </div>
           </div>
         </div>
-        <p className="Generate-text">{dummy_plate.grains}</p>
-        <p className="Generate-text">{dummy_plate.protein}</p>
-        <p className="Generate-text">{dummy_plate.dairy}</p>
+        <p className="Generate-text">
+          <b style={{ color: "#f97676" }}>Fruit:</b> {dummy_plate.fruits}
+          <br />
+          <br />
+          <b style={{ color: "#89ba83" }}>Vegetable:</b> {dummy_plate.vegetables}
+          <br />
+          <br />
+          <b style={{ color: "#d9a870" }}>Grain:</b> {dummy_plate.grains}
+          <br />
+          <br />
+          <b style={{ color: "#b499e0" }}>Protein:</b> {dummy_plate.protein}
+          <br />
+          <br />
+          <b style={{ color: "#679cc2" }}>Dairy:</b> {dummy_plate.dairy}
+        </p>
       </section>
       <section className="Generate-container">
         <button>

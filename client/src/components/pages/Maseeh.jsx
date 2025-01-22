@@ -19,8 +19,8 @@ const Maseeh = () => {
         if (group === "fruits" || group === "vegetables") {
           // foodList = ["apple", "banana", "orange", "grapes", "strawberries"];
           // TODO fix hardcoding
-          if(group === "fruits") {
-            if(foodList.length) foodList.push("And more fruits from the fruit bar!");
+          if (group === "fruits") {
+            if (foodList.length) foodList.push("And more fruits from the fruit bar!");
             else foodList.push("Get some fruits from the fruit bar!");
           }
           setLeftList(foodList);
@@ -45,7 +45,7 @@ const Maseeh = () => {
             </g>
           </svg>
         </a>
-        <div className="u-heading">Maseeh Dining</div>
+        <div className="u-heading">Maseeh Dining: Click through the 5 food groups!</div>
       </div>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">

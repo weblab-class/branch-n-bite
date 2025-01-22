@@ -14,9 +14,13 @@ const Home = () => {
     <div className="Home-container">
       {/* Title and links */}
       <div className="Home-title">🌱 Branch & Bite @ MIT 🌱</div>
-      <Link to="/maseeh" style={{ textDecoration: "none", display: "inline-block" }}>
-        <button>Maseeh</button>
-      </Link>
+      <div
+        style={{ margin: "0 auto", display: "flex", justifyContent: "center", marginBlock: "20px" }}
+      >
+        <Link to="/maseeh" style={{ textDecoration: "none", display: "inline-block" }}>
+          <button>Maseeh [CLICK ME!]</button>
+        </Link>
+      </div>
       {/* <div className="Home-linkContainer u-inlineBlock">
         <Link to="/Maseeh" className="Home-link">
           Maseeh
@@ -41,9 +45,9 @@ const Home = () => {
 
       {/* ///////////////////////////////////////// */}
 
-      <div className="u-heading"> About Us </div>
+      <div className="u-heading u-heading-container"> About Us </div>
       <div className="Home-about-container">
-        <div style={{ width: "30%" }}>
+        <div style={{ width: "30%", minWidth: "300px" }}>
           <p>
             Welcome to Branch & Bite, an initiative by our web.lab team dedicated to supporting a
             healthier and happier student body. Our platform categorizes the Bon Appetit dining hall
@@ -52,6 +56,12 @@ const Home = () => {
             easier for students to make healthier food choices while navigating the dining options
             available to them, helping them maintain a nutritious lifestyle throughout the school
             year.
+            <br />
+            <br />
+            To navigate this site, we have a button above that lets you click on a dining hall of
+            your choice. Here, you'll be able to see what menu items are available in each food
+            group at the current meal time. You'll also have an option to go to a generate page,
+            where we will randomly select a food combination for you!
           </p>
         </div>
         <div className="Maseeh-grid">
