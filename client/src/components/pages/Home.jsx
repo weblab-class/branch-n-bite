@@ -21,8 +21,8 @@ const Home = () => {
         <Link to="/Maseeh" className="Home-link">
           Maseeh
         </Link> */}
-        {/* future dorms: */}
-        {/* <Link to="/McCormick" className="Home-link">
+      {/* future dorms: */}
+      {/* <Link to="/McCormick" className="Home-link">
           McCormick
         </Link>
         <Link to="/Baker" className="Home-link">
@@ -70,6 +70,11 @@ const Home = () => {
                 <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="Maseeh-dairy-circle">
+          <div className="Maseeh-dairy-inner-circle">
+            <span className="Maseeh-text">Dairy</span>
           </div>
         </div>
       </div>
