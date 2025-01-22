@@ -79,6 +79,8 @@ router.get("/getFoodList", async (req, res) => {
     dorm: req.query.dorm,
     meal: req.query.meal,
   }
+  
+  // cache, so that clicking within plate is fast
   if(JSON.stringify(menuData) === JSON.stringify(prevData)) {
     console.log("Yayyyyy");
     res.send(prevMenuWithGroups
