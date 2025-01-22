@@ -54,27 +54,29 @@ const Home = () => {
             year.
           </p>
         </div>
-        <div className="Home-plate-container">
-          <div className="Maseeh-circle">
-            <div className="Maseeh-inner-circle">
-              <div className="Maseeh-quarter-circle Maseeh-top-left">
-                <span className="Maseeh-text">Fruit</span>
-              </div>
-              <div className="Maseeh-quarter-circle Maseeh-bottom-left">
-                <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
-              </div>
-              <div className="Maseeh-quarter-circle Maseeh-top-right">
-                <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
-              </div>
-              <div className="Maseeh-quarter-circle Maseeh-bottom-right">
-                <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
+        <div className="Maseeh-grid">
+          <div className="Maseeh-plate-wrapper">
+            <div className="Maseeh-circle">
+              <div className="Maseeh-inner-circle">
+                <div className="Maseeh-quarter-circle Maseeh-top-left">
+                  <span className="Maseeh-text">Fruits</span>
+                </div>
+                <div className="Maseeh-quarter-circle Maseeh-bottom-left">
+                  <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
+                </div>
+                <div className="Maseeh-quarter-circle Maseeh-top-right">
+                  <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
+                </div>
+                <div className="Maseeh-quarter-circle Maseeh-bottom-right">
+                  <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="Maseeh-dairy-circle">
-          <div className="Maseeh-dairy-inner-circle">
-            <span className="Maseeh-text">Dairy</span>
+          <div className="Maseeh-dairy-circle">
+            <div className="Maseeh-dairy-inner-circle">
+              <span className="Maseeh-text">Dairy</span>
+            </div>
           </div>
         </div>
       </div>
