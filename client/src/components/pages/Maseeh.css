@@ -1,6 +1,5 @@
 :root {
-  --base-width: 61vh;
-  --base-height: 61vh;
+  --min-dimension: min(1vw, 1vh);
   --border-width: 0.3vh;
   --hover-transition: 0.3s ease;
 }
@@ -16,18 +15,19 @@
 
 .Maseeh-grid {
   overflow: hidden;
-  width: calc(var(--base-width) * 1.37);
-  height: var(--base-height);
+  width: auto;
+  height: auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: top;
-  border: 0.3vw solid var(--darkgrey);
+  transform-origin: center center;
+  transform: scale(1);
+  position: relative;
 }
 
 .Maseeh-plate-wrapper {
-  position: relative;
-  width: var(--base-width);
-  height: var(--base-height);
-  transform-origin: center;
+  width: auto;
+  height: auto;
   overflow: hidden;
 }
 
@@ -44,8 +44,8 @@
 }
 
 .Maseeh-circle {
-  width: 60vh;
-  height: 60vh;
+  width: 30vw;
+  height: 30vw;
   border-radius: 50%;
   border: 0.3vw solid var(--darkgrey);
   position: relative;
@@ -53,8 +53,8 @@
 }
 
 .Maseeh-inner-circle {
-  width: 56vh;
-  height: 56vh;
+  width: 28vw;
+  height: 28vw;
   transform: translate(3.5%, 3.5%);
   border-radius: 50%;
   position: relative;
@@ -145,8 +145,8 @@
 }
 
 .Maseeh-dairy-circle {
-  width: 20vh;
-  height: 20vh;
+  width: 10vw;
+  height: 10vw;
   border-radius: 50%;
   border: 0.3vw solid var(--darkgrey);
   position: relative;
@@ -154,8 +154,8 @@
 }
 
 .Maseeh-dairy-inner-circle {
-  width: 17vh;
-  height: 17vh;
+  width: 8.5vw;
+  height: 8.5vw;
   transform: translate(9%, 9%);
   border-radius: 50%;
   position: relative;
