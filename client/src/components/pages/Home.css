@@ -2,9 +2,9 @@
   padding: calc(2 * var(--l));
   margin: 0;
   justify-content: center;
-  width: 100%;
+  width: auto;
   align-items: center;
-  height: 100vh;
+  height: auto;
 }
 
 .Home-title {

@@ -1,8 +1,8 @@
 .Generate-container {
-  padding: var(--m) var(--m);
+  padding: calc(var(--l) * 2);
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: auto;
 }
