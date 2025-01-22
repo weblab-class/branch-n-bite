@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
@@ -6,12 +6,27 @@ import "./Maseeh.css";
 import "./Generate.css";
 import { UserContext } from "../context/UserContext";
 import { get, post } from "../../utilities";
-const today = new Date();
+
+/**
+ * Returns today's date in YYYY-MM-DD format.
+ */
+function getTodayDate() {
+  return new Date().toJSON().slice(0, 10);
+}
 
 const Maseeh = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [leftList, setLeftList] = useState([]);
-  const [rightList, setRightList] = useState([]);
+  const [leftList, setLeftList] = useState(["Loading..."]);
+  const [rightList, setRightList] = useState(["Loading..."]);
+
+  useEffect(() => {
+    get("/api/getFoodList", { date: getTodayDate(), dorm: "maseeh", meal: "dinner", group: "fruits" }).then(
+      (foodList) => {
+        console.log("get trolled");
+        setLeftList([]);
+        setRightList([]);
+    });
+  }, []);
 
   function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
@@ -64,9 +79,7 @@ const Maseeh = () => {
                   className="Maseeh-quarter-circle Maseeh-top-left"
                   onClick={() => {
                     // Gets today's date in YYYY-MM-DD format
-                    const todayDate = new Date().toJSON().slice(0, 10);
-                    console.log(todayDate);
-                    showFoodGroup(todayDate, "maseeh", "dinner", "fruits");
+                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "fruits");
                   }}
                 >
                   <span className="Maseeh-text">Fruits</span>
@@ -74,7 +87,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-bottom-left"
                   onClick={() => {
-                    showFoodGroup(today.getDate(), "maseeh", "dinner", "vegetables");
+                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "vegetables");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
@@ -82,7 +95,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-top-right"
                   onClick={() => {
-                    showFoodGroup(today.getDate(), "maseeh", "dinner", "grains");
+                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "grains");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
@@ -90,7 +103,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-bottom-right"
                   onClick={() => {
-                    showFoodGroup(today.getDate(), "maseeh", "dinner", "protein");
+                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "protein");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
@@ -102,7 +115,7 @@ const Maseeh = () => {
             <div
               className="Maseeh-dairy-inner-circle"
               onClick={() => {
-                showFoodGroup(today.getDate(), "maseeh", "dinner", "dairy");
+                showFoodGroup(getTodayDate(), "maseeh", "dinner", "dairy");
               }}
             >
               <span className="Maseeh-text">Dairy</span>
