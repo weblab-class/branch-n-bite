@@ -141,9 +141,11 @@ Output:
 
     const result = await model.generateContent(prompt);
     console.log(prompt);
+    console.log("---JSON STARTS HERE---")
     console.log(result.response.text());
+    console.log("---JSON ENDS HERE---")
 
-    return JSON.parse(result.response.text());
+    return eval(result.response.text());
 
 }
 

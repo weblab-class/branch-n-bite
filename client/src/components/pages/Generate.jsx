@@ -11,19 +11,12 @@ const Generate = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [ currdate, setDate ] = useState(new Date().toJSON().slice(0, 10));
   const [generatedPlate, setGeneratedPlate] = useState({
-    fruits: "apple",
-    vegetables: "carrot",
-    grains: "bread",
-    protein: "chicken",
-    dairy: "cheese",
+    fruits: "Loading...",
+    vegetables: "Loading...",
+    grains: "Loading...",
+    protein: "Loading...",
+    dairy: "Loading...",
   });
-  /*
-  generatedPlate["fruits"] = "apple";
-  generatedPlate["vegetables"] = "carrot";
-  generatedPlate["grains"] = "bread";
-  generatedPlate["protein"] = "chicken";
-  generatedPlate["dairy"] = "milk";
-  */
 
   function generateMeal(date, dorm, meal, inclusions = [], exclusions = []) {
     console.log("I generated you");
@@ -36,7 +29,7 @@ const Generate = () => {
     }).then((plate) => {
       // plate is a dictionary mapping each group to item
       const finalPlate = {
-        fruits: plate["fruits"],
+        fruits: (plate["fruits"] ? plate["fruits"] : "Get some fruits from the fruit bar!"),
         vegetables: plate["vegetables"],
         grains: plate["grains"],
         protein: plate["protein"],
@@ -49,7 +42,6 @@ const Generate = () => {
 
   useEffect(() => {
     const todayDate = new Date().toJSON().slice(0, 10);
-    console.log(todayDate);
     generateMeal(todayDate, "maseeh", "dinner");
   }, []);
 

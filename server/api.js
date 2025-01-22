@@ -85,17 +85,23 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   console.log(prevData);
   console.log(menuData);
   console.log(prevData === menuData);
-  prevData = menuData;
   const foundMenu = await Menu.findOne(menuData, "menu");
   const menu =
     foundMenu !== null
       ? foundMenu["menu"]
       : await scraper.getMenu(date, dorm, meal);
   if (foundMenu === null) {
-    Object.defineProperty(menuData, "menu", { value: menu });
-    const newMenu = new Menu(menuData);
+    const newMenu = new Menu({
+      date: date,
+      dorm: dorm,
+      meal: meal,
+      menu: menu,
+    });
+    console.log(newMenu);
     await newMenu.save().then();
   }
+
+  console.log(`The menu is ${foundMenu} ${menu}`);
 
   // TODO filter before this map
   const dietFilteredMenu = menu.map((x) => x.foodName);
@@ -136,6 +142,7 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
 
   // console.log(dietFilteredMenu);
   // console.log(menuWithGroups);
+  prevData = menuData;
   prevMenuWithGroups = menuWithGroups;
   return prevMenuWithGroups;
 }
