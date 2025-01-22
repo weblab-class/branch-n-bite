@@ -177,12 +177,13 @@ router.get("/getFoodList", async (req, res) => {
  */
 router.get("/generateMeal", async (req, res) => {
   console.log(`Got food from ${req.query.dorm}`)
+  console.log(req.query);
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
     req.query.dorm,
     req.query.meal,
-    req.query.includes,
-    req.query.excludes
+    req.query.inclusions,
+    req.query.exclusions
   );
   const allFoodGroups = ["fruits", "vegetables", "grains", "protein", "dairy"];
   const retDict = {}

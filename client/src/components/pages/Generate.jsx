@@ -1,41 +1,57 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
 import "./Generate.css";
 import "./Maseeh.css";
 import { UserContext } from "../context/UserContext";
+import { post, get } from "../../utilities";
 
 const Generate = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [generatedPlate, setGeneratedPlate] = useState({});
-  let dummy_plate = {};
-  dummy_plate["fruits"] = "apple";
-  dummy_plate["vegetables"] = "carrot";
-  dummy_plate["grains"] = "bread";
-  dummy_plate["protein"] = "chicken";
-  dummy_plate["dairy"] = "milk";
+  const [ currdate, setDate ] = useState(new Date().toJSON().slice(0, 10));
+  const [generatedPlate, setGeneratedPlate] = useState({
+    fruits: "apple",
+    vegetables: "carrot",
+    grains: "bread",
+    protein: "chicken",
+    dairy: "cheese",
+  });
+  /*
+  generatedPlate["fruits"] = "apple";
+  generatedPlate["vegetables"] = "carrot";
+  generatedPlate["grains"] = "bread";
+  generatedPlate["protein"] = "chicken";
+  generatedPlate["dairy"] = "milk";
+  */
 
-  function generateMeal(date, dorm, meal, group, inclusions, exclusions) {
+  function generateMeal(date, dorm, meal, inclusions = [], exclusions = []) {
+    console.log("I generated you");
     get("/api/generateMeal", {
       date: date,
       dorm: dorm,
       meal: meal,
-      group: group,
-      // inclusions: inclusions,
-      // exclusions: exclusions
+      inclusions: inclusions,
+      exclusions: exclusions
     }).then((plate) => {
       // plate is a dictionary mapping each group to item
-      // plate = {
-      //   fruits: "apple",
-      //   vegetables: "carrot",
-      //   grains: "bread",
-      //   protein: "chicken",
-      //   dairy: "milk",
-      // };
-      setGeneratedPlate(plate);
+      const finalPlate = {
+        fruits: plate["fruits"],
+        vegetables: plate["vegetables"],
+        grains: plate["grains"],
+        protein: plate["protein"],
+        dairy: plate["dairy"],
+      };
+      console.log(`final plate is ${finalPlate}`);
+      setGeneratedPlate(finalPlate);
     });
   }
+
+  useEffect(() => {
+    const todayDate = new Date().toJSON().slice(0, 10);
+    console.log(todayDate);
+    generateMeal(todayDate, "maseeh", "dinner");
+  }, []);
 
   return (
     <>
@@ -79,23 +95,23 @@ const Generate = () => {
           </div>
         </div>
         <p className="Generate-text">
-          <b style={{ color: "#f97676" }}>Fruit:</b> {dummy_plate.fruits}
+          <b style={{ color: "#f97676" }}>Fruit:</b> {generatedPlate.fruits}
           <br />
           <br />
-          <b style={{ color: "#89ba83" }}>Vegetable:</b> {dummy_plate.vegetables}
+          <b style={{ color: "#89ba83" }}>Vegetable:</b> {generatedPlate.vegetables}
           <br />
           <br />
-          <b style={{ color: "#d9a870" }}>Grain:</b> {dummy_plate.grains}
+          <b style={{ color: "#d9a870" }}>Grain:</b> {generatedPlate.grains}
           <br />
           <br />
-          <b style={{ color: "#b499e0" }}>Protein:</b> {dummy_plate.protein}
+          <b style={{ color: "#b499e0" }}>Protein:</b> {generatedPlate.protein}
           <br />
           <br />
-          <b style={{ color: "#679cc2" }}>Dairy:</b> {dummy_plate.dairy}
+          <b style={{ color: "#679cc2" }}>Dairy:</b> {generatedPlate.dairy}
         </p>
       </section>
       <section className="Generate-container">
-        <button>
+        <button onClick={() => {generateMeal(currdate, "maseeh", "dinner")}}>
           Regenerate
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21.986">
             <path d="M19.841 3.24A10.988 10.988 0 0 0 8.54.573l1.266 3.8a7.033 7.033 0 0 1 8.809 9.158L17 11.891v7.092h7l-2.407-2.439A11.049 11.049 0 0 0 19.841 3.24zM1 10.942a11.05 11.05 0 0 0 11.013 11.044 11.114 11.114 0 0 0 3.521-.575l-1.266-3.8a7.035 7.035 0 0 1-8.788-9.22L7 9.891V6.034c.021-.02.038-.044.06-.065L7 5.909V2.982H0l2.482 2.449A10.951 10.951 0 0 0 1 10.942z" />
