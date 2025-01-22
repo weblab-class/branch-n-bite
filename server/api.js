@@ -90,7 +90,7 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   const menu =
     foundMenu !== null
       ? foundMenu["menu"]
-      : await scraper.getMenu(req.query.date, req.query.dorm, req.query.meal);
+      : await scraper.getMenu(date, dorm, meal);
   if (foundMenu === null) {
     Object.defineProperty(menuData, "menu", { value: menu });
     const newMenu = new Menu(menuData);
