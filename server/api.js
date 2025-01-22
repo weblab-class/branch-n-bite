@@ -55,7 +55,8 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 let prevData = {};
-// TODO fix possible DDoS error
+// TODO fix possible DDoS error, deadlocking
+// add a way to wait for the previous call to end
 let prevMenuWithGroups = [];
 
 /**
