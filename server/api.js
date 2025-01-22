@@ -11,6 +11,8 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Menu = require("./models/menu")
+const Foodgroup = require("./models/foodgroup")
 
 // import authentication library
 const auth = require("./auth");
@@ -20,6 +22,11 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+
+// setting up mongoose
+const mongoose = require("mongoose"); // library to connect to MongoDB
+
+const getFoodGroups = require("./test/scraper.js")
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -33,7 +40,8 @@ router.get("/whoami", (req, res) => {
 });
 
 // import scrape
-const scraper = require('./test/scraper.js')
+const scraper = require('./test/scraper.js');
+const menu = require("./models/menu");
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
@@ -45,6 +53,9 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+let prevData = {};
+let prevMenuWithGroups = [];
 
 /* getFoodList
  * parameters of request body:
@@ -63,15 +74,76 @@ router.post("/initsocket", (req, res) => {
  */
 router.get("/getFoodList", async (req, res) => {
   console.log(`Got food from ${req.query.dorm}`)
-  res.status(200);
-  // for now, returns all the food
-  // also for now, scrapes the food from the site
-  // instead of getting from the database
-  const menu = [{foodName: "placeholder"}]
+  const menuData = {
+    date: req.query.date,
+    dorm: req.query.dorm,
+    meal: req.query.meal,
+  }
+  if(JSON.stringify(menuData) === JSON.stringify(prevData)) {
+    console.log("Yayyyyy");
+    res.send(prevMenuWithGroups
+      .filter(x => x.foodGroups.includes(req.query.group))
+      .map(x => x.foodName));
+    return;
+  }
+
+  console.log(prevData);
+  console.log(menuData);
+  console.log(prevData === menuData);
+  prevData = menuData;
+  const foundMenu = await Menu.findOne(menuData, "menu");
+  const menu =
+    foundMenu !== null
+      ? foundMenu["menu"]
+      : await scraper.getMenu(req.query.date, req.query.dorm, req.query.meal);
+  if (foundMenu === null) {
+    Object.defineProperty(menuData, "menu", { value: menu });
+    const newMenu = new Menu(menuData);
+    await newMenu.save().then();
+  }
+
+  // TODO filter before this map
+  const dietFilteredMenu = menu.map((x) => x.foodName);
+  const menuWithGroups = [];
+  const noFoodGroup = [];
+
+  for(const foodItem of dietFilteredMenu) {
+    const foodGroups = await Foodgroup.findOne({
+      foodName: foodItem
+    }, 'foodName foodGroups');
+    // console.log(`The foodgroups is ${foodGroups}`);
+    if(foodGroups === null) {
+      noFoodGroup.push(foodItem);
+    }
+    else {
+      menuWithGroups.push(foodGroups);
+    }
+  }
+  if(noFoodGroup.length !== 0) {
+    const newFoodGroups = await scraper.getFoodGroups(noFoodGroup);
+    // console.log(noFoodGroup.length)
+    // console.log(newFoodGroups.length)
+    for(let i = 0; i < noFoodGroup.length; i++) {
+      foodgroupInstance = {
+        foodName: noFoodGroup[i],
+        foodGroups: newFoodGroups[i],
+      }
+      menuWithGroups.push(foodgroupInstance);
+      const newFoodGroup = new Foodgroup(foodgroupInstance);
+      await newFoodGroup.save();
+    }
+  }
+
   // uncomment below line to scrape food from the database
   // const menu = await scraper.getMenu(req.query.date, req.query.dorm, req.query.meal)
-  console.log(menu);
-  res.send(menu.map(x => x.foodName));
+
+  // console.log(dietFilteredMenu);
+  // console.log(menuWithGroups);
+  prevMenuWithGroups = menuWithGroups;
+  res.status(200);
+  res.send(menuWithGroups
+    .filter(x => x.foodGroups.includes(req.query.group))
+    .map(x => x.foodName));
 });
 
 /*
@@ -82,6 +154,20 @@ router.get("/getFoodList", async (req, res) => {
 router.get("/generateMeal", (req, res) => {
 
 });
+
+/*
+// Setting up MongoDB
+
+
+mongoose
+  .connect(mongoConnectionURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: databaseName,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
+*/
 
 /*
  * updatedBio

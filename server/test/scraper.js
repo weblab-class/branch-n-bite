@@ -90,23 +90,31 @@ async function getFoodGroupsFromGemini(foodsArray) {
     console.log(process.env);
     console.log(`It is ${process.env.GEMINI_API_KEY}`);
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const prompt = `You will be given a food item, and the task is to classify it into zero or more of the following five food groups: "fruits", "vegetables", "protein", "grains", "dairy". 
-These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array.
+These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array. Also, do not add the backticks (so no \`\`\`json at the start or \`\`\` at the end).
+Note that some items may have no food groups associated with them.
+Make sure that the list you output has the same length as the original!
 
 Here are some examples.
 
 Input: 
-Pork bacon
+Pork Bacon
+Worcestershire Sauce
+Salt
+
 Output: 
 [
     ["protein"],
+    [],
+    [],
 ]
 
 Input: 
 Yogurt and Blueberries
-Asparagus fried rice
+Asparagus Fried Rice
+
 Output:
 [
     ["fruits", "dairy"],
@@ -117,20 +125,25 @@ Input:
 Sweet Chili Chicken Pizza
 Coca-Cola
 Carnitas Burrito
+
 Output: 
 [
-    ["protein", "grains", "dairy"]
+    ["protein", "grains", "dairy"],
     [],
-    ["protein", "grains"]
+    ["protein", "grains"],
 ]
 
-Now, here are the food items we want to classify:
-${foodsArray.join('\n')}`
+Input:
+${foodsArray.join('\n')}
+
+Output: 
+`
 
     const result = await model.generateContent(prompt);
+    console.log(prompt);
     console.log(result.response.text());
 
-    return result.response.text();
+    return JSON.parse(result.response.text());
 
 }
 
@@ -149,4 +162,4 @@ async function getFoodGroups(foodsArray) {
 // console.log(getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
 // console.log(await getMenu("2024-02-18", "next", "dinner"));
 
-export { getMenu }
+export { getMenu, getFoodGroups }
