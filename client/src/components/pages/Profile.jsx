@@ -31,15 +31,9 @@ const Profile = () => {
   const handleNewBio = () => {
     const body = { content: newBio };
     post("/api/updatedBio", body).then((bio) => {
-      console.log(currentBio);
-      console.log("I am here");
-      console.log(bio[0].content);
       setCurrentBio(bio[0].content);
-      console.log(`Should be ${bio[0].content}`);
-      console.log(`but actually is ${currentBio}`);
       setEditingBio(false);
       // props.addNewBio(bio);
-      console.log("bio updated:", bio);
       deleteTextArea();
     });
   };
@@ -51,7 +45,6 @@ const Profile = () => {
         <section className="Profile-details">
           <img src={userPicture} alt={`${userName}'s profile`} className="Profile-picture" />
           <p className="Profile-name">Welcome, {userName}!</p>
-          {/* bio text box */}
           <section className="Profile-bio-container">
             {editingBio ? (
               <div className="Profile-bio-edit">
@@ -87,31 +80,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-// const handleChangeBio = (event) => {
-//   setNewBio(event.target.value);
-//   const NewBio = (props) => {
-//     const addBio = (value) => {
-//       const body = { content: value };
-//       post("/api/newBio", body).then((bio) => {
-//         // display this story on the screen
-//         props.addNewBio(bio);
-//       });
-//     };
-//     return <Profile defaultText="update Bio" onSubmit={addBio} />;
-//     // return <NewPostInput defaultText="New Story" onSubmit={addStory} />;
-//   };
-// };
-
-// const handleSaveBio = () => {
-//   const body = { content: newBio };
-//   post("/api/newBio", body)
-//     .then((bio) => {
-//       // Handle successful bio update
-//       console.log("Bio updated:", bio);
-//       setEditing(false); // Exit editing mode after saving
-//     })
-//     .catch((error) => {
-//       console.error("Error saving bio:", error);
-//     });
-// };
