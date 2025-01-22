@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
@@ -16,8 +16,17 @@ function getTodayDate() {
 
 const Maseeh = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [leftList, setLeftList] = useState([]);
-  const [rightList, setRightList] = useState([]);
+  const [leftList, setLeftList] = useState(["Loading..."]);
+  const [rightList, setRightList] = useState(["Loading..."]);
+
+  useEffect(() => {
+    get("/api/getFoodList", { date: getTodayDate(), dorm: "maseeh", meal: "dinner", group: "fruits" }).then(
+      (foodList) => {
+        console.log("get trolled");
+        setLeftList([]);
+        setRightList([]);
+    });
+  }, []);
 
   function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(

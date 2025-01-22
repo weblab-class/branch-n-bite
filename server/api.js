@@ -55,6 +55,7 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 let prevData = {};
+// TODO fix possible DDoS error
 let prevMenuWithGroups = [];
 
 /**
