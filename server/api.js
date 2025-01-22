@@ -57,36 +57,29 @@ router.post("/initsocket", (req, res) => {
 let prevData = {};
 let prevMenuWithGroups = [];
 
-/* getFoodList
- * parameters of request body:
- *  date - Date object with the date we want to support
- *  dorm - which dorm it is, lowercase
- *    choices: "maseeh"
- *  meal - which meal it is
- *    choices: "lunch", "dinner"
- *  group - one of the five food groups
- *    choices: "fruits", "vegetables", "grains", "protein", "dairy"
- *  includes - list of restrictions to include. gets intersection of all
- *  excludes - 
- * returns:
- *  a list of Foods served on that date, the dorm, and meal
- *  if group is specified, only contains items in that food group
+/**
+ * Determines the list of foods served on a given date,
+ * in a given dorm, for a given meal
+ * @param {String} date a string of the form YYYY-MM-DD
+ * @param {String} dorm a dorm, e.g. "maseeh", "new-vassar"
+ * @param {String} meal a meal, e.g. "brunch", "late-night"
+ * @param {Array<String>} includes dietary restrictions, "vegetarian", "vegan", "halal"
+ * @param {Array<String>} excludes allergies, "tree nut", "peanut", "shrimp"
+ * @returns a list of Food objects of the form {
+ *      foodName: String - name of food
+ *      foodGroups: Array<String> - food groups this food is in
+ * }
  */
-router.get("/getFoodList", async (req, res) => {
-  console.log(`Got food from ${req.query.dorm}`)
+async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes = []) {
   const menuData = {
-    date: req.query.date,
-    dorm: req.query.dorm,
-    meal: req.query.meal,
+    date: date,
+    dorm: dorm,
+    meal: meal,
   }
   
   // cache, so that clicking within plate is fast
   if(JSON.stringify(menuData) === JSON.stringify(prevData)) {
-    console.log("Yayyyyy");
-    res.send(prevMenuWithGroups
-      .filter(x => x.foodGroups.includes(req.query.group))
-      .map(x => x.foodName));
-    return;
+    return prevMenuWithGroups;
   }
 
   console.log(prevData);
@@ -142,19 +135,66 @@ router.get("/getFoodList", async (req, res) => {
   // console.log(dietFilteredMenu);
   // console.log(menuWithGroups);
   prevMenuWithGroups = menuWithGroups;
+  return prevMenuWithGroups;
+}
+
+/* getFoodList
+ * parameters of request body:
+ *  date - Date object with the date we want to support
+ *  dorm - which dorm it is, lowercase
+ *    choices: "maseeh"
+ *  meal - which meal it is
+ *    choices: "lunch", "dinner"
+ *  group - one of the five food groups
+ *    choices: "fruits", "vegetables", "grains", "protein", "dairy"
+ *  includes - list of restrictions to include. gets intersection of all,
+ *             but if it's the empty list gets everything.
+ *  excludes - list of allergies to exclude.
+ * returns:
+ *  a list of Foods served on that date, the dorm, and meal
+ *  if group is specified, only contains items in that food group
+ */
+router.get("/getFoodList", async (req, res) => {
+  console.log(`Got food from ${req.query.dorm}`)
+  const menuWithGroups = await getMenuWithRestrictions(
+    req.query.date,
+    req.query.dorm,
+    req.query.meal,
+    req.query.includes,
+    req.query.excludes
+  )
+  console.log(menuWithGroups);
+  const group = req.query.group;
   res.status(200);
   res.send(menuWithGroups
-    .filter(x => x.foodGroups.includes(req.query.group))
+    .filter(x => x.foodGroups.includes(group))
     .map(x => x.foodName));
 });
 
 /*
  * generateMeal
  * parameters:
- *  
  */
-router.get("/generateMeal", (req, res) => {
-
+router.get("/generateMeal", async (req, res) => {
+  console.log(`Got food from ${req.query.dorm}`)
+  const menuWithGroups = await getMenuWithRestrictions(
+    req.query.date,
+    req.query.dorm,
+    req.query.meal,
+    req.query.includes,
+    req.query.excludes
+  );
+  const allFoodGroups = ["fruits", "vegetables", "grains", "protein", "dairy"];
+  const retDict = {}
+  for(const foodGroupName of allFoodGroups) {
+    const foodsInGroup = menuWithGroups
+      .filter(x => x.foodGroups.includes(foodGroupName))
+      .map(x => x.foodName);
+    const randInd = Math.floor(Math.random() * foodsInGroup.length);
+    retDict[foodGroupName] = foodsInGroup[randInd];
+  }
+  console.log(JSON.stringify(retDict, null, 2));
+  res.send(JSON.stringify(retDict, null, 2));
 });
 
 /*
