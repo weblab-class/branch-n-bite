@@ -59,3 +59,31 @@
   align-items: center;
   flex-wrap: wrap-reverse;
 }
+
+/* .Home-dorms {
+  pointer-events: all;
+  fill: var(--red);
+  transition: fill 0.3s ease, background-color 0.3s ease;
+}
+
+.Home-dorms:hover {
+  fill: var(--darkred);
+} */
+
+.Home-dorms {
+  pointer-events: visiblePainted;
+  fill: var(--red);
+  transition: fill 0.3s ease, background-color 0.3s ease;
+}
+
+.Home-dorms path:hover {
+  pointer-events: all;
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  fill: var(--darkred);
+}
+
+.Home-dorms polygon:hover {
+  pointer-events: all; /* Ensure polygons are clickable */
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  fill: var(--darkred);
+}
