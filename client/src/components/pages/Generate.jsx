@@ -62,12 +62,12 @@ const Generate = () => {
     const dormParam = searchParams.get("dorm");
     const mealParam = searchParams.get("meal");
     if(dateParam !== null) {
-      // TODO sanitize input
-      if(dateParam.length === 10) setSelectedDate(dateParam);
+      // TODO sanitize input properly
+      if(dateParam.length === 10 && dateParam.startsWith("2025-0")) setSelectedDate(dateParam);
     }
     if(mealParam !== null) {
       // TODO sanitize input
-      if(mealParam.length <= 10) setSelectedMeal(mealParam);
+      if(["brunch", "dinner"].includes(mealParam)) setSelectedMeal(mealParam);
     }
   }, []);
 
