@@ -2,7 +2,9 @@
  * Returns today's date in YYYY-MM-DD format.
  */
 function getTodayDate() {
-  return new Date().toJSON().slice(0, 10);
+  const currDay = new Date();
+  currDay.setHours(currDay.getHours() - 5);
+  return currDay.toJSON().slice(0, 10);
 }
 
 /**
@@ -12,6 +14,7 @@ function getTodayDate() {
  */
 function getTodayDateOffset(offset) {
   const currDay = new Date();
+  currDay.setHours(currDay.getHours() - 5);
   currDay.setDate(currDay.getDate() + offset);
   return currDay.toJSON().slice(0, 10);
 }
