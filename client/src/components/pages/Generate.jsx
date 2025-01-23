@@ -1,20 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
 import "./Generate.css";
 import "./Maseeh.css";
 import { getTodayDate, getTodayDateOffset } from "../modules/Date.js"
+import { getInitDate, getInitDorm, getInitMeal } from "../modules/Params.js";
 import { UserContext } from "../context/UserContext";
 import { post, get } from "../../utilities";
 
 const Generate = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   const [ currdate, setDate ] = useState(new Date().toJSON().slice(0, 10));
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedDate, setSelectedDate] = useState(getTodayDate());
-  const [selectedMeal, setSelectedMeal] = useState("dinner");
+  const [selectedDate, setSelectedDate] = useState(getInitDate());
+  const [selectedMeal, setSelectedMeal] = useState(getInitMeal());
+  const [selectedDorm, setSelectedDorm] = useState(getInitDorm());
   const [generatedPlate, setGeneratedPlate] = useState({
     fruits: "Loading...",
     vegetables: "Loading...",
@@ -57,18 +57,6 @@ const Generate = () => {
   }
 
   useEffect(() => {
-    console.log("GENERATE READ FROM URLS YAY");
-    const dateParam = searchParams.get("date");
-    const dormParam = searchParams.get("dorm");
-    const mealParam = searchParams.get("meal");
-    if(dateParam !== null) {
-      // TODO sanitize input properly
-      if(dateParam.length === 10 && dateParam.startsWith("2025-0")) setSelectedDate(dateParam);
-    }
-    if(mealParam !== null) {
-      // TODO sanitize input
-      if(["brunch", "dinner"].includes(mealParam)) setSelectedMeal(mealParam);
-    }
   }, []);
 
   useEffect(() => {
@@ -79,7 +67,7 @@ const Generate = () => {
   return (
     <>
       <div className="u-heading-container">
-        <a href="/Maseeh">
+        <a href={`/Maseeh?date=${selectedDate}&dorm=${selectedDorm}&meal=${selectedMeal}`}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" className="u-backarrow">
             <g>
               <path
