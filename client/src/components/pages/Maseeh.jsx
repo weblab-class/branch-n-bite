@@ -18,10 +18,8 @@ const Maseeh = () => {
   const [currentDorm, setCurrentDorm] = useState(getInitDorm())
   
   useEffect(() => {
-    console.log("Chat we are so back");
     setLeftList(["Loading..."]);
     setRightList(["Loading..."]);
-    console.log(selectedDate);
     get("/api/getFoodList", { date: selectedDate, dorm: currentDorm, meal: selectedMeal, group: "fruits" }).then(
       (foodList) => {
         setLeftList([]);
@@ -30,13 +28,10 @@ const Maseeh = () => {
   }, [selectedDate, selectedMeal]);
 
   function handleMealChange(event) {
-    console.log(event.target);
-    console.log(event.target.value);
     setSelectedMeal(event.target.value);
   }
 
   function handleDateChange(event) {
-    console.log(`Target value is ${event.target.value}`);
     setSelectedDate(event.target.value);
   }
 

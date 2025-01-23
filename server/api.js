@@ -175,7 +175,6 @@ router.get("/getFoodList", async (req, res) => {
     req.query.includes,
     req.query.excludes
   );
-  console.log(menuWithGroups);
   const group = req.query.group;
   res.status(200);
   res.send(menuWithGroups.filter((x) => x.foodGroups.includes(group)).map((x) => x.foodName));
