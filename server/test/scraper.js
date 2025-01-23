@@ -43,7 +43,7 @@ async function getMenu(date, dorm, meal) {
     const allMeals = ["breakfast", "brunch", "lunch", "dinner", "late-night"];
     assert(allMeals.includes(meal))
     const url = `https://mit.cafebonappetit.com/cafe/${dormString}/${dateString}`
-    console.log(`Scraping food from ${url}`)
+    console.log(`Scraping the menu from ${url}`)
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -59,7 +59,6 @@ async function getMenu(date, dorm, meal) {
             .children[0]
             .children[1]
             .getElementsByClassName("site-panel__daypart-item-header")
-        console.log(dinnerHeaders);
         const menu = Object.keys(dinnerHeaders).map((idx) => {
             const foodHeader = dinnerHeaders[idx];
             const foodPropertyImages = foodHeader.getElementsByTagName("img")
@@ -87,8 +86,7 @@ function getFoodGroupsFromFoundation(foodName) {
 
 async function getFoodGroupsFromGemini(foodsArray) {
 
-    console.log(process.env);
-    console.log(`It is ${process.env.GEMINI_API_KEY}`);
+    console.log(`Asking Gemini for the groups of ${foodsArray.length} foods with key ${process.env.GEMINI_API_KEY}`);
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
@@ -140,12 +138,23 @@ Output:
 `
 
     const result = await model.generateContent(prompt);
+    let resultsArray = [];
+    try {
+        resultsArray = eval(result.response.text());
+        console.log(`Obtained a valid results array with length ${resultsArray.length}`);
+        assert(resultsArray.length === foodsArray.length);
+    } catch(error) {
+        console.error(error);
+    } 
+
+    /*
     console.log(prompt);
     console.log("---JSON STARTS HERE---")
     console.log(result.response.text());
     console.log("---JSON ENDS HERE---")
+    */
 
-    return eval(result.response.text());
+    return resultsArray;
 
 }
 
@@ -161,7 +170,7 @@ async function getFoodGroups(foodsArray) {
     // return getFoodGroupsFromFoundation(foodName);
 }
 
-// console.log(getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
+// console.log(await getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
 // console.log(await getMenu("2024-02-18", "next", "dinner"));
 
 export { getMenu, getFoodGroups }
