@@ -4,31 +4,95 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 import "./Maseeh.css";
 import "./Generate.css";
+import { getTodayDate, getTodayDateOffset } from "../modules/Date.js"
 import { UserContext } from "../context/UserContext";
 import { get, post } from "../../utilities";
 
 /**
  * Returns today's date in YYYY-MM-DD format.
- */
 function getTodayDate() {
   return new Date().toJSON().slice(0, 10);
 }
 
+ * Return's today's date, offset by the given offset in days,
+ * in YYYY-MM-DD format. For example, -1 gives yesterday,
+ * 0 gives today, and 3 gives 3 days from now.
+function getTodayDateOffset(offset) {
+  const currDay = new Date();
+  console.log(currDay);
+  currDay.setDate(currDay.getDate() + offset);
+  console.log(currDay.getDate());
+  console.log(currDay);
+  return currDay.toJSON().slice(0, 10);
+}
+ */
+
 const Maseeh = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [leftList, setLeftList] = useState(["Loading..."]);
-  const [rightList, setRightList] = useState(["Loading..."]);
+  const [leftList, setLeftList] = useState([]);
+  const [rightList, setRightList] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(getTodayDate());
+  const [selectedMeal, setSelectedMeal] = useState("dinner");
+
+  const currentDorm = "maseeh";
+  
+  /**
+   * Returns the current mealtime (breakfast, lunch, or dinner)
+   * for the specified dorm.
+   */
+  function getCurrentMeal() {
+    const currentTime = new Date();
+    const lunchTime = new Date();
+    lunchTime.setHours(10, 0, 0);
+    const dinnerTime = new Date();
+    dinnerTime.setHours(15, 0, 0);
+    const lateNightTime = newDate();
+    lateNightTime.setHours(20, 0, 0);
+    if(currentDorm === "maseeh") {
+      // late nights only open mon-thu, sun
+      if(currentTime >= lateNightTime && currentTime.getDay() <= 5) return "late-night";
+      // otherwise, after 8pm it's dinner
+      if(currentTime >= dinnerTime) return "dinner";
+      // if weekend, only brunch or dinner
+      if([0, 6].includes(currentTime.getDay())) return "brunch";
+      // otherwise, it's a weekday
+      if(currentTime >= lunchTime) return "lunch";
+      else return "breakfast";
+    }
+    // TODO edit both of the below
+    else if(currentDorm === "new-vassar") {
+      return "dinner";
+    }
+    else {
+      return "dinner";
+    }
+}
 
   useEffect(() => {
-    get("/api/getFoodList", { date: getTodayDate(), dorm: "maseeh", meal: "dinner", group: "fruits" }).then(
+    console.log("Chat we are so back");
+    setLeftList(["Loading..."]);
+    setRightList(["Loading..."]);
+    console.log(selectedDate);
+    get("/api/getFoodList", { date: selectedDate, dorm: currentDorm, meal: selectedMeal, group: "fruits" }).then(
       (foodList) => {
-        console.log("get trolled");
         setLeftList([]);
         setRightList([]);
     });
-  }, []);
+  }, [selectedDate, selectedMeal]);
+
+  function handleMealChange(event) {
+    console.log(event.target);
+    console.log(event.target.value);
+    setSelectedMeal(event.target.value);
+  }
+
+  function handleDateChange(event) {
+    console.log(`Target value is ${event.target.value}`);
+    setSelectedDate(event.target.value);
+  }
 
   function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
+    console.log(date, dorm, meal, group);
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
       (foodList) => {
         if (group === "fruits" || group === "vegetables") {
@@ -62,6 +126,26 @@ const Maseeh = () => {
         </a>
         <div className="u-heading">Maseeh Dining: Click through the 5 food groups!</div>
       </div>
+      <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
+        {/* <option value="breakfast">Breakfast</option> */}
+        <option value="brunch">Brunch</option>
+        {/* <option value="lunch">Lunch</option> */}
+        <option value="dinner">Dinner</option>
+        {/* <option value="late-night">Late Night</option> */}
+      </select>
+      <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
+        <option value={getTodayDateOffset(-1)}>
+          {getTodayDateOffset(-1)}
+        </option>
+        <option value={getTodayDate()}>
+          {getTodayDate()} (today)
+        </option>
+        {[1, 2, 3, 4, 5, 6, 7].map(dayOffset => 
+          <option value={getTodayDateOffset(dayOffset)}>
+            {getTodayDateOffset(dayOffset)}
+          </option>
+        )}
+      </select>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
           <ul>
@@ -79,7 +163,7 @@ const Maseeh = () => {
                   className="Maseeh-quarter-circle Maseeh-top-left"
                   onClick={() => {
                     // Gets today's date in YYYY-MM-DD format
-                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "fruits");
+                    showFoodGroup(selectedDate, currentDorm, selectedMeal, "fruits");
                   }}
                 >
                   <span className="Maseeh-text">Fruits</span>
@@ -87,7 +171,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-bottom-left"
                   onClick={() => {
-                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "vegetables");
+                    showFoodGroup(selectedDate, currentDorm, selectedMeal, "vegetables");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
@@ -95,7 +179,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-top-right"
                   onClick={() => {
-                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "grains");
+                    showFoodGroup(selectedDate, currentDorm, selectedMeal, "grains");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
@@ -103,7 +187,7 @@ const Maseeh = () => {
                 <div
                   className="Maseeh-quarter-circle Maseeh-bottom-right"
                   onClick={() => {
-                    showFoodGroup(getTodayDate(), "maseeh", "dinner", "protein");
+                    showFoodGroup(selectedDate, currentDorm, selectedMeal, "protein");
                   }}
                 >
                   <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
@@ -115,7 +199,7 @@ const Maseeh = () => {
             <div
               className="Maseeh-dairy-inner-circle"
               onClick={() => {
-                showFoodGroup(getTodayDate(), "maseeh", "dinner", "dairy");
+                showFoodGroup(selectedDate, currentDorm, selectedMeal, "dairy");
               }}
             >
               <span className="Maseeh-text">Dairy</span>
@@ -132,7 +216,7 @@ const Maseeh = () => {
         </section>
       </div>
       <div className="Generate-container">
-        <a href="/generate" className="Maseeh-box-button">
+        <a href={`/generate?date=${selectedDate}&dorm=${currentDorm}&meal=${selectedMeal}`}  className="Maseeh-box-button">
           <button>Generate meal</button>
         </a>
       </div>

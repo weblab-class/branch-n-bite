@@ -26,6 +26,18 @@
   position: relative;
 }
 
+.Maseeh-select {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #000;
+  padding-top: 0px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  background-color: transparent;
+  border: none;
+}
+
 .Maseeh-plate-wrapper {
   width: auto;
   height: auto;
@@ -175,6 +187,7 @@
   align-items: center;
   height: auto;
   width: auto;
+  max-width: 300px;
 }
 
 /* have a flex container, make alignement, make iterdivs
