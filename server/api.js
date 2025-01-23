@@ -73,6 +73,7 @@ let prevMenuWithGroups = [];
  * }
  */
 async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes = []) {
+  console.log(`Asked for the menu with parameters ${date} ${dorm} ${meal} ${includes} ${excludes}`)
   const menuData = {
     date: date,
     dorm: dorm,
@@ -84,9 +85,9 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
     return prevMenuWithGroups;
   }
 
-  console.log(prevData);
-  console.log(menuData);
-  console.log(prevData === menuData);
+  // console.log(prevData);
+  // console.log(menuData);
+  // console.log(prevData === menuData);
   const foundMenu = await Menu.findOne(menuData, "menu");
   const menu =
     foundMenu !== null
@@ -99,11 +100,11 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
       meal: meal,
       menu: menu,
     });
-    console.log(newMenu);
+    // console.log(newMenu);
     await newMenu.save().then();
   }
 
-  console.log(`The menu is ${foundMenu} ${menu}`);
+  // console.log(`The menu is ${foundMenu} ${menu}`);
 
   // TODO filter before this map
   const dietFilteredMenu = menu.map((x) => x.foodName);
