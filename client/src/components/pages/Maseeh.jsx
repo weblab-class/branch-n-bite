@@ -4,7 +4,7 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 import "./Maseeh.css";
 import "./Generate.css";
-import { getTodayDate, getTodayDateOffset } from "../modules/Date.js"
+import { getTodayDate, getTodayDateOffset } from "../modules/Date.js";
 import { getInitDate, getInitDorm, getInitMeal } from "../modules/Params.js";
 import { UserContext } from "../context/UserContext";
 import { get, post } from "../../utilities";
@@ -15,15 +15,19 @@ const Maseeh = () => {
   const [rightList, setRightList] = useState([]);
   const [selectedDate, setSelectedDate] = useState(getInitDate());
   const [selectedMeal, setSelectedMeal] = useState(getInitMeal());
-  const [currentDorm, setCurrentDorm] = useState(getInitDorm())
-  
+  const [currentDorm, setCurrentDorm] = useState(getInitDorm());
+
   useEffect(() => {
     setLeftList(["Loading..."]);
     setRightList(["Loading..."]);
-    get("/api/getFoodList", { date: selectedDate, dorm: currentDorm, meal: selectedMeal, group: "fruits" }).then(
-      (foodList) => {
-        setLeftList([]);
-        setRightList([]);
+    get("/api/getFoodList", {
+      date: selectedDate,
+      dorm: currentDorm,
+      meal: selectedMeal,
+      group: "fruits",
+    }).then((foodList) => {
+      setLeftList([]);
+      setRightList([]);
     });
   }, [selectedDate, selectedMeal]);
 
@@ -58,6 +62,15 @@ const Maseeh = () => {
     );
   }
 
+  function titleCase(dorm) {
+    return dorm
+      .replace("-", " ")
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
   return (
     <>
       <div className="u-heading-container">
@@ -68,7 +81,9 @@ const Maseeh = () => {
             </g>
           </svg>
         </a>
-        <div className="u-heading">Maseeh Dining: Click through the 5 food groups!</div>
+        <div className="u-heading">
+          {titleCase(currentDorm)} Dining: Click through the 5 food groups!
+        </div>
       </div>
       <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
         {/* <option value="breakfast">Breakfast</option> */}
@@ -78,17 +93,11 @@ const Maseeh = () => {
         {/* <option value="late-night">Late Night</option> */}
       </select>
       <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        <option value={getTodayDateOffset(-1)}>
-          {getTodayDateOffset(-1)}
-        </option>
-        <option value={getTodayDate()}>
-          {getTodayDate()} (today)
-        </option>
-        {[1, 2, 3, 4, 5, 6, 7].map(dayOffset => 
-          <option value={getTodayDateOffset(dayOffset)}>
-            {getTodayDateOffset(dayOffset)}
-          </option>
-        )}
+        <option value={getTodayDateOffset(-1)}>{getTodayDateOffset(-1)}</option>
+        <option value={getTodayDate()}>{getTodayDate()} (today)</option>
+        {[1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}</option>
+        ))}
       </select>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
@@ -160,7 +169,10 @@ const Maseeh = () => {
         </section>
       </div>
       <div className="Generate-container">
-        <a href={`/generate?date=${selectedDate}&dorm=${currentDorm}&meal=${selectedMeal}`}  className="Maseeh-box-button">
+        <a
+          href={`/generate?date=${selectedDate}&dorm=${currentDorm}&meal=${selectedMeal}`}
+          className="Maseeh-box-button"
+        >
           <button>Generate meal</button>
         </a>
       </div>

@@ -9,6 +9,7 @@
 
 .Home-title {
   color: var(--red);
+  font-weight: 400;
   font-size: 4vw;
   align-items: center;
   justify-content: center;
@@ -28,13 +29,13 @@
 .Home-link,
 .Home-link:visited {
   color: var(--black);
-  opacity: 0.6;
   text-decoration: none;
+  display: inline-block;
 }
 
 .Home-link:hover {
   transition: fill 0.3s ease, background-color 0.3s ease;
-  opacity: 0.8;
+  color: var(--white);
 }
 
 .Home-link.NavBar-login {
@@ -60,25 +61,43 @@
   flex-wrap: wrap-reverse;
 }
 
-.Home-dorms {
+.Home-dorms-outline {
+  width: 100%;
+  height: 80%;
+  align-items: center;
+  justify-content: space-evenly;
   pointer-events: visiblePainted;
   fill: var(--red);
   transition: fill 0.3s ease, background-color 0.3s ease;
 }
 
-.Home-dorms rect,
-.Home-dorms circle,
-.Home-dorms ellipse {
+.Home-dorms-outline rect,
+.Home-dorms-outline circle,
+.Home-dorms-outline ellipse {
   pointer-events: none;
 }
-.Home-dorms path,
-.Home-dorms polygon {
-  pointer-events: all; /* Ensure these elements are clickable */
+.Home-dorms-outline path,
+.Home-dorms-outline polygon {
+  pointer-events: all;
 }
 
-.Home-dorms path:hover,
-.Home-dorms polygon:hover {
+.Home-dorms-outline path:hover,
+.Home-dorms-outline polygon:hover {
   pointer-events: all;
   transition: fill 0.3s ease, background-color 0.3s ease;
   fill: var(--darkred);
+}
+
+.Home-dorms-top-row {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-block: 20px;
+}
+
+.Home-dorms-bottom-row {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-block: 20px;
 }

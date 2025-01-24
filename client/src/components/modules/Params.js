@@ -27,9 +27,10 @@ function getInitDorm() {
   const dormParam = searchParams.get("dorm");
   if (dormParam !== null) {
     // TODO sanitize input for full
-    if (["maseeh"].includes(dormParam)) return dormParam;
+    if (["maseeh", "mccormick", "baker", "new-vassar", "simmons", "next"].includes(dormParam))
+      return dormParam;
   }
   return "maseeh";
 }
 
-export { getInitDate, getInitMeal, getInitDorm }
+export { getInitDate, getInitMeal, getInitDorm };
