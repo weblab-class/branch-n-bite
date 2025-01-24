@@ -111,6 +111,7 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   const menuWithGroups = [];
   const noFoodGroup = [];
 
+  // TODO speed this up
   for (const foodItem of dietFilteredMenu) {
     const foodGroups = await Foodgroup.findOne(
       {
@@ -183,6 +184,24 @@ router.get("/getFoodList", async (req, res) => {
 /*
  * generateMeal
  * parameters:
+ *  date - Date object with the date we want to support
+ *  dorm - which dorm it is, lowercase
+ *    choices: "maseeh"
+ *  meal - which meal it is
+ *    choices: "lunch", "dinner"
+ *  group - one of the five food groups
+ *    choices: "fruits", "vegetables", "grains", "protein", "dairy"
+ *  includes - list of restrictions to include. gets intersection of all,
+ *             but if it's the empty list gets everything.
+ *  excludes - list of allergies to exclude.
+ * returns:
+ *  a Collection that looks like {
+ *    fruits: <name>
+ *    vegetables: <name>
+ *    grains: <name>
+ *    protein: <name>
+ *    dairy: <name>
+ * }
  */
 router.get("/generateMeal", async (req, res) => {
   console.log(`Got food from ${req.query.dorm}`)
@@ -204,6 +223,32 @@ router.get("/generateMeal", async (req, res) => {
   }
   console.log(JSON.stringify(retDict, null, 2));
   res.send(JSON.stringify(retDict, null, 2));
+});
+
+/**
+ * parameters:
+ *    dorm - the dorm you're thinking of
+ *    dateList - list of dates in strings, YYYY-MM-DD format
+ * returns:
+ *    validDateList - the same list, but only the ones that are in the lsit
+ */
+router.get("/getValidDates", async (req, res) => {
+  // slow right now, but we probably want to make it faster
+  return req.body.dateList.filter(x => (Menu.findOne({date: x}) !== null));
+});
+
+/**
+ * parameters:
+ *    dorm - the dorm you're thinking of
+ *    date - the date you're thinking of
+ * returns:
+ *    validMealList - a list of which meals exist in the database
+ */
+router.get("/getValidMeals", async (req, res) => {
+  return ["breakfast", "brunch", "lunch", "dinner", "late-night"].filter(async m => {
+    const l = await Menu.findOne({meal: m});
+    return (l !== null && l.menu.length !== 0);
+  });
 });
 
 /*

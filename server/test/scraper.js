@@ -53,6 +53,10 @@ async function getMenu(date, dorm, meal) {
         const allRestrictions = ["Vegetarian", "Vegan", "Halal"];
         const allAllergies = ["Peanut", "Tree Nut", "Fish", "Wheat/Gluten", "Milk", "Egg", "Soy", "Sesame"]
         const dinnerBox = document.getElementById(meal)
+        if(dinnerBox === null) {
+            console.log("Found nothing for this date and time");
+            return [];
+        }
         const dinnerHeaders = dinnerBox.children[0]
             .children[1]
             .children[0]
@@ -140,6 +144,7 @@ Output:
     const result = await model.generateContent(prompt);
     let resultsArray = [];
     try {
+        console.log(`Result is ${result}`);
         resultsArray = eval(result.response.text());
         console.log(`Obtained a valid results array with length ${resultsArray.length}`);
         assert(resultsArray.length === foodsArray.length);
@@ -172,5 +177,76 @@ async function getFoodGroups(foodsArray) {
 
 // console.log(await getFoodGroups(["Fish and Clam Gumbo", "Black Bean Burger", "White Chocolate and Macadamia Cookie", "Worcestershire Sauce"]));
 // console.log(await getMenu("2024-02-18", "next", "dinner"));
+
+import Menu from "../models/menu.js"
+import Foodgroup from "../models/foodgroup.js"
+
+async function scrapeAllMenus(dateList, dormList, mealList) {
+  const newFoodSet = new Set();
+  for (const date of dateList) {
+    for (const dorm of dormList) {
+      for (const meal of mealList) {
+        console.log(`Now I'm scraping ${date} ${dorm} ${meal}`)
+        const menuData = {
+          date: date,
+          dorm: dorm,
+          meal: meal,
+        };
+        const foundMenu = await Menu.findOne(menuData, "menu");
+        const menu =
+          foundMenu !== null ? foundMenu["menu"] : await getMenu(date, dorm, meal);
+        
+        console.log("Done scraping!")
+
+        if (foundMenu === null) {
+          const newMenu = new Menu({
+            date: date,
+            dorm: dorm,
+            meal: meal,
+            menu: menu,
+          });
+          // console.log(newMenu);
+          newMenu.save();
+        }
+
+        for(const food of menu) {
+          const foodName = food.foodName;
+          if(await Foodgroup.findOne({foodName: foodName}) === null) {
+            console.log(`Adding ${foodName}`);
+            newFoodSet.add(foodName);
+          }
+        }
+      }
+    }
+  }
+  const newFoodList = [...newFoodSet];
+  if(newFoodList.length === 0) return;
+  const newFoodGroups = await getFoodGroups(newFoodList);
+  if(newFoodGroups.length !== newFoodList.length) return;
+  for(let i = 0; i < newFoodList.length; i++) {
+      const foodgroupInstance = {
+        foodName: newFoodList[i],
+        foodGroups: newFoodGroups[i],
+      };
+      const newFoodGroup = new Foodgroup(foodgroupInstance);
+      newFoodGroup.save();
+  }
+  console.log("I'm done! :)");
+}
+
+// DO NOT UNCOMMENT UNLESS YOU WANT TO SCRAPE AND USE UP CALLS!!!!!!!
+/*
+scrapeAllMenus(
+  ["2024-04-01"],
+  ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
+  ["breakfast"],
+)
+
+scrapeAllMenus(
+  ["2025-02-02"],
+  ["maseeh"],
+  ["breakfast", "lunch", "dinner", "brunch", "late-night"]
+)
+*/
 
 export { getMenu, getFoodGroups }
