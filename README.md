@@ -6,4 +6,4 @@ Branch and Bite lets you see all the food offerings in all MIT dorms over the ne
 
 https://branch-n-bite.onrender.com
 
-_This is a quick, simple reminder for all of us to be more mindful of the foods that we’re eating._ - Michelle Obama
+_This is a quick, simple reminder for all of us to be more mindful of the foods that we’re eating...as long as they’re half full of fruits and vegetables, and paired with lean proteins, whole grains and low-fat dairy, we’re golden.  That’s how easy it is._ - Michelle Obama
