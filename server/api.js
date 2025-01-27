@@ -314,7 +314,7 @@ router.post("/updatedExcludes", async (req, res) => {
 /**
  * excludes
  */
-router.get("/includes", async (req, res) => {
+router.get("/excludes", async (req, res) => {
   console.log(`Loaded allergies for ${req.query.userid}`);
   const userAllergies = await User.findOne({ googleid: req.query.userid }, "allergies");
   console.log(userAllergies);

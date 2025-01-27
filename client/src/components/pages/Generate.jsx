@@ -67,7 +67,7 @@ const Generate = () => {
   return (
     <>
       <div className="u-heading-container">
-        <a href={`/Maseeh?date=${selectedDate}&dorm=${selectedDorm}&meal=${selectedMeal}`}>
+        <a href={`/dorm?date=${selectedDate}&dorm=${selectedDorm}&meal=${selectedMeal}`}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" className="u-backarrow">
             <g>
               <path
@@ -93,7 +93,7 @@ const Generate = () => {
         <option value={getTodayDate()}>
           {getTodayDate()} (today)
         </option>
-        {[1, 2, 3, 4, 5, 6, 7].map(dayOffset => 
+        {[1, 2, 3, 4, 5, 6, 7].map(dayOffset =>
           <option value={getTodayDateOffset(dayOffset)}>
             {getTodayDateOffset(dayOffset)}
           </option>

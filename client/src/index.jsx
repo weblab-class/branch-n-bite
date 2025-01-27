@@ -24,7 +24,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route errorElement={<NotFound />} element={<App />}>
       <Route path="/" element={<Home />} />
-      <Route path="/maseeh" element={<Maseeh />} />
+      <Route path="/dorm" element={<Maseeh />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/generate" element={<Generate />} />
     </Route>

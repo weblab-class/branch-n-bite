@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <section className="Home-container">
       <section className="Home-dorms-top-row">
-        <Link to="/Maseeh?dorm=simmons" class="Home-link">
+        <Link to="/dorm?dorm=simmons" class="Home-link">
           <svg
             viewBox="896.1027576601672 592.2752 88.70013927576602 69.32803999999999"
             xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ const Home = () => {
           </svg>
           <button className="Home-link">Simmons [CLICK ME!]</button>
         </Link>
-        <Link to="/Maseeh?dorm=new-vassar" class="Home-link">
+        <Link to="/dorm?dorm=new-vassar" class="Home-link">
           <svg
             viewBox="1089.6303342618385 447.17 114.50381615598887 83.03241999999999"
             xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const Home = () => {
       </section>
       <div className="Home-title">🌱 Branch & Bite @ MIT 🌱</div>
       <div className="Home-dorms-bottom-row">
-        <Link to="/Maseeh?dorm=next" className="Home-link">
+        <Link to="/dorm?dorm=next" className="Home-link">
           <svg
             viewBox="876.75 790.58564 90.31286908077995 61.266639999999995"
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ const Home = () => {
 
           <button className="Home-link">Next [CLICK ME!]</button>
         </Link>
-        <Link to="/Maseeh?dorm=baker" className="Home-link">
+        <Link to="/dorm?dorm=baker" className="Home-link">
           <svg
             viewBox="1089.6303342618385 447.17 114.50381615598887 83.03241999999999"
             xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ const Home = () => {
           </svg>
           <button className="Home-link">Baker [CLICK ME!]</button>
         </Link>
-        <Link to="/Maseeh?dorm=mccormick" class="Home-link">
+        <Link to="/dorm?dorm=mccormick" class="Home-link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="235.9 408.51 112.99 75.32"
@@ -81,7 +81,7 @@ const Home = () => {
           <button className="Home-link">McCormick [CLICK ME!]</button>
         </Link>
         {/* Maseeh dorm link */}
-        <Link to="/Maseeh?dorm=maseeh" class="Home-link">
+        <Link to="/dorm?dorm=maseeh" class="Home-link">
           <svg
             viewBox="1390.404442896936 547.9375 70.96011142061282 73.35874"
             xmlns="http://www.w3.org/2000/svg"

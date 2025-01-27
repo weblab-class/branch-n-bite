@@ -32,9 +32,11 @@ const Profile = () => {
     });
     console.log("It should be recheckmarking");
     get("/api/includes", { userid: userId }).then((includes) => {
-      console.log(includes);
       setIncludes(includes.restrictions);
-      // setIncludes(["Vegan"]);
+    });
+    get("/api/excludes", { userid: userId }).then((excludes) => {
+      console.log(excludes);
+      setExcludes(excludes.allergies);
     });
   }, [userId]);
 
@@ -62,7 +64,6 @@ const Profile = () => {
   };
 
   const handleIncludes = (restrName) => {
-    console.log(includes);
     const newIncludes = [...includes];
     if (!includes.includes(restrName)) {
       newIncludes.push(restrName);
@@ -72,9 +73,6 @@ const Profile = () => {
     }
     const body = { userid: userId, includes: newIncludes };
     setIncludes(newIncludes);
-    console.log(newIncludes);
-    console.log("This should be the new one:");
-    console.log(includes);
     post("/api/updatedIncludes", body).then(() => {});
   };
 
@@ -86,9 +84,10 @@ const Profile = () => {
       const ind = newExcludes.indexOf(restrName);
       newExcludes.splice(ind, 1);
     }
-    post("/api/updatedExcludes", newExcludes).then(() => {
-      setExcludes(newExcludes);
-    });
+    console.log(newExcludes);
+    const body = { userid: userId, excludes: newExcludes };
+    setExcludes(newExcludes);
+    post("/api/updatedExcludes", body).then(() => {});
   };
 
   return (
@@ -151,6 +150,7 @@ const Profile = () => {
                   <input
                     type="checkbox"
                     label={restrName}
+                    checked={excludes.includes(restrName)}
                     onChange={() => {
                       handleExcludes(restrName);
                     }}
