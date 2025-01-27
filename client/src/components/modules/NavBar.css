@@ -14,6 +14,7 @@
 .NavBar-rightcontent {
   display: flex; /* Flex container to handle login/logout button */
   align-items: center; /* Vertically center button */
+  border-radius: 1vh;
 }
 
 .NavBar-link {
