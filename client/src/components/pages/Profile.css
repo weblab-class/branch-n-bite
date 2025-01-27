@@ -22,7 +22,7 @@
   margin-bottom: 10px;
 }
 
-.Profile-logoutButton {
+/* .Profile-logoutButton {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -33,7 +33,7 @@
 
 .Profile-logoutButton:hover {
   background-color: #0056b3;
-}
+} */
 
 .Profile-pencil {
   width: 50px;
@@ -50,7 +50,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 }
+
 .Profile-bio-edit {
   margin-top: 20px;
   width: 100%;
@@ -58,6 +60,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-color: var(--red);
+  margin-right: 10%;
 }
 
 .Profile-bio-input {
@@ -66,7 +70,7 @@
   max-height: 200px;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--red);
   border-radius: 4px;
   resize: vertical;
   margin-bottom: 10px;
@@ -135,6 +139,9 @@
 
 input[type="checkbox"] {
   accent-color: var(--red);
-  /* accent-color: #ffb3b3; */
-  /* color: var(--red); */
+}
+
+/* attempting to ensure doesn't change color on hover */
+input[type="checkbox"]:hover {
+  accent-color: var(--red);
 }
