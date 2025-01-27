@@ -16,7 +16,7 @@ const Home = () => {
           >
             <polygon points="906.76 655.53 900.21 646.12 971.07 598.77 977.96 608.51 906.76 655.53" />
           </svg>
-          <button className="Home-link">Simmons [CLICK ME!]</button>
+          <button className="Home-button Home-link">Simmons [CLICK ME!]</button>
         </Link>
         <Link to="/dorm?dorm=new-vassar" class="Home-link">
           <svg
