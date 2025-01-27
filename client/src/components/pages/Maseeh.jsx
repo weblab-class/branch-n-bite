@@ -106,54 +106,54 @@ const Maseeh = () => {
           </ul>
           {console.log("clicked", leftList)}
         </section>
-        <div className="Maseeh-grid">
-          <div className="Maseeh-plate-wrapper">
-            <div className="Maseeh-circle">
-              <div className="Maseeh-inner-circle">
+        <div className="Plate-grid">
+          <div className="Plate-plate-wrapper">
+            <div className="Plate-circle">
+              <div className="Plate-inner-circle">
                 <div
-                  className="Maseeh-quarter-circle Maseeh-top-left"
+                  className="Plate-quarter-circle Plate-top-left"
                   onClick={() => {
                     // Gets today's date in YYYY-MM-DD format
                     showFoodGroup(selectedDate, currentDorm, selectedMeal, "fruits");
                   }}
                 >
-                  <span className="Maseeh-text">Fruits</span>
+                  <span className="Plate-text Plate-text-top-left">Fruits</span>
                 </div>
                 <div
-                  className="Maseeh-quarter-circle Maseeh-bottom-left"
+                  className="Plate-quarter-circle Plate-bottom-left"
                   onClick={() => {
                     showFoodGroup(selectedDate, currentDorm, selectedMeal, "vegetables");
                   }}
                 >
-                  <span className="Maseeh-text Maseeh-text-bottom-left">Vegetables</span>
+                  <span className="Plate-text Plate-text-bottom-left">Vegetables</span>
                 </div>
                 <div
-                  className="Maseeh-quarter-circle Maseeh-top-right"
+                  className="Plate-quarter-circle Plate-top-right"
                   onClick={() => {
                     showFoodGroup(selectedDate, currentDorm, selectedMeal, "grains");
                   }}
                 >
-                  <span className="Maseeh-text Maseeh-text-top-right">Grains</span>
+                  <span className="Plate-text Plate-text-top-right">Grains</span>
                 </div>
                 <div
-                  className="Maseeh-quarter-circle Maseeh-bottom-right"
+                  className="Plate-quarter-circle Plate-bottom-right"
                   onClick={() => {
                     showFoodGroup(selectedDate, currentDorm, selectedMeal, "protein");
                   }}
                 >
-                  <span className="Maseeh-text Maseeh-text-bottom-right">Protein</span>
+                  <span className="Plate-text Plate-text-bottom-right">Protein</span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="Maseeh-dairy-circle">
+          <div className="Plate-dairy-circle">
             <div
-              className="Maseeh-dairy-inner-circle"
+              className="Plate-dairy-inner-circle"
               onClick={() => {
                 showFoodGroup(selectedDate, currentDorm, selectedMeal, "dairy");
               }}
             >
-              <span className="Maseeh-text">Dairy</span>
+              <span className="Plate-text">Dairy</span>
             </div>
           </div>
         </div>

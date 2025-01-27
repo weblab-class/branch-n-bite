@@ -1,13 +1,11 @@
 .Plate-text {
-  position: absolute;
   display: flex;
   color: var(--white);
-  font-size: 2vw;
+  font-size: 2.25vw;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  text-align: center;
 }
 
 .Plate-grid {
@@ -62,9 +60,14 @@
 }
 
 .Plate-top-left:hover {
-    transition: fill 0.3s ease, background-color 0.3s ease;
-    background-color: var(--darkred);
-  }
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkred);
+}
+
+.Plate-text-top-left {
+  padding-top: 10%;
+  padding-left: 15%;
+}
 
 .Plate-bottom-left {
   width: 60%;
@@ -77,12 +80,14 @@
 }
 
 .Plate-bottom-left:hover {
-    transition: fill 0.3s ease, background-color 0.3s ease;
-    background-color: var(--darkgreen);
-  }
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkgreen);
+}
 
 .Plate-text-bottom-left {
   transform: rotate(90deg);
+  padding-right: 10%;
+  padding-bottom: 20%;
 }
 
 .Plate-top-right {
@@ -94,12 +99,14 @@
 }
 
 .Plate-top-right:hover {
-    transition: fill 0.3s ease, background-color 0.3s ease;
-    background-color: var(--darkorange);
-  }
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkorange);
+}
 
 .Plate-text-top-right {
   transform: rotate(-90deg);
+  padding-top: 20%;
+  padding-left: 10%;
 }
 
 .Plate-bottom-right {
@@ -111,12 +118,14 @@
 }
 
 .Plate-bottom-right:hover {
-    transition: fill 0.3s ease, background-color 0.3s ease;
-    background-color: var(--darkpurple);
-  }
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkpurple);
+}
 
 .Plate-text-bottom-right {
   transform: rotate(180deg);
+  padding-bottom: 10%;
+  padding-right: 15%;
 }
 
 .Plate-dairy-circle {
