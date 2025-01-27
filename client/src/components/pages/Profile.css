@@ -70,19 +70,71 @@
   border-radius: 4px;
   resize: vertical;
   margin-bottom: 10px;
+  font-family: "ff-uberhand-pro", sans-serif;
 }
 
 .Profile-bio-edit button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: var(--red);
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: "ff-uberhand-pro", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .Profile-bio-editor button:hover {
-  background-color: #45a049;
+  background-color: var(--red);
+  font-family: "ff-uberhand-pro", sans-serif;
+}
+
+.Profile-full-details {
+  /* display: inline-flex; */
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.Profile-vertical-bar {
+  border-left: 0.5vw solid var(--red);
+  border-radius: 1vw;
+  margin: 0 2rem;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.Profile-preferences-section {
+  display: left;
+  margin: 0 1rem;
+  /*  */
+}
+
+.Profile-preferences-big-container {
+  display: flex;
+  flex-direction: column;
+}
+.Profile-preferences-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Profile-preferences-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.Profile-preferences-subheading {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--red);
+  /* accent-color: #ffb3b3; */
+  /* color: var(--red); */
 }
