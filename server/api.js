@@ -118,6 +118,9 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
     await newMenu.save().then();
   }
 
+  console.log("Hello!!!");
+  console.log(includes);
+  console.log(excludes);
   // TODO filter before this map
   const dietFilteredMenu = menu
     .filter(f => (
@@ -186,7 +189,6 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
  *  if group is specified, only contains items in that food group
  */
 router.get("/getFoodList", async (req, res) => {
-  // console.log(req.query);
   // console.log(`Got food from ${req.query.dorm}`);
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
@@ -228,8 +230,8 @@ router.get("/generateMeal", async (req, res) => {
     req.query.date,
     req.query.dorm,
     req.query.meal,
-    req.query.inclusions,
-    req.query.exclusions
+    eval(req.query.includes.split(',')),
+    eval(req.query.excludes.split(',')),
   );
   const allFoodGroups = ["fruits", "vegetables", "grains", "protein", "dairy"];
   const retDict = {};

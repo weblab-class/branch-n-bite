@@ -147,7 +147,7 @@
   background-color: var(--blue);
 }
 
-/* .Plate-dairy-inner-circle:hover {
-    transition: fill 0.3s ease, background-color 0.3s ease;
-    background-color: var(--darkblue);
-  } */
+.Plate-dairy-inner-circle:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkblue);
+} 
