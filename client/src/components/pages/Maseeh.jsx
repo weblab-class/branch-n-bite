@@ -25,6 +25,8 @@ const Maseeh = () => {
       dorm: currentDorm,
       meal: selectedMeal,
       group: "fruits",
+      includes: [],
+      excludes: [],
     }).then((foodList) => {
       setLeftList([]);
       setRightList([]);
@@ -39,9 +41,14 @@ const Maseeh = () => {
     setSelectedDate(event.target.value);
   }
 
-  function showFoodGroup(date, dorm, meal, group, inclusions, exclusions) {
-    console.log(date, dorm, meal, group);
-    get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
+  async function showFoodGroup(date, dorm, meal, group) {
+    console.log("I called show food group");
+    const inclusions = userId ? (await get("/api/includes", { userid: userId })).restrictions : [];
+    const exclusions = userId ? (await get("/api/excludes", { userid: userId })).allergies : [];
+    console.log("yay");
+    console.log(inclusions, exclusions);
+    console.log(`${date} ${dorm} ${meal} ${group}`)
+    get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group, includes: inclusions, excludes: exclusions }).then(
       (foodList) => {
         if(foodList.length === 0) {
           foodList.push(`No ${group} found! This may be because the dining hall is closed, or because no foods served today exist in this category. If the dining hall is open, try the fruit and salad bars!`)
@@ -137,8 +144,8 @@ const Maseeh = () => {
                 </div>
                 <div
                   className="Plate-quarter-circle Plate-bottom-right"
-                  onClick={() => {
-                    showFoodGroup(selectedDate, currentDorm, selectedMeal, "protein");
+                  onClick={async () => {
+                    await showFoodGroup(selectedDate, currentDorm, selectedMeal, "protein");
                   }}
                 >
                   <span className="Plate-text Plate-text-bottom-right">Protein</span>

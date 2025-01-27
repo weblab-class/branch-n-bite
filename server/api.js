@@ -59,6 +59,13 @@ let prevData = {};
 // add a way to wait for the previous call to end
 let prevMenuWithGroups = [];
 
+const strictness = {
+  '': 0,
+  'Halal': 1,
+  'Vegetarian': 2,
+  'Vegan': 3,
+}
+
 /**
  * Determines the list of foods served on a given date,
  * in a given dorm, for a given meal
@@ -73,15 +80,22 @@ let prevMenuWithGroups = [];
  * }
  */
 async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes = []) {
-  console.log(`Asked for the menu with parameters ${date} ${dorm} ${meal} ${includes} ${excludes}`)
+  //console.log(`Asked for the menu with parameters ${date} ${dorm} ${meal} ${includes} ${excludes}`)
   const menuData = {
     date: date,
     dorm: dorm,
     meal: meal,
   };
+  const dataCache = {
+    date: date,
+    dorm: dorm,
+    meal: meal,
+    includes: includes,
+    excludes: excludes,
+  }
 
   // cache, so that clicking within plate is fast
-  if (JSON.stringify(menuData) === JSON.stringify(prevData)) {
+  if (JSON.stringify(dataCache) === JSON.stringify(prevData)) {
     return prevMenuWithGroups;
   }
 
@@ -104,10 +118,14 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
     await newMenu.save().then();
   }
 
-  // console.log(`The menu is ${foundMenu} ${menu}`);
-
   // TODO filter before this map
-  const dietFilteredMenu = menu.map((x) => x.foodName);
+  const dietFilteredMenu = menu
+    .filter(f => (
+      Math.max(f.restrictions.map(x => strictness[x])) >= 
+      includes.map(x => strictness[x]).reduce((a, b) => Math.max(a, b), -Infinity)
+    ))
+    .filter(f => !(excludes.some(x => f.allergies.includes(x))))
+    .map((x) => x.foodName);
   const menuWithGroups = [];
   const noFoodGroup = [];
 
@@ -146,7 +164,7 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
 
   // console.log(dietFilteredMenu);
   // console.log(menuWithGroups);
-  prevData = menuData;
+  prevData = dataCache;
   prevMenuWithGroups = menuWithGroups;
   return prevMenuWithGroups;
 }
@@ -168,13 +186,14 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
  *  if group is specified, only contains items in that food group
  */
 router.get("/getFoodList", async (req, res) => {
-  console.log(`Got food from ${req.query.dorm}`);
+  // console.log(req.query);
+  // console.log(`Got food from ${req.query.dorm}`);
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
     req.query.dorm,
     req.query.meal,
-    req.query.includes,
-    req.query.excludes
+    eval(req.query.includes.split(',')),
+    eval(req.query.excludes.split(',')),
   );
   const group = req.query.group;
   res.status(200);
@@ -204,7 +223,7 @@ router.get("/getFoodList", async (req, res) => {
  * }
  */
 router.get("/generateMeal", async (req, res) => {
-  console.log(`Got food from ${req.query.dorm}`)
+  // console.log(`Got food from ${req.query.dorm}`)
   const menuWithGroups = await getMenuWithRestrictions(
     req.query.date,
     req.query.dorm,
@@ -221,7 +240,7 @@ router.get("/generateMeal", async (req, res) => {
     const randInd = Math.floor(Math.random() * foodsInGroup.length);
     retDict[foodGroupName] = foodsInGroup[randInd];
   }
-  console.log(JSON.stringify(retDict, null, 2));
+  // console.log(JSON.stringify(retDict, null, 2));
   res.send(JSON.stringify(retDict, null, 2));
 });
 
