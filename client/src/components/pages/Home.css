@@ -1,9 +1,6 @@
 .Home-container {
   padding: calc(2 * var(--l));
-  justify-content: center;
   width: 100vw;
-  align-items: center;
-  height: auto;
 }
 
 .Home-title {
@@ -90,12 +87,17 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 100%;
-  font-weight: 600;
+  font-size: 125%;
+  font-weight: 500;
   border: 2px solid var(--black);
   display: flex;
   cursor: pointer;
   border-radius: 1vh;
+}
+
+.Home-button:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkred);
 }
 
 /* .Home-link + .NavBar-link {

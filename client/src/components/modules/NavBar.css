@@ -20,12 +20,33 @@
   color: var(--black);
   opacity: 0.6;
   text-decoration: none;
+  position: relative;
 }
 
 .NavBar-link:hover {
   transition: fill 0.3s ease, background-color 0.3s ease;
   opacity: 0.8;
   color: var(--white);
+}
+
+.NavBar-link::after {
+  content: "";
+  position: absolute;
+  bottom: -0.4em;
+  left: 0;
+  width: 100%;
+  height: 0.1em;
+  background-color: var(--white);
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+  transform: scale(0);
+  transform-origin: center;
+}
+
+.NavBar-link:hover::after {
+  opacity: 1;
+  color: var(--white);
+  transform: scale(1);
 }
 
 .NavBar-link.NavBar-login {
