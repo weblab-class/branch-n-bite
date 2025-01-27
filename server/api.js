@@ -279,11 +279,48 @@ router.post("/updatedBio", async (req, res) => {
  */
 router.get("/bio", async (req, res) => {
   console.log(`Loaded new bio for ${req.query.userid}`);
-  res.status(200);
   const userBio = await User.findOne({ googleid: req.query.userid }, "bio");
   console.log(userBio);
+  res.status(200);
   res.send([userBio]);
 });
+
+/**
+ * updatedIncludes
+ */
+router.post("/updatedIncludes", async (req, res) => {
+  console.log(`Updated restrictions for ${req.body.userid}`);
+  await User.findOneAndUpdate({ googleid: req.body.userid }, { restrictions: req.body.includes });
+});
+
+/**
+ * includes
+ */
+router.get("/includes", async (req, res) => {
+  console.log(`Loaded restrictions for ${req.query.userid}`);
+  const userRestrictions = await User.findOne({ googleid: req.query.userid }, "restrictions");
+  console.log(userRestrictions);
+  res.send(userRestrictions);
+});
+
+/**
+ * updatedExcludes
+ */
+router.post("/updatedExcludes", async (req, res) => {
+  console.log(`Updated allergies for ${req.body.userid}`);
+  await User.findOneAndUpdate({ googleid: req.body.userid }, { allergies: req.body.excludes });
+});
+
+/**
+ * excludes
+ */
+router.get("/includes", async (req, res) => {
+  console.log(`Loaded allergies for ${req.query.userid}`);
+  const userAllergies = await User.findOne({ googleid: req.query.userid }, "allergies");
+  console.log(userAllergies);
+  res.send(userAllergies);
+});
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

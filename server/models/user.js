@@ -5,11 +5,8 @@ const UserSchema = new mongoose.Schema({
   googleid: String,
   picture: String,
   bio: String,
-  /*
-  bio: String,
   restrictions: [String],
   allergies: [String],
-  */
 });
 
 // compile model from schema
