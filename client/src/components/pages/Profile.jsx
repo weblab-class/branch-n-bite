@@ -11,6 +11,10 @@ const Profile = () => {
   const [editingBio, setEditingBio] = useState(false);
   const [newBio, setNewBio] = useState("");
   const [currentBio, setCurrentBio] = useState("I love to eat 😋");
+  // includes = diets
+  // excludes = allergies
+  const [includes, setIncludes] = useState([]);
+  const [excludes, setExcludes] = useState([]);
 
   useEffect(() => {
     get("/api/bio", { userid: userId }).then((bio) => {

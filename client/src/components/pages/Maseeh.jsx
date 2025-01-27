@@ -44,7 +44,6 @@ const Maseeh = () => {
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
       (foodList) => {
         if (group === "fruits" || group === "vegetables") {
-          // foodList = ["apple", "banana", "orange", "grapes", "strawberries"];
           // TODO fix hardcoding
           if (group === "fruits") {
             if (foodList.length) foodList.push("And more fruits from the fruit bar!");
@@ -54,7 +53,6 @@ const Maseeh = () => {
           setRightList([]);
         }
         if (group === "grains" || group === "protein" || group === "dairy") {
-          // foodList = ["rice", "bread", "pasta", "chicken", "beef", "tofu", "milk", "cheese"];
           setRightList(foodList);
           setLeftList([]);
         }
@@ -63,6 +61,9 @@ const Maseeh = () => {
   }
 
   function titleCase(dorm) {
+    if (dorm === "mccormick") {
+      return "McCormick";
+    }
     return dorm
       .replace("-", " ")
       .toLowerCase()
