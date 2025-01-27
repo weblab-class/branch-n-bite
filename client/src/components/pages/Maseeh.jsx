@@ -43,12 +43,11 @@ const Maseeh = () => {
     console.log(date, dorm, meal, group);
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group }).then(
       (foodList) => {
+        if(foodList.length === 0) {
+          foodList.push(`No ${group} found! This may be because the dining hall is closed, or because no foods served today exist in this category. If the dining hall is open, try the fruit and salad bars!`)
+        }
         if (group === "fruits" || group === "vegetables") {
           // TODO fix hardcoding
-          if (group === "fruits") {
-            if (foodList.length) foodList.push("And more fruits from the fruit bar!");
-            else foodList.push("Get some fruits from the fruit bar!");
-          }
           setLeftList(foodList);
           setRightList([]);
         }
@@ -94,10 +93,8 @@ const Maseeh = () => {
         {/* <option value="late-night">Late Night</option> */}
       </select>
       <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        <option value={getTodayDateOffset(-1)}>{getTodayDateOffset(-1)}</option>
-        <option value={getTodayDate()}>{getTodayDate()} (today)</option>
-        {[1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
-          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}</option>
+        {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}{dayOffset === 0 ? " (today)" : ""}</option>
         ))}
       </select>
       <div className="Maseeh-container">
