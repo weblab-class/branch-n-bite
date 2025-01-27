@@ -241,7 +241,6 @@ scrapeAllMenus(
   ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast"],
 )
-*/
 
 scrapeAllMenus(
   ["2025-02-03"],
@@ -250,3 +249,5 @@ scrapeAllMenus(
 )
 
 export { getMenu, getFoodGroups }
+
+*/
