@@ -6,15 +6,14 @@ import "./Profile.css";
 import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
-  console.log(useContext(UserContext));
   const { userId, userName, userPicture } = useContext(UserContext);
   const [editingBio, setEditingBio] = useState(false);
   const [newBio, setNewBio] = useState("");
   const [currentBio, setCurrentBio] = useState("I love to eat 😋");
   // includes = diets
   // excludes = allergies
-  const [includes, setIncludes] = useState([]);
-  const [excludes, setExcludes] = useState([]);
+  const [includes, setIncludes] = useState([""]);
+  const [excludes, setExcludes] = useState([""]);
   const includesList = ["Vegetarian", "Vegan", "Halal"];
   const excludesList = [
     "Peanut",
@@ -31,8 +30,10 @@ const Profile = () => {
     get("/api/bio", { userid: userId }).then((bio) => {
       setCurrentBio(bio[0].bio);
     });
+    console.log("It should be recheckmarking");
     get("/api/includes", { userid: userId }).then((includes) => {
-      setIncludes(includes);
+      console.log(includes);
+      setIncludes(includes.restrictions);
       // setIncludes(["Vegan"]);
     });
   }, [userId]);
@@ -61,6 +62,7 @@ const Profile = () => {
   };
 
   const handleIncludes = (restrName) => {
+    console.log(includes);
     const newIncludes = [...includes];
     if (!includes.includes(restrName)) {
       newIncludes.push(restrName);
@@ -68,9 +70,12 @@ const Profile = () => {
       const ind = newIncludes.indexOf(restrName);
       newIncludes.splice(ind, 1);
     }
-    post("/api/includes", newIncludes).then(() => {
-      setIncludes(newIncludes);
-    });
+    const body = { userid: userId, includes: newIncludes };
+    setIncludes(newIncludes);
+    console.log(newIncludes);
+    console.log("This should be the new one:");
+    console.log(includes);
+    post("/api/updatedIncludes", body).then(() => {});
   };
 
   const handleExcludes = (restrName) => {
@@ -81,7 +86,7 @@ const Profile = () => {
       const ind = newExcludes.indexOf(restrName);
       newExcludes.splice(ind, 1);
     }
-    post("/api/excludes", newExcludes).then(() => {
+    post("/api/updatedExcludes", newExcludes).then(() => {
       setExcludes(newExcludes);
     });
   };
@@ -122,14 +127,17 @@ const Profile = () => {
             <br />
             Diet
             {includesList.map((restrName) => {
+              function checkIfIn() {
+                return includes.includes(restrName);
+              }
               return (
                 <div>
                   <input
                     type="checkbox"
                     label={restrName}
-                    checked={!!includes.includes(restrName)}
+                    checked={includes.includes(restrName)}
                     onChange={() => {
-                      handleIncludes();
+                      handleIncludes(restrName);
                     }}
                   />{" "}
                   {restrName}
@@ -144,7 +152,7 @@ const Profile = () => {
                     type="checkbox"
                     label={restrName}
                     onChange={() => {
-                      handleExcludes();
+                      handleExcludes(restrName);
                     }}
                   />{" "}
                   {restrName}

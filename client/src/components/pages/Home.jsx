@@ -40,7 +40,7 @@ const Home = () => {
       </section>
       <div className="Home-title">🌱 Branch & Bite @ MIT 🌱</div>
       <div className="Home-dorms-bottom-row">
-        <Link to="/Maseeh?dorm=next" class="Home-link">
+        <Link to="/Maseeh?dorm=next" className="Home-link">
           <svg
             viewBox="876.75 790.58564 90.31286908077995 61.266639999999995"
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ const Home = () => {
 
           <button className="Home-link">Next [CLICK ME!]</button>
         </Link>
-        <Link to="/Maseeh?dorm=baker" class="Home-link">
+        <Link to="/Maseeh?dorm=baker" className="Home-link">
           <svg
             viewBox="1089.6303342618385 447.17 114.50381615598887 83.03241999999999"
             xmlns="http://www.w3.org/2000/svg"
