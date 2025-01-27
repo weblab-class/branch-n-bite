@@ -42,12 +42,8 @@ const Maseeh = () => {
   }
 
   async function showFoodGroup(date, dorm, meal, group) {
-    console.log("I called show food group");
     const inclusions = userId ? (await get("/api/includes", { userid: userId })).restrictions : [];
     const exclusions = userId ? (await get("/api/excludes", { userid: userId })).allergies : [];
-    console.log("yay");
-    console.log(inclusions, exclusions);
-    console.log(`${date} ${dorm} ${meal} ${group}`)
     get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group, includes: inclusions, excludes: exclusions }).then(
       (foodList) => {
         if(foodList.length === 0) {
@@ -111,7 +107,7 @@ const Maseeh = () => {
               <li key={index}>{food}</li>
             ))}
           </ul>
-          {console.log("clicked", leftList)}
+          {/*console.log("clicked", leftList)*/}
         </section>
         <div className="Plate-grid">
           <div className="Plate-plate-wrapper">
@@ -170,7 +166,7 @@ const Maseeh = () => {
               <li key={index}>{food}</li>
             ))}
           </ul>
-          {console.log("clicked", leftList)}
+          {/*console.log("clicked", leftList)*/}
         </section>
       </div>
       <div className="Generate-container">

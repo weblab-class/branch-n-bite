@@ -35,7 +35,6 @@ const Profile = () => {
       setIncludes(includes.restrictions);
     });
     get("/api/excludes", { userid: userId }).then((excludes) => {
-      console.log(excludes);
       setExcludes(excludes.allergies);
     });
   }, [userId]);

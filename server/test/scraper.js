@@ -70,7 +70,7 @@ async function getMenu(date, dorm, meal) {
             const foodRestrictions = foodProperties.filter(s => allRestrictions.includes(s));
             const foodAllergies = foodProperties.filter(s => allAllergies.includes(s));
             return {
-                foodName: foodHeader.textContent.trim(),
+                foodName: foodHeader.textContent.trim().split('\n')[0].trim(),
                 restrictions: foodRestrictions,
                 allergies: foodAllergies
             }
@@ -241,12 +241,12 @@ scrapeAllMenus(
   ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast"],
 )
+*/
 
 scrapeAllMenus(
-  ["2025-02-02"],
-  ["maseeh"],
+  ["2025-02-03"],
+  ["next"],
   ["breakfast", "lunch", "dinner", "brunch", "late-night"]
 )
-*/
 
 export { getMenu, getFoodGroups }
