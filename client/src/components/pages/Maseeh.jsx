@@ -47,13 +47,11 @@ const Maseeh = () => {
           foodList.push(`No ${group} found! This may be because the dining hall is closed, or because no foods served today exist in this category. If the dining hall is open, try the fruit and salad bars!`)
         }
         if (group === "fruits" || group === "vegetables") {
-          // foodList = ["apple", "banana", "orange", "grapes", "strawberries"];
           // TODO fix hardcoding
           setLeftList(foodList);
           setRightList([]);
         }
         if (group === "grains" || group === "protein" || group === "dairy") {
-          // foodList = ["rice", "bread", "pasta", "chicken", "beef", "tofu", "milk", "cheese"];
           setRightList(foodList);
           setLeftList([]);
         }
@@ -62,6 +60,9 @@ const Maseeh = () => {
   }
 
   function titleCase(dorm) {
+    if (dorm === "mccormick") {
+      return "McCormick";
+    }
     return dorm
       .replace("-", " ")
       .toLowerCase()
