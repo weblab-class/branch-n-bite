@@ -118,9 +118,6 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
     await newMenu.save().then();
   }
 
-  console.log("Hello!!!");
-  console.log(includes);
-  console.log(excludes);
   // TODO filter before this map
   const dietFilteredMenu = menu
     .filter(f => (

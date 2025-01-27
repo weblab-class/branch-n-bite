@@ -44,11 +44,11 @@ const Generate = () => {
     }).then((plate) => {
       // plate is a dictionary mapping each group to item
       const finalPlate = {
-        fruits: (plate["fruits"] ? plate["fruits"] : "Get some fruits from the fruit bar!"),
-        vegetables: plate["vegetables"],
-        grains: plate["grains"],
-        protein: plate["protein"],
-        dairy: plate["dairy"],
+        fruits: plate["fruits"] ?? "No fruit dishes match your preferences" ,
+        vegetables: plate["vegetables"] ?? "No veggie dishes match your preferences",
+        grains: plate["grains"] ?? "No grain dishes match your preferences",
+        protein: plate["protein"] ?? "No protein dishes match your preferences",
+        dairy: plate["dairy"] ?? "No dairy dishes match your preferences",
       };
       console.log(`final plate is ${finalPlate}`);
       setGeneratedPlate(finalPlate);
