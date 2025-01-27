@@ -247,7 +247,6 @@ scrapeAllMenus(
   ["next"],
   ["breakfast", "lunch", "dinner", "brunch", "late-night"]
 )
+*/
 
 export { getMenu, getFoodGroups }
-
-*/
