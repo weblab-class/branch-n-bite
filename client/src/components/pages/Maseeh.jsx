@@ -44,22 +44,29 @@ const Maseeh = () => {
   async function showFoodGroup(date, dorm, meal, group) {
     const inclusions = userId ? (await get("/api/includes", { userid: userId })).restrictions : [];
     const exclusions = userId ? (await get("/api/excludes", { userid: userId })).allergies : [];
-    get("/api/getFoodList", { date: date, dorm: dorm, meal: meal, group: group, includes: inclusions, excludes: exclusions }).then(
-      (foodList) => {
-        if(foodList.length === 0) {
-          foodList.push(`No ${group} found! This may be because the dining hall is closed, or because no foods served today exist in this category. If the dining hall is open, try the fruit and salad bars!`)
-        }
-        if (group === "fruits" || group === "vegetables") {
-          // TODO fix hardcoding
-          setLeftList(foodList);
-          setRightList([]);
-        }
-        if (group === "grains" || group === "protein" || group === "dairy") {
-          setRightList(foodList);
-          setLeftList([]);
-        }
+    get("/api/getFoodList", {
+      date: date,
+      dorm: dorm,
+      meal: meal,
+      group: group,
+      includes: inclusions,
+      excludes: exclusions,
+    }).then((foodList) => {
+      if (foodList.length === 0) {
+        foodList.push(
+          `No ${group} found! This may be because the dining hall is closed, or because no foods served today exist in this category. If the dining hall is open, try the fruit and salad bars!`
+        );
       }
-    );
+      if (group === "fruits" || group === "vegetables") {
+        // TODO fix hardcoding
+        setLeftList(foodList);
+        setRightList([]);
+      }
+      if (group === "grains" || group === "protein" || group === "dairy") {
+        setRightList(foodList);
+        setLeftList([]);
+      }
+    });
   }
 
   function titleCase(dorm) {
@@ -88,18 +95,23 @@ const Maseeh = () => {
           {titleCase(currentDorm)} Dining: Click through the 5 food groups!
         </div>
       </div>
-      <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-        {/* <option value="breakfast">Breakfast</option> */}
-        <option value="brunch">Brunch</option>
-        {/* <option value="lunch">Lunch</option> */}
-        <option value="dinner">Dinner</option>
-        {/* <option value="late-night">Late Night</option> */}
-      </select>
-      <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
-          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}{dayOffset === 0 ? " (today)" : ""}</option>
-        ))}
-      </select>
+      <div className="Maseeh-grid">
+        <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
+          {/* <option value="breakfast">Breakfast</option> */}
+          <option value="brunch">Brunch</option>
+          {/* <option value="lunch">Lunch</option> */}
+          <option value="dinner">Dinner</option>
+          {/* <option value="late-night">Late Night</option> */}
+        </select>
+        <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
+          {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+            <option value={getTodayDateOffset(dayOffset)}>
+              {getTodayDateOffset(dayOffset)}
+              {dayOffset === 0 ? " (today)" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
           <ul>
