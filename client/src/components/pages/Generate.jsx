@@ -4,14 +4,14 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../utilities.css";
 import "./Generate.css";
 import "./Maseeh.css";
-import { getTodayDate, getTodayDateOffset } from "../modules/Date.js"
+import { getTodayDate, getTodayDateOffset } from "../modules/Date.js";
 import { getInitDate, getInitDorm, getInitMeal } from "../modules/Params.js";
 import { UserContext } from "../context/UserContext";
 import { post, get } from "../../utilities";
 
 const Generate = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
-  const [ currdate, setDate ] = useState(new Date().toJSON().slice(0, 10));
+  const [currdate, setDate] = useState(new Date().toJSON().slice(0, 10));
   const [selectedDate, setSelectedDate] = useState(getInitDate());
   const [selectedMeal, setSelectedMeal] = useState(getInitMeal());
   const [selectedDorm, setSelectedDorm] = useState(getInitDorm());
@@ -40,11 +40,11 @@ const Generate = () => {
       dorm: dorm,
       meal: meal,
       includes: inclusions,
-      excludes: exclusions
+      excludes: exclusions,
     }).then((plate) => {
       // plate is a dictionary mapping each group to item
       const finalPlate = {
-        fruits: plate["fruits"] ?? "No fruit dishes match your preferences" ,
+        fruits: plate["fruits"] ?? "No fruit dishes match your preferences",
         vegetables: plate["vegetables"] ?? "No veggie dishes match your preferences",
         grains: plate["grains"] ?? "No grain dishes match your preferences",
         protein: plate["protein"] ?? "No protein dishes match your preferences",
@@ -55,17 +55,30 @@ const Generate = () => {
     });
   }
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     async function getUserPrefs() {
-      const inclusions = userId ? (await get("/api/includes", { userid: userId })).restrictions : [];
+      const inclusions = userId
+        ? (await get("/api/includes", { userid: userId })).restrictions
+        : [];
       const exclusions = userId ? (await get("/api/excludes", { userid: userId })).allergies : [];
       generateMeal(selectedDate, selectedDorm, selectedMeal, inclusions, exclusions);
     }
     getUserPrefs();
   }, [selectedDate, selectedMeal, userId]);
+
+  function titleCase(dorm) {
+    if (dorm === "mccormick") {
+      return "McCormick";
+    }
+    return dorm
+      .replace("-", " ")
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
 
   return (
     <>
@@ -80,28 +93,27 @@ const Generate = () => {
             </g>
           </svg>
         </a>
-        <div className="u-heading">Maseeh Dining: Generate new balanced meal combinations!</div>
+        <div className="u-heading">
+          {titleCase(selectedDorm)} Dining: Generate new balanced meal combinations!
+        </div>
       </div>
-      <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-        {/* <option value="breakfast">Breakfast</option> */}
-        <option value="brunch">Brunch</option>
-        {/* <option value="lunch">Lunch</option> */}
-        <option value="dinner">Dinner</option>
-        {/* <option value="late-night">Late Night</option> */}
-      </select>
-      <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        <option value={getTodayDateOffset(-1)}>
-          {getTodayDateOffset(-1)}
-        </option>
-        <option value={getTodayDate()}>
-          {getTodayDate()} (today)
-        </option>
-        {[1, 2, 3, 4, 5, 6, 7].map(dayOffset =>
-          <option value={getTodayDateOffset(dayOffset)}>
-            {getTodayDateOffset(dayOffset)}
-          </option>
-        )}
-      </select>
+      <div className="Maseeh-grid">
+        <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
+          {/* <option value="breakfast">Breakfast</option> */}
+          <option value="brunch">Brunch</option>
+          {/* <option value="lunch">Lunch</option> */}
+          <option value="dinner">Dinner</option>
+          {/* <option value="late-night">Late Night</option> */}
+        </select>
+        <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
+          {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+            <option value={getTodayDateOffset(dayOffset)}>
+              {getTodayDateOffset(dayOffset)}
+              {dayOffset === 0 ? " (today)" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
       <section className="Maseeh-container">
         <section className="Plate-grid">
           <div className="Plate-plate-wrapper">
@@ -127,7 +139,7 @@ const Generate = () => {
               <span className="Plate-text">Dairy</span>
             </div>
           </div>
-        </section >
+        </section>
         <p className="Generate-text">
           <b style={{ color: "#f97676" }}>Fruit:</b> {generatedPlate.fruits}
           <br />
@@ -145,11 +157,17 @@ const Generate = () => {
         </p>
       </section>
       <section className="Generate-container">
-        <button onClick={async () => {
-            const inclusions = userId ? (await get("/api/includes", { userid: userId })).restrictions : [];
-            const exclusions = userId ? (await get("/api/excludes", { userid: userId })).allergies : [];
-            generateMeal(selectedDate, "maseeh", selectedMeal, inclusions, exclusions)
-          }}>
+        <button
+          onClick={async () => {
+            const inclusions = userId
+              ? (await get("/api/includes", { userid: userId })).restrictions
+              : [];
+            const exclusions = userId
+              ? (await get("/api/excludes", { userid: userId })).allergies
+              : [];
+            generateMeal(selectedDate, "maseeh", selectedMeal, inclusions, exclusions);
+          }}
+        >
           Regenerate
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="21.986">
             <path d="M19.841 3.24A10.988 10.988 0 0 0 8.54.573l1.266 3.8a7.033 7.033 0 0 1 8.809 9.158L17 11.891v7.092h7l-2.407-2.439A11.049 11.049 0 0 0 19.841 3.24zM1 10.942a11.05 11.05 0 0 0 11.013 11.044 11.114 11.114 0 0 0 3.521-.575l-1.266-3.8a7.035 7.035 0 0 1-8.788-9.22L7 9.891V6.034c.021-.02.038-.044.06-.065L7 5.909V2.982H0l2.482 2.449A10.951 10.951 0 0 0 1 10.942z" />

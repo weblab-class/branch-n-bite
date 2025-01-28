@@ -104,10 +104,7 @@ const Maseeh = () => {
       </select>
       <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
         {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
-          <option value={getTodayDateOffset(dayOffset)}>
-            {getTodayDateOffset(dayOffset)}
-            {dayOffset === 0 ? " (today)" : ""}
-          </option>
+          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}{dayOffset === 0 ? " (today)" : ""}</option>
         ))}
       </select>
       <div className="Maseeh-container">
