@@ -91,7 +91,7 @@ const Profile = () => {
 
   return (
     <section className="Profile-container">
-      <div className="u-heading">Profile</div>
+      <div className="u-heading Profile-title">Profile</div>
       {userId ? (
         <section className="Profile-full-details">
           <section className="Profile-details">

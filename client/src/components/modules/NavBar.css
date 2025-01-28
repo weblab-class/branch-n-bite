@@ -1,10 +1,10 @@
 .NavBar-container {
-  padding: var(--s) var(--m);
-  /* margin: var(--l); */
+  padding: var(--s) var(--l);
   background-color: var(--red);
   display: flex;
   justify-content: space-between; /* Spread left and right content */
   align-items: center; /* Vertically center the items */
+  font-weight: 400;
 }
 
 .NavBar-leftcontent {
@@ -22,7 +22,6 @@
 
 .NavBar-link {
   color: var(--black);
-  opacity: 0.6;
   text-decoration: none;
   position: relative;
 }

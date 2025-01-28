@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+.Profile-title {
+  margin-bottom: 50px;
+}
+
 .Profile-picture {
   width: 150px;
   height: 150px;

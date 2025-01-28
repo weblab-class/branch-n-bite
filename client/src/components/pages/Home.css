@@ -1,13 +1,15 @@
 .Home-container {
   padding: calc(2 * var(--l));
-  width: 100vw;
+  width: auto;
+  display: auto;
 }
 
 .Home-title {
-  color: var(--red);
   font-weight: 400;
-  font-size: 4vw;
+  font-size: 55px;
+  margin: 20px;
   text-align: center;
+  margin: 0 auto;
 }
 
 .Home-link,
@@ -19,7 +21,6 @@
 
 .Home-link:hover {
   transition: fill 0.3s ease, background-color 0.3s ease;
-  color: var(--white);
 }
 
 .Home-link.NavBar-login {
@@ -34,20 +35,33 @@
 .Home-about-container {
   padding-top: 20px;
   display: flex;
-  gap: var(--l);
+  column-gap: calc(var(--l) * 6);
   width: 100%;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap-reverse;
+  letter-spacing: 0.2px;
 }
 
 .Home-dorms-outline {
-  width: 100%;
-  height: 50%;
+  display: flex;
+  height: 10vw;
+  width: auto;
   align-items: center;
   justify-content: space-evenly;
   pointer-events: visiblePainted;
   fill: var(--red);
   transition: fill 0.3s ease, background-color 0.3s ease;
+}
+
+.Home-dorms-container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
 }
 
 .Home-dorms-outline rect,
@@ -68,36 +82,34 @@
 }
 
 .Home-dorms-top-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
+  gap: 55px; /* Adds space between items */
+  justify-items: center; /* Centers items horizontally in their grid cells */
+  align-items: center; /* Centers items vertically in their grid cells */
+  width: auto;
   margin-block: 20px;
+  padding-top: 50px;
+  padding-bottom: 100px;
 }
 
 .Home-dorms-bottom-row {
   display: flex;
   justify-content: space-between;
+  width: auto;
   margin-block: 20px;
 }
 
 .Home-button {
-  font-family: "ff-uberhand-pro", sans-serif;
-  background-color: var(--red);
-  color: var(--black);
-  padding: 5% 10%;
-  text-align: center;
+  background-color: var(--white);
+  border: 1px solid var(--black);
   text-decoration: none;
-  display: inline-block;
-  font-size: 125%;
-  font-weight: 500;
-  border: 2px solid var(--black);
-  display: flex;
-  cursor: pointer;
-  border-radius: 1vh;
 }
 
 .Home-button:hover {
-  transition: fill 0.3s ease, background-color 0.3s ease;
-  background-color: var(--darkred);
+  transition: fill 0.3s ease, color 0.3s ease;
+  color: var(--darkred);
+  background-color: var(--white);
 }
 
 /* .Home-link + .NavBar-link {
