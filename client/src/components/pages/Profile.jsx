@@ -104,7 +104,7 @@ const Profile = () => {
                     id="bioTextbox"
                     value={newBio}
                     onChange={handleBioChange}
-                    placeholder="Update your bio..."
+                    placeholder="Adding bio . . ."
                     className="Profile-bio-input"
                   />
                   <button onClick={handleNewBio}>Save Bio</button>

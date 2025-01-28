@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="NavBar-container">
+    <nav className="NavBar-container NavBar-text">
       <div className="NavBar-leftcontent">
         <Link to="/" className="NavBar-link">
           Home
@@ -26,7 +26,7 @@ const NavBar = () => {
       <div className="NavBar-linkContainer"></div> {/* This will take up the middle space */}
       <div className="NavBar-rightcontent">
         {userId ? (
-          <button onClick={onLogout}>Logout</button>
+          <button className = "NavBar-button" onClick={onLogout}>Logout</button>
         ) : (
           <GoogleLogin
             onSuccess={handleLogin}
