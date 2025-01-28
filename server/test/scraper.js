@@ -260,12 +260,13 @@ scrapeAllMenus(
   ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast"],
 )
-  */
 
 scrapeAllMenus(
   ["2025-01-28", "2025-01-29", "2025-01-30", "2025-01-31", "2025-02-01", "2025-02-02", "2025-02-03", "2025-02-04"],
   ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast", "lunch", "dinner", "brunch", "late-night"]
 )
+
+  */
 
 export { getMenu, getFoodGroups }
