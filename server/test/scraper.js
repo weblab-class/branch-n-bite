@@ -88,14 +88,14 @@ function getFoodGroupsFromFoundation(foodName) {
     return [...foodGroupSet];
 }
 
-async function getFoodGroupsFromGemini(foodsArray) {
+async function getFoodGroupsFromGemini(foodsArray, currModel = "gemini-1.5-pro") {
 
     console.log(`Asking Gemini for the groups of ${foodsArray.length} foods with key ${process.env.GEMINI_API_KEY}`);
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({ model: currModel });
 
     const prompt = `You will be given a food item, and the task is to classify it into zero or more of the following five food groups: "fruits", "vegetables", "protein", "grains", "dairy". 
-These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array. Also, do not add the backticks (so no \`\`\`json at the start or \`\`\` at the end).
+These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array.
 Note that some items may have no food groups associated with them.
 Make sure that the list you output has the same length as the original!
 
@@ -144,8 +144,10 @@ Output:
     const result = await model.generateContent(prompt);
     let resultsArray = [];
     try {
-        console.log(`Result is ${result}`);
-        resultsArray = eval(result.response.text());
+        const str = result.response.text();
+        console.log(`Result is ${str}`);
+        console.log(`Truncated is ${str.substring(8, str.length-4)}`);
+        resultsArray = eval(str.substring(8, str.length-4));
         console.log(`Obtained a valid results array with length ${resultsArray.length}`);
         assert(resultsArray.length === foodsArray.length);
     } catch(error) {
@@ -196,7 +198,8 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
         const menu =
           foundMenu !== null ? foundMenu["menu"] : await getMenu(date, dorm, meal);
         
-        console.log("Done scraping!")
+        if(foundMenu === null) console.log("Done scraping!")
+        else console.log("Did not scrape");
 
         if (foundMenu === null) {
           const newMenu = new Menu({
@@ -220,8 +223,24 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
     }
   }
   const newFoodList = [...newFoodSet];
+  let newFoodGroups = [];
   if(newFoodList.length === 0) return;
-  const newFoodGroups = await getFoodGroups(newFoodList);
+  console.log(`We have ${newFoodList.length} things`);
+  let k = 8;
+  while(newFoodList.length % k <= 2) {
+      k -= 1;
+      if(k == 3) k = 10;
+  }
+  console.log(`k is ${k}`);
+  for(let i = 0; i < newFoodList.length; i += k) {
+      const addTheseGroups = await getFoodGroupsFromGemini(newFoodList.slice(i, Math.min(i+k, newFoodList.length)), "gemini-1.5-flash");
+      console.log(addTheseGroups.length);
+      newFoodGroups = newFoodGroups.concat(addTheseGroups);
+  }
+  console.log("Now I have all the food groups!")
+  console.log(newFoodGroups.length);
+  // pro version
+  // newFoodGroups = await getFoodGroups(newFoodList);
   if(newFoodGroups.length !== newFoodList.length) return;
   for(let i = 0; i < newFoodList.length; i++) {
       const foodgroupInstance = {
@@ -241,12 +260,12 @@ scrapeAllMenus(
   ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast"],
 )
+  */
 
 scrapeAllMenus(
-  ["2025-02-03"],
-  ["next"],
+  ["2025-01-28", "2025-01-29", "2025-01-30", "2025-01-31", "2025-02-01", "2025-02-02", "2025-02-03", "2025-02-04"],
+  ["next", "mccormick", "simmons", "baker", "new-vassar", "maseeh"],
   ["breakfast", "lunch", "dinner", "brunch", "late-night"]
 )
-*/
 
 export { getMenu, getFoodGroups }

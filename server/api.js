@@ -199,6 +199,19 @@ router.get("/getFoodList", async (req, res) => {
   res.send(menuWithGroups.filter((x) => x.foodGroups.includes(group)).map((x) => x.foodName));
 });
 
+/**
+ * 
+ */
+router.get("/getAvailableMeals", async (req, res) => {
+  const menuSearchFilter = {
+    date: req.query.date,
+    dorm: req.query.dorm,
+    'menu.0': {$exists: true}
+  };
+  console.log(`And to your right we have ${(await Menu.find(menuSearchFilter, "meal")).map(x => x.meal)}`);
+  res.send((await Menu.find(menuSearchFilter, "meal")).map(x => x.meal));
+});
+
 /*
  * generateMeal
  * parameters:

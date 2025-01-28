@@ -15,13 +15,30 @@ const Generate = () => {
   const [selectedDate, setSelectedDate] = useState(getInitDate());
   const [selectedMeal, setSelectedMeal] = useState(getInitMeal());
   const [selectedDorm, setSelectedDorm] = useState(getInitDorm());
-  const [generatedPlate, setGeneratedPlate] = useState({
+  const [availableMeals, setAvailableMeals] = useState([]);
+  const dummyPlate = {
     fruits: "Loading...",
     vegetables: "Loading...",
     grains: "Loading...",
     protein: "Loading...",
     dairy: "Loading...",
-  });
+  }
+  const [generatedPlate, setGeneratedPlate] = useState(dummyPlate);
+
+  useEffect(() => {
+    get("/api/getAvailableMeals", {
+      date: selectedDate,
+      dorm: selectedDorm,
+    }).then((mealList) => {
+      const orderedMealList = [];
+      for(const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
+        if(mealList.includes(meal)) {
+          orderedMealList.push(meal);
+        }
+      }
+      setAvailableMeals(orderedMealList)
+    });
+  }, [selectedDate]);
 
   function handleMealChange(event) {
     console.log(event.target);
@@ -35,6 +52,7 @@ const Generate = () => {
   }
 
   async function generateMeal(date, dorm, meal, inclusions, exclusions) {
+    setGeneratedPlate(dummyPlate);
     get("/api/generateMeal", {
       date: date,
       dorm: dorm,
@@ -99,11 +117,7 @@ const Generate = () => {
       </div>
       <div className="Maseeh-grid">
         <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-          {/* <option value="breakfast">Breakfast</option> */}
-          <option value="brunch">Brunch</option>
-          {/* <option value="lunch">Lunch</option> */}
-          <option value="dinner">Dinner</option>
-          {/* <option value="late-night">Late Night</option> */}
+          {availableMeals.map(x => <option value={x}>{titleCase(x)}</option>)}
         </select>
         <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
           {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
