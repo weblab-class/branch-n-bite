@@ -40,12 +40,12 @@ const Maseeh = () => {
       dorm: currentDorm,
     }).then((mealList) => {
       const orderedMealList = [];
-      for(const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
-        if(mealList.includes(meal)) {
+      for (const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
+        if (mealList.includes(meal)) {
           orderedMealList.push(meal);
         }
       }
-      setAvailableMeals(orderedMealList)
+      setAvailableMeals(orderedMealList);
     });
   }, [selectedDate]);
 
@@ -69,15 +69,19 @@ const Maseeh = () => {
       excludes: exclusions,
     }).then((foodList) => {
       if (foodList.length === 0) {
-        if(availableMeals.length > 0) {
+        if (availableMeals.length > 0) {
           foodList.push(
             `No ${group} found! This may be because your preferences don't match any foods in this category. Try the fruit and salad bars!`
           );
-        }
-        else {
+        } else {
           foodList.push(
+<<<<<<< HEAD
             `${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`
           )
+=======
+            `${titleCase(currentDorm)}'s dining hall is closed for today. Try another dining hall!`
+          );
+>>>>>>> refs/remotes/origin/main
         }
       }
       if (group === "fruits" || group === "vegetables") {
@@ -118,26 +122,35 @@ const Maseeh = () => {
           {titleCase(currentDorm)} Dining: Click through the 5 food groups!
         </div>
       </div>
-      <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-        {availableMeals.map(x => <option value={x}>{titleCase(x)}</option>)}
-        {/*<option value="breakfast">Breakfast</option>
+      <div className="Maseeh-grid">
+        <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
+          {availableMeals.map((x) => (
+            <option value={x}>{titleCase(x)}</option>
+          ))}
+          {/*<option value="breakfast">Breakfast</option>
         <option value="brunch">Brunch</option>
         <option value="lunch">Lunch</option>
         <option value="dinner">Dinner</option>
         <option value="late-night">Late Night</option>*/}
-      </select>
-      <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
-          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}{dayOffset === 0 ? " (today)" : ""}</option>
-        ))}
-      </select>
+        </select>
+        <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
+          {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+            <option value={getTodayDateOffset(dayOffset)}>
+              {getTodayDateOffset(dayOffset)}
+              {dayOffset === 0 ? " (today)" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
-          <ul>
-            {leftList.map((food, index) => (
-              <li key={index}>{food}</li>
-            ))}
-          </ul>
+          {leftList.length > 0 && (
+            <ul>
+              {leftList.map((food, index) => (
+                <li key={index}>{food}</li>
+              ))}
+            </ul>
+          )}
         </section>
         <section className="Plate-grid">
           <div className="Plate-plate-wrapper">
@@ -191,12 +204,13 @@ const Maseeh = () => {
           </div>
         </section>
         <section className="Maseeh-food-list">
-          <ul>
-            {rightList.map((food, index) => (
-              <li key={index}>{food}</li>
-            ))}
-          </ul>
-          {/*console.log("clicked", leftList)*/}
+          {rightList.length > 0 && (
+            <ul>
+              {rightList.map((food, index) => (
+                <li key={index}>{food}</li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
       <div className="Generate-container">

@@ -16,6 +16,7 @@
 
 /* TODO: REPLACE WITH YOUR OWN FONT! */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 /* @import url("https://use.typekit.net/rsq7ovr.css");*/
 
 :root {
@@ -30,7 +31,7 @@
   --blue: #add8e6;
   --darkblue: #679cc2;
   --black: #333;
-  --white: #fffffc;
+  --white: #fffffa;
   /* old colors */
   --darkgrey: #d4d4d4;
   --medgrey: #e0e0e0;
@@ -45,11 +46,11 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "EB Garamond";
   /* font-family: "ff-uberhand-pro", sans-serif;*/
   font-weight: 300;
   color: #333;
-  background-color: #fffffc;
+  background-color: #fffffa;
 }
 
 form {

@@ -5,9 +5,9 @@
 }
 
 .Home-title {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 55px;
-  margin: 20px;
+  margin: 10px;
   text-align: center;
   margin: 0 auto;
 }
@@ -45,7 +45,7 @@
 
 .Home-dorms-outline {
   display: flex;
-  height: 10vw;
+  height: 8vw;
   width: auto;
   align-items: center;
   justify-content: space-evenly;
@@ -83,14 +83,27 @@
 
 .Home-dorms-top-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 equal columns */
-  gap: 55px; /* Adds space between items */
-  justify-items: center; /* Centers items horizontally in their grid cells */
-  align-items: center; /* Centers items vertically in their grid cells */
-  width: auto;
-  margin-block: 20px;
+  grid-template-columns: repeat(3, 1fr); /* Maximum 3 columns */
+  gap: 55px; /* Space between items */
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed for 3-column max width */
+  margin: 20px auto;
   padding-top: 50px;
   padding-bottom: 100px;
+}
+
+@media (max-width: 900px) {
+  .Home-dorms-top-row {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .Home-dorms-top-row {
+    grid-template-columns: repeat(1, 1fr); /* 1 column for small screens */
+  }
 }
 
 .Home-dorms-bottom-row {
@@ -112,15 +125,6 @@
   background-color: var(--white);
 }
 
-/* .Home-link + .NavBar-link {
-  margin-left: var(--m);
-} */
-
-/* .Home-linkContainer {
-  margin-left: var(--l);
-  display: flex;
-  gap: var(--m);
-  flex-direction: column;
-  align-items: center;
-  margin-top: var(--l);
-} */
+.Home-svg-click {
+  cursor: pointer;
+}
