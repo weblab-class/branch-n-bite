@@ -78,7 +78,6 @@
   border-radius: 4px;
   resize: vertical;
   margin-bottom: 10px;
-  font-family: "ff-uberhand-pro", sans-serif;
 }
 
 .Profile-bio-edit button {
@@ -88,14 +87,12 @@
   border: none;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: "ff-uberhand-pro", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .Profile-bio-editor button:hover {
   background-color: var(--red);
-  font-family: "ff-uberhand-pro", sans-serif;
 }
 
 .Profile-full-details {
@@ -149,4 +146,3 @@ input[type="checkbox"] {
 input[type="checkbox"]:hover {
   accent-color: var(--red);
 }
-

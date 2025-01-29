@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="Home-container">
       <div className="Home-title">🌱 Branch & Bite @ MIT</div>
-      <div style={{ width: "70%", margin: "0 auto", textAlign: "center", paddingTop: "20px" }}>
+      <div style={{ width: "80%", margin: "0 auto", textAlign: "center", paddingTop: "10px" }}>
         <p>
           To navigate this site, we have a button above that lets you click on a dining hall of your
           choice. Here, you'll be able to see what menu items are available in each food group at

@@ -40,12 +40,12 @@ const Maseeh = () => {
       dorm: currentDorm,
     }).then((mealList) => {
       const orderedMealList = [];
-      for(const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
-        if(mealList.includes(meal)) {
+      for (const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
+        if (mealList.includes(meal)) {
           orderedMealList.push(meal);
         }
       }
-      setAvailableMeals(orderedMealList)
+      setAvailableMeals(orderedMealList);
     });
   }, [selectedDate]);
 
@@ -69,15 +69,14 @@ const Maseeh = () => {
       excludes: exclusions,
     }).then((foodList) => {
       if (foodList.length === 0) {
-        if(availableMeals.length > 0) {
+        if (availableMeals.length > 0) {
           foodList.push(
             `No ${group} found! This may be because your preferences don't match any foods in this category. Try the fruit and salad bars!`
           );
-        }
-        else {
+        } else {
           foodList.push(
             `${titleCase(currentDorm)}'s dining hall is closed for today. Try another dining hall!`
-          )
+          );
         }
       }
       if (group === "fruits" || group === "vegetables") {
@@ -118,19 +117,26 @@ const Maseeh = () => {
           {titleCase(currentDorm)} Dining: Click through the 5 food groups!
         </div>
       </div>
-      <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-        {availableMeals.map(x => <option value={x}>{titleCase(x)}</option>)}
-        {/*<option value="breakfast">Breakfast</option>
+      <div className="Maseeh-grid">
+        <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
+          {availableMeals.map((x) => (
+            <option value={x}>{titleCase(x)}</option>
+          ))}
+          {/*<option value="breakfast">Breakfast</option>
         <option value="brunch">Brunch</option>
         <option value="lunch">Lunch</option>
         <option value="dinner">Dinner</option>
         <option value="late-night">Late Night</option>*/}
-      </select>
-      <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
-        {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
-          <option value={getTodayDateOffset(dayOffset)}>{getTodayDateOffset(dayOffset)}{dayOffset === 0 ? " (today)" : ""}</option>
-        ))}
-      </select>
+        </select>
+        <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
+          {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
+            <option value={getTodayDateOffset(dayOffset)}>
+              {getTodayDateOffset(dayOffset)}
+              {dayOffset === 0 ? " (today)" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
           <ul>

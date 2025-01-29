@@ -1,5 +1,5 @@
 .NavBar-container {
-  padding: var(--s) var(--l);
+  padding: var(--xs) var(--l);
   background-color: var(--red);
   display: flex;
   justify-content: space-between; /* Spread left and right content */
@@ -62,16 +62,15 @@
 }
 
 .NavBar-button {
-  font-family: "ff-uberhand-pro", sans-serif;
   background-color: var(--red);
   border: none;
   color: var(--black);
-  padding: 2% 5%;
+  padding: 10px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-weight: 600;
-  border: 2px solid var(--black);
+  border: 1px solid var(--black);
   display: flex;
   gap: var(--s);
   justify-content: center;

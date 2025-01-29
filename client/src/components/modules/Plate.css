@@ -1,7 +1,9 @@
 .Plate-text {
   display: flex;
   color: var(--white);
-  font-size: 2.25vw;
+  font-weight: 500;
+  font-size: 2vw;
+  letter-spacing: 0.5px;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -27,8 +29,8 @@
 }
 
 .Plate-circle {
-  width: 30vw;
-  height: 30vw;
+  width: 27vw;
+  height: 27vw;
   border-radius: 50%;
   border: 0.3vw solid var(--darkgrey);
   position: relative;
@@ -36,8 +38,8 @@
 }
 
 .Plate-inner-circle {
-  width: 28vw;
-  height: 28vw;
+  width: 25.2vw;
+  height: 25.2vw;
   transform: translate(3.5%, 3.5%);
   border-radius: 50%;
   position: relative;
@@ -150,4 +152,4 @@
 .Plate-dairy-inner-circle:hover {
   transition: fill 0.3s ease, background-color 0.3s ease;
   background-color: var(--darkblue);
-} 
+}
