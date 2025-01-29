@@ -208,7 +208,7 @@ router.get("/getAvailableMeals", async (req, res) => {
     dorm: req.query.dorm,
     'menu.0': {$exists: true}
   };
-  console.log(`And to your right we have ${(await Menu.find(menuSearchFilter, "meal")).map(x => x.meal)}`);
+  // console.log(`And to your right we have ${(await Menu.find(menuSearchFilter, "meal")).map(x => x.meal)}`);
   res.send((await Menu.find(menuSearchFilter, "meal")).map(x => x.meal));
 });
 
