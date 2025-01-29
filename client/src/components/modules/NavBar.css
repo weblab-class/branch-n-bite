@@ -76,6 +76,7 @@
   align-items: center;
   cursor: pointer;
   border-radius: 1vh;
+  font-family: Roboto;
 }
 
 .NavBar-button:hover {
