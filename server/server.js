@@ -43,7 +43,7 @@ const databaseName = "Database";
 // mongoose 7 warning
 mongoose.set("strictQuery", false);
 
-console.log(mongoConnectionURL);
+// console.log(mongoConnectionURL);
 
 // connect to mongodb
 mongoose
