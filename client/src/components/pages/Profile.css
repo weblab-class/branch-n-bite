@@ -27,8 +27,10 @@
 }
 
 .Profile-pencil {
-  width: 50px;
-  height: 50px;
+  margin-left: 0.5vw;
+  margin-bottom: 2vh;
+  width: 25px;
+  height: 25px;
   transition: fill 0.3s ease, background-color 0.3s ease;
   fill: var(--red);
 }
@@ -82,6 +84,13 @@
   background-color: var(--red);
 }
 
+.Profile-bio {
+  word-break: break-all;
+  overflow: auto;
+  max-width: 25vw;
+  height: auto;
+
+}
 .Profile-full-details {
   /* display: inline-flex; */
   display: flex;
