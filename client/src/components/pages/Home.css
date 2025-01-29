@@ -125,15 +125,6 @@
   background-color: var(--white);
 }
 
-/* .Home-link + .NavBar-link {
-  margin-left: var(--m);
-} */
-
-/* .Home-linkContainer {
-  margin-left: var(--l);
-  display: flex;
-  gap: var(--m);
-  flex-direction: column;
-  align-items: center;
-  margin-top: var(--l);
-} */
+.Home-svg-click {
+  cursor: pointer;
+}
