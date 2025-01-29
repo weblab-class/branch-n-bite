@@ -86,7 +86,7 @@ const Generate = () => {
       generateMeal(selectedDate, selectedDorm, selectedMeal, inclusions, exclusions);
     }
     getUserPrefs();
-  }, [selectedDate, selectedMeal, userId]);
+  }, [selectedDate, selectedMeal]);
 
   function titleCase(dorm) {
     if (dorm === "mccormick") {
