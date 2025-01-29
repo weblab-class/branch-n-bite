@@ -1,5 +1,5 @@
 .Generate-container {
-  padding: calc(var(--l) * 2);
+  padding: calc(var(--l));
   margin: 0;
   display: flex;
   justify-content: center;
