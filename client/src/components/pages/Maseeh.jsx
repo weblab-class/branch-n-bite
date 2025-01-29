@@ -80,7 +80,6 @@ const Maseeh = () => {
         }
       }
       if (group === "fruits" || group === "vegetables") {
-        // TODO fix hardcoding
         setLeftList(foodList);
         setRightList([]);
       }
@@ -213,7 +212,7 @@ const Maseeh = () => {
           href={`/generate?date=${selectedDate}&dorm=${currentDorm}&meal=${selectedMeal}`}
           className="Maseeh-box-button"
         >
-          <button>Generate meal</button>
+          <button className="Maseeh-box-button">Generate meal</button>
         </a>
       </div>
     </>
