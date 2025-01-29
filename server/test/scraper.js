@@ -43,7 +43,7 @@ async function getMenu(date, dorm, meal) {
     const allMeals = ["breakfast", "brunch", "lunch", "dinner", "late-night"];
     assert(allMeals.includes(meal))
     const url = `https://mit.cafebonappetit.com/cafe/${dormString}/${dateString}`
-    console.log(`Scraping the menu from ${url}`)
+    // console.log(`Scraping the menu from ${url}`)
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -54,7 +54,7 @@ async function getMenu(date, dorm, meal) {
         const allAllergies = ["Peanut", "Tree Nut", "Fish", "Wheat/Gluten", "Milk", "Egg", "Soy", "Sesame"]
         const dinnerBox = document.getElementById(meal)
         if(dinnerBox === null) {
-            console.log("Found nothing for this date and time");
+            // console.log("Found nothing for this date and time");
             return [];
         }
         const dinnerHeaders = dinnerBox.children[0]
@@ -94,26 +94,26 @@ async function getFoodGroupsFromGemini(foodsArray, currModel = "gemini-1.5-pro")
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: currModel });
 
-    const prompt = `You will be given a food item, and the task is to classify it into zero or more of the following five food groups: "fruits", "vegetables", "protein", "grains", "dairy". 
+    const prompt = `You will be given a food item, and the task is to classify it into zero or more of the following five food groups: "fruits", "vegetables", "protein", "grains", "dairy".
 These food items will each appear in a separate line. Please print only the groups as a JSON-style array, and wrap all the arrays in a JSON-style array.
 Note that some items may have no food groups associated with them.
 Make sure that the list you output has the same length as the original!
 
 Here are some examples.
 
-Input: 
+Input:
 Pork Bacon
 Worcestershire Sauce
 Salt
 
-Output: 
+Output:
 [
     ["protein"],
     [],
     [],
 ]
 
-Input: 
+Input:
 Yogurt and Blueberries
 Asparagus Fried Rice
 
@@ -123,12 +123,12 @@ Output:
     ["vegetables", "grains"],
 ]
 
-Input: 
+Input:
 Sweet Chili Chicken Pizza
 Coca-Cola
 Carnitas Burrito
 
-Output: 
+Output:
 [
     ["protein", "grains", "dairy"],
     [],
@@ -138,21 +138,21 @@ Output:
 Input:
 ${foodsArray.join('\n')}
 
-Output: 
+Output:
 `
 
     const result = await model.generateContent(prompt);
     let resultsArray = [];
     try {
         const str = result.response.text();
-        console.log(`Result is ${str}`);
-        console.log(`Truncated is ${str.substring(8, str.length-4)}`);
+        // console.log(`Result is ${str}`);
+        // console.log(`Truncated is ${str.substring(8, str.length-4)}`);
         resultsArray = eval(str.substring(8, str.length-4));
-        console.log(`Obtained a valid results array with length ${resultsArray.length}`);
+        // console.log(`Obtained a valid results array with length ${resultsArray.length}`);
         assert(resultsArray.length === foodsArray.length);
     } catch(error) {
         console.error(error);
-    } 
+    }
 
     /*
     console.log(prompt);
@@ -170,7 +170,7 @@ Output:
  * @param {Array<String>} foodArray strings representing titles of food items
  * @returns an Array of Arrays of distinct strings containing all food groups
  * each food is a part of, which may be empty
- * These are only "fruits", "vegetables", "grains", "protein", or "dairy". 
+ * These are only "fruits", "vegetables", "grains", "protein", or "dairy".
  */
 async function getFoodGroups(foodsArray) {
     return await getFoodGroupsFromGemini(foodsArray);
@@ -188,7 +188,7 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
   for (const date of dateList) {
     for (const dorm of dormList) {
       for (const meal of mealList) {
-        console.log(`Now I'm scraping ${date} ${dorm} ${meal}`)
+        // console.log(`Now I'm scraping ${date} ${dorm} ${meal}`)
         const menuData = {
           date: date,
           dorm: dorm,
@@ -197,9 +197,9 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
         const foundMenu = await Menu.findOne(menuData, "menu");
         const menu =
           foundMenu !== null ? foundMenu["menu"] : await getMenu(date, dorm, meal);
-        
-        if(foundMenu === null) console.log("Done scraping!")
-        else console.log("Did not scrape");
+
+        // if(foundMenu === null) console.log("Done scraping!")
+        // else console.log("Did not scrape");
 
         if (foundMenu === null) {
           const newMenu = new Menu({
@@ -215,7 +215,7 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
         for(const food of menu) {
           const foodName = food.foodName;
           if(await Foodgroup.findOne({foodName: foodName}) === null) {
-            console.log(`Adding ${foodName}`);
+            // console.log(`Adding ${foodName}`);
             newFoodSet.add(foodName);
           }
         }
@@ -225,20 +225,20 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
   const newFoodList = [...newFoodSet];
   let newFoodGroups = [];
   if(newFoodList.length === 0) return;
-  console.log(`We have ${newFoodList.length} things`);
+  // console.log(`We have ${newFoodList.length} things`);
   let k = 8;
   while(newFoodList.length % k <= 2) {
       k -= 1;
       if(k == 3) k = 10;
   }
-  console.log(`k is ${k}`);
+  // console.log(`k is ${k}`);
   for(let i = 0; i < newFoodList.length; i += k) {
       const addTheseGroups = await getFoodGroupsFromGemini(newFoodList.slice(i, Math.min(i+k, newFoodList.length)), "gemini-1.5-flash");
-      console.log(addTheseGroups.length);
+      // console.log(addTheseGroups.length);
       newFoodGroups = newFoodGroups.concat(addTheseGroups);
   }
-  console.log("Now I have all the food groups!")
-  console.log(newFoodGroups.length);
+  // console.log("Now I have all the food groups!")
+  // console.log(newFoodGroups.length);
   // pro version
   // newFoodGroups = await getFoodGroups(newFoodList);
   if(newFoodGroups.length !== newFoodList.length) return;
@@ -250,7 +250,7 @@ async function scrapeAllMenus(dateList, dormList, mealList) {
       const newFoodGroup = new Foodgroup(foodgroupInstance);
       newFoodGroup.save();
   }
-  console.log("I'm done! :)");
+  // console.log("I'm done! :)");
 }
 
 // DO NOT UNCOMMENT UNLESS YOU WANT TO SCRAPE AND USE UP CALLS!!!!!!!

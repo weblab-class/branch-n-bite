@@ -121,7 +121,7 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   // TODO filter before this map
   const dietFilteredMenu = menu
     .filter(f => (
-      Math.max(f.restrictions.map(x => strictness[x])) >= 
+      Math.max(f.restrictions.map(x => strictness[x])) >=
       includes.map(x => strictness[x]).reduce((a, b) => Math.max(a, b), -Infinity)
     ))
     .filter(f => !(excludes.some(x => f.allergies.includes(x))))
@@ -200,7 +200,7 @@ router.get("/getFoodList", async (req, res) => {
 });
 
 /**
- * 
+ *
  */
 router.get("/getAvailableMeals", async (req, res) => {
   const menuSearchFilter = {
@@ -208,7 +208,7 @@ router.get("/getAvailableMeals", async (req, res) => {
     dorm: req.query.dorm,
     'menu.0': {$exists: true}
   };
-  console.log(`And to your right we have ${(await Menu.find(menuSearchFilter, "meal")).map(x => x.meal)}`);
+  // console.log(`And to your right we have ${(await Menu.find(menuSearchFilter, "meal")).map(x => x.meal)}`);
   res.send((await Menu.find(menuSearchFilter, "meal")).map(x => x.meal));
 });
 
@@ -300,7 +300,7 @@ mongoose
  * updatedBio
  */
 router.post("/updatedBio", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.send([req.body.content]);
   await User.findOneAndUpdate({ googleid: req.body.userid }, { bio: req.body.content });
 });
@@ -309,9 +309,9 @@ router.post("/updatedBio", async (req, res) => {
  * bio
  */
 router.get("/bio", async (req, res) => {
-  console.log(`Loaded new bio for ${req.query.userid}`);
+  // console.log(`Loaded new bio for ${req.query.userid}`);
   const userBio = await User.findOne({ googleid: req.query.userid }, "bio");
-  console.log(userBio);
+  // console.log(userBio);
   res.status(200);
   res.send([userBio]);
 });
@@ -320,7 +320,7 @@ router.get("/bio", async (req, res) => {
  * updatedIncludes
  */
 router.post("/updatedIncludes", async (req, res) => {
-  console.log(`Updated restrictions for ${req.body.userid}`);
+  // console.log(`Updated restrictions for ${req.body.userid}`);
   await User.findOneAndUpdate({ googleid: req.body.userid }, { restrictions: req.body.includes });
 });
 
@@ -328,9 +328,9 @@ router.post("/updatedIncludes", async (req, res) => {
  * includes
  */
 router.get("/includes", async (req, res) => {
-  console.log(`Loaded restrictions for ${req.query.userid}`);
+  // console.log(`Loaded restrictions for ${req.query.userid}`);
   const userRestrictions = await User.findOne({ googleid: req.query.userid }, "restrictions");
-  console.log(userRestrictions);
+  // console.log(userRestrictions);
   res.send(userRestrictions);
 });
 
@@ -338,7 +338,7 @@ router.get("/includes", async (req, res) => {
  * updatedExcludes
  */
 router.post("/updatedExcludes", async (req, res) => {
-  console.log(`Updated allergies for ${req.body.userid}`);
+  // console.log(`Updated allergies for ${req.body.userid}`);
   await User.findOneAndUpdate({ googleid: req.body.userid }, { allergies: req.body.excludes });
 });
 
@@ -346,16 +346,16 @@ router.post("/updatedExcludes", async (req, res) => {
  * excludes
  */
 router.get("/excludes", async (req, res) => {
-  console.log(`Loaded allergies for ${req.query.userid}`);
+  // console.log(`Loaded allergies for ${req.query.userid}`);
   const userAllergies = await User.findOne({ googleid: req.query.userid }, "allergies");
-  console.log(userAllergies);
+  // console.log(userAllergies);
   res.send(userAllergies);
 });
 
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
-  console.log(`API route not found: ${req.method} ${req.url}`);
+  // console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
 
