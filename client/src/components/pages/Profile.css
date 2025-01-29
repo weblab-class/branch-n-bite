@@ -7,6 +7,8 @@
 
 .Profile-details {
   text-align: center;
+  justify-content: center;
+  max-width: 50vw;
 }
 
 .Profile-title {
@@ -89,7 +91,6 @@
   overflow: auto;
   max-width: 25vw;
   height: auto;
-
 }
 .Profile-full-details {
   /* display: inline-flex; */
