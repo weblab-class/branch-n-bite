@@ -128,7 +128,7 @@ const Generate = () => {
           ))}
         </select>
       </div>
-      <section className="Maseeh-container">
+      <section className="Maseeh-container Generate-main-container">
         <section className="Plate-grid">
           <div className="Plate-plate-wrapper">
             <div className="Plate-circle">

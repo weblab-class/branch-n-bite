@@ -59,6 +59,7 @@
   height: 43%;
   border-top-left-radius: 100%;
   background-color: var(--red);
+  overflow: hidden;
 }
 
 .Plate-top-left:hover {
@@ -71,33 +72,13 @@
   padding-left: 15%;
 }
 
-.Plate-bottom-left {
-  width: 60%;
-  height: 48%;
-  border-top-left-radius: 100%;
-  background-color: var(--green);
-  transform: rotate(270deg) translate(-88%, -12.5%);
-  font-size: 4vw;
-  text-align: center;
-}
-
-.Plate-bottom-left:hover {
-  transition: fill 0.3s ease, background-color 0.3s ease;
-  background-color: var(--darkgreen);
-}
-
-.Plate-text-bottom-left {
-  transform: rotate(90deg);
-  padding-right: 10%;
-  padding-bottom: 20%;
-}
-
 .Plate-top-right {
   width: 60%;
   height: 48%;
   border-top-left-radius: 100%;
   background-color: var(--orange);
   transform: rotate(90deg) translate(0%, -96%);
+  overflow: hidden;
 }
 
 .Plate-top-right:hover {
@@ -111,12 +92,35 @@
   padding-left: 10%;
 }
 
+.Plate-bottom-left {
+  width: 60%;
+  height: 48%;
+  border-top-left-radius: 100%;
+  background-color: var(--green);
+  transform: rotate(270deg) translate(-88%, -12.5%);
+  font-size: 4vw;
+  text-align: center;
+  overflow: hidden;
+}
+
+.Plate-bottom-left:hover {
+  transition: fill 0.3s ease, background-color 0.3s ease;
+  background-color: var(--darkgreen);
+}
+
+.Plate-text-bottom-left {
+  transform: rotate(90deg);
+  padding-right: 10%;
+  padding-bottom: 20%;
+}
+
 .Plate-bottom-right {
   width: 48%;
   height: 43%;
   border-top-left-radius: 100%;
   background-color: var(--purple);
   transform: rotate(180deg) translate(-108.5%, -135%);
+  overflow: hidden;
 }
 
 .Plate-bottom-right:hover {
