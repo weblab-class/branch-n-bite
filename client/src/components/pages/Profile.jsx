@@ -111,7 +111,8 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="Profile-bio">
-                  <span style={{ "font-weight": "500" }}>About Me: </span> {currentBio}
+                  <span style={{ "font-weight": "500" }}>About Me: </span>
+                  <br></br> {currentBio}
                 </div>
               )}
               <svg onClick={handlePencilClick} viewBox="0 0 48 48" className="Profile-pencil">
