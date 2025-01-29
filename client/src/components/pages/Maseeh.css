@@ -1,14 +1,32 @@
 .Maseeh-container {
   display: flex;
-  margin: 0;
-  text-align: justify;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  margin-top: 20px;
+  justify-content: center; /* Center all items */
+  align-items: center;
+  gap: 30px;
+  margin: 20px auto;
   width: auto;
   height: auto;
-  gap: 30px;
+}
+
+.Maseeh-container > * {
+  min-width: 200px; /* Allows shrinking */
+}
+
+/* Moves second element to the second row ONLY when wrapped */
+@media (max-width: 700px) {
+  /* Adjust breakpoint as needed */
+  .Maseeh-container {
+    flex-direction: column;
+  }
+
+  .Maseeh-container > * {
+    flex-basis: 100%; /* Each takes full row when wrapped */
+  }
+
+  .Maseeh-container > *:nth-child(2) {
+    order: -1; /* Pushes it to the second row */
+  }
 }
 
 .Maseeh-text {
@@ -37,9 +55,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: auto;
   width: 20%;
   max-width: 300px;
+  min-width: 250px;
   text-align: left;
 }
 
