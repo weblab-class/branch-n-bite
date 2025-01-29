@@ -42,13 +42,13 @@ const Generate = () => {
   }, [selectedDate]);
 
   function handleMealChange(event) {
-    console.log(event.target);
-    console.log(event.target.value);
+    // console.log(event.target);
+    // console.log(event.target.value);
     setSelectedMeal(event.target.value);
   }
 
   function handleDateChange(event) {
-    console.log(`Target value is ${event.target.value}`);
+    // console.log(`Target value is ${event.target.value}`);
     setSelectedDate(event.target.value);
   }
 
@@ -73,7 +73,9 @@ const Generate = () => {
     });
   }
 
-  useEffect(() => {console.log("HI EVERYONE")}, [lockedPlate]);
+  useEffect(() => {
+    // console.log("HI EVERYONE")
+  }, [lockedPlate]);
 
   useEffect(() => {
     async function getUserPrefs() {
@@ -115,8 +117,8 @@ const Generate = () => {
     else {
       newLockedPlate[meal] = foodItem;
     }
-    console.log(`Move locked plate ${newLockedPlate.vegetables}`);
-    console.log(`old locked plate ${lockedPlate.vegetables}`);
+    // console.log(`Move locked plate ${newLockedPlate.vegetables}`);
+    // console.log(`old locked plate ${lockedPlate.vegetables}`);
     setLockedPlate(newLockedPlate);
   }
 
