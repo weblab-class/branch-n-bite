@@ -28,22 +28,6 @@ const Maseeh = () => {
       group: "fruits",
       includes: [],
       excludes: [],
-    }).then((foodList) => {
-      setLeftList([]);
-      setRightList([]);
-    });
-  }, [selectedMeal]);
-
-  useEffect(() => {
-    setLeftList(["Loading..."]);
-    setRightList(["Loading..."]);
-    get("/api/getFoodList", {
-      date: selectedDate,
-      dorm: currentDorm,
-      meal: selectedMeal,
-      group: "fruits",
-      includes: [],
-      excludes: [],
     });
     get("/api/getAvailableMeals", {
       date: selectedDate,
@@ -64,7 +48,7 @@ const Maseeh = () => {
       setRightList([]);
       setAvailableMeals(orderedMealList)
     });
-  }, [selectedDate]);
+  }, [selectedDate, selectedMeal]);
 
   function handleMealChange(event) {
     setSelectedMeal(event.target.value);
