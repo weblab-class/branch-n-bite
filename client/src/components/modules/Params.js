@@ -6,8 +6,8 @@ function getInitDate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const dateParam = searchParams.get("date");
   if (dateParam !== null) {
-    // TODO sanitize input properly
-    if (dateParam.length === 10 && dateParam.startsWith("2025-0")) return dateParam;
+    // TODO sanitize input properly for the future
+    if (dateParam.length === 10 && (dateParam.startsWith("2025-01-2") || dateParam.startsWith("2025-01-3") || ((dateParam.startsWith("2025-02-0")) && (dateParam[9] < '8')))) return dateParam;
   }
   return getTodayDate();
 }
@@ -17,7 +17,7 @@ function getInitMeal() {
   const mealParam = searchParams.get("meal");
   if (mealParam !== null) {
     // TODO sanitize input for full
-    if (["brunch", "dinner"].includes(mealParam)) return mealParam;
+    if (["breakfast", "brunch", "lunch", "dinner", "late-night"].includes(mealParam)) return mealParam;
   }
   return getCurrentMeal();
 }

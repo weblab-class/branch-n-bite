@@ -29,11 +29,22 @@ const Maseeh = () => {
       includes: [],
       excludes: [],
     }).then((foodList) => {
+      setLeftList([]);
       setRightList([]);
     });
-  }, [selectedDate, selectedMeal]);
+  }, [selectedMeal]);
 
   useEffect(() => {
+    setLeftList(["Loading..."]);
+    setRightList(["Loading..."]);
+    get("/api/getFoodList", {
+      date: selectedDate,
+      dorm: currentDorm,
+      meal: selectedMeal,
+      group: "fruits",
+      includes: [],
+      excludes: [],
+    });
     get("/api/getAvailableMeals", {
       date: selectedDate,
       dorm: currentDorm,
@@ -74,11 +85,21 @@ const Maseeh = () => {
       includes: inclusions,
       excludes: exclusions,
     }).then((foodList) => {
+      if(group === "fruits" && availableMeals) {
+      }
       if (foodList.length === 0) {
         if (availableMeals.length > 0) {
-          foodList.push(
-            `No ${group} found! This may be because your preferences don't match any foods in this category. Try the fruit and salad bars!`
-          );
+          if(group === "fruits") {
+            foodList.push("Try some fruits from the fruit bar!");
+          }
+          else if(group === "vegetables") {
+            foodList.push("Try some veggies from the salad bar!");
+          }
+          else {
+            foodList.push(
+              `No ${group} found! This may be because your preferences don't match any foods in this category.`
+            );
+          }
         } else {
           foodList.push(
             `${titleCase(

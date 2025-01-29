@@ -91,6 +91,7 @@ function getFoodGroupsFromFoundation(foodName) {
 async function getFoodGroupsFromGemini(foodsArray, currModel = "gemini-1.5-pro") {
 
     console.log(`Asking Gemini for the groups of ${foodsArray.length} foods with key ${process.env.GEMINI_API_KEY}`);
+    console.log(foodsArray);
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: currModel });
 

@@ -13,6 +13,7 @@ const express = require("express");
 const User = require("./models/user");
 const Menu = require("./models/menu");
 const Foodgroup = require("./models/foodgroup");
+const Report = require("./models/report");
 
 // import authentication library
 const auth = require("./auth");
@@ -42,6 +43,7 @@ router.get("/whoami", (req, res) => {
 // import scrape
 const scraper = require("./test/scraper.js");
 const menu = require("./models/menu");
+const report = require("./models/report");
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
@@ -169,6 +171,12 @@ async function getMenuWithRestrictions(date, dorm, meal, includes = [], excludes
   return prevMenuWithGroups;
 }
 
+async function addUserReport(googleid, foodName, foodGroups) {
+  if(report.findOne({foodName: foodName, foodGroups: foodGroups})) {
+    Foodgroup.findOneAndUpdate({ foodName: foodName }, { foodGroups: foodGroups });
+  }
+}
+
 /* getFoodList
  * parameters of request body:
  *  date - Date object with the date we want to support
@@ -280,6 +288,16 @@ router.get("/getValidMeals", async (req, res) => {
     const l = await Menu.findOne({meal: m});
     return (l !== null && l.menu.length !== 0);
   });
+});
+
+/**
+ * parameters:
+ *    userid - id of user making the report
+ *    foodName - name of food being changed
+ *    foodGroups - list of groups the user thinks it should be in
+ */
+router.post("/addUserReport", async (req, res) => {
+  addUserReport(req.body.userid, req.body.foodName, req.body.foodGroups)
 });
 
 /*
