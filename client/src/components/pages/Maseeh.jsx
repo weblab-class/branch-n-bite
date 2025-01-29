@@ -75,13 +75,8 @@ const Maseeh = () => {
           );
         } else {
           foodList.push(
-<<<<<<< HEAD
             `${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`
           )
-=======
-            `${titleCase(currentDorm)}'s dining hall is closed for today. Try another dining hall!`
-          );
->>>>>>> refs/remotes/origin/main
         }
       }
       if (group === "fruits" || group === "vegetables") {
