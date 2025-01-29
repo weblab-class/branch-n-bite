@@ -22,7 +22,7 @@ const Generate = () => {
     grains: "Loading...",
     protein: "Loading...",
     dairy: "Loading...",
-  }
+  };
   const [generatedPlate, setGeneratedPlate] = useState(dummyPlate);
   const [lockedPlate, setLockedPlate] = useState({});
 
@@ -32,12 +32,12 @@ const Generate = () => {
       dorm: selectedDorm,
     }).then((mealList) => {
       const orderedMealList = [];
-      for(const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
-        if(mealList.includes(meal)) {
+      for (const meal of ["breakfast", "brunch", "lunch", "dinner", "late-night"]) {
+        if (mealList.includes(meal)) {
           orderedMealList.push(meal);
         }
       }
-      setAvailableMeals(orderedMealList)
+      setAvailableMeals(orderedMealList);
     });
   }, [selectedDate]);
 
@@ -102,7 +102,7 @@ const Generate = () => {
 
   function moveLockedPlate(meal, foodItem) {
     let newLockedPlate = { ...lockedPlate };
-    if(newLockedPlate.hasOwnProperty(meal)) {
+    if (newLockedPlate.hasOwnProperty(meal)) {
       let finalPlate = {
         fruits: generatedPlate["fruits"] ?? "No fruit dishes match your preferences",
         vegetables: generatedPlate["vegetables"] ?? "No veggie dishes match your preferences",
@@ -113,8 +113,7 @@ const Generate = () => {
       finalPlate[meal] = lockedPlate[meal];
       setGeneratedPlate(finalPlate);
       delete newLockedPlate[meal];
-    }
-    else {
+    } else {
       newLockedPlate[meal] = foodItem;
     }
     // console.log(`Move locked plate ${newLockedPlate.vegetables}`);
@@ -141,7 +140,9 @@ const Generate = () => {
       </div>
       <div className="Maseeh-grid">
         <select className="Maseeh-select" value={selectedMeal} onChange={handleMealChange}>
-          {availableMeals.map(x => <option value={x}>{titleCase(x)}</option>)}
+          {availableMeals.map((x) => (
+            <option value={x}>{titleCase(x)}</option>
+          ))}
         </select>
         <select className="Maseeh-select" value={selectedDate} onChange={handleDateChange}>
           {[-1, 0, 1, 2, 3, 4, 5, 6, 7].map((dayOffset) => (
@@ -179,24 +180,78 @@ const Generate = () => {
           </div>
         </section>
         <p className="Generate-text">
-          <span style={{ color: "transparent", textShadow: "0px 0px 0px #f97676" }} onClick={() => {moveLockedPlate("fruits", generatedPlate.fruits)}}>{lockedPlate["fruits"] ? '🔒' : '🔓'} </span>
-          <b style={{ color: "#f97676" }}> Fruit:</b> <span style={{ fontWeight: lockedPlate["fruits"] ? 600 : 300 }}>{lockedPlate["fruits"] ?? generatedPlate.fruits}</span>
+          <b>Click on the locks to "lock in" a food group!</b>
+          <br />
+          <hr />
+          <br />
+          <span
+            style={{ color: "transparent", textShadow: "0px 0px 0px #f97676" }}
+            onClick={() => {
+              moveLockedPlate("fruits", generatedPlate.fruits);
+            }}
+          >
+            {lockedPlate["fruits"] ? "🔒" : "🔓"}{" "}
+          </span>
+          <b style={{ color: "#f97676" }}> Fruit:</b>{" "}
+          <span style={{ fontWeight: lockedPlate["fruits"] ? 600 : 300 }}>
+            {lockedPlate["fruits"] ?? generatedPlate.fruits}
+          </span>
           <br />
           <br />
-          <span style={{ color: "transparent", textShadow: "0px 0px 0px #89ba83" }} onClick={() => {moveLockedPlate("vegetables", generatedPlate.vegetables)}}>{lockedPlate["vegetables"] ? '🔒' : '🔓'} </span>
-          <b style={{ color: "#89ba83" }}> Vegetable:</b> <span style={{ fontWeight: lockedPlate["vegetables"] ? 600 : 300 }}>{lockedPlate["vegetables"] ?? generatedPlate["vegetables"]}</span>
+          <span
+            style={{ color: "transparent", textShadow: "0px 0px 0px #89ba83" }}
+            onClick={() => {
+              moveLockedPlate("vegetables", generatedPlate.vegetables);
+            }}
+          >
+            {lockedPlate["vegetables"] ? "🔒" : "🔓"}{" "}
+          </span>
+          <b style={{ color: "#89ba83" }}> Vegetable:</b>{" "}
+          <span style={{ fontWeight: lockedPlate["vegetables"] ? 600 : 300 }}>
+            {lockedPlate["vegetables"] ?? generatedPlate["vegetables"]}
+          </span>
           <br />
           <br />
-          <span style={{ color: "transparent", textShadow: "0px 0px 0px #d9a870" }} onClick={() => {moveLockedPlate("grains", generatedPlate.grains)}}>{lockedPlate["grains"] ? '🔒' : '🔓'} </span>
-          <b style={{ color: "#d9a870" }}> Grain:</b> <span style={{ fontWeight: lockedPlate["grains"] ? 600 : 300 }}>{lockedPlate["grains"] ?? generatedPlate["grains"]}</span>
+          <span
+            style={{ color: "transparent", textShadow: "0px 0px 0px #d9a870" }}
+            onClick={() => {
+              moveLockedPlate("grains", generatedPlate.grains);
+            }}
+          >
+            {lockedPlate["grains"] ? "🔒" : "🔓"}{" "}
+          </span>
+          <b style={{ color: "#d9a870" }}> Grain:</b>{" "}
+          <span style={{ fontWeight: lockedPlate["grains"] ? 600 : 300 }}>
+            {lockedPlate["grains"] ?? generatedPlate["grains"]}
+          </span>
           <br />
           <br />
-          <span style={{ color: "transparent", textShadow: "0px 0px 0px #b499e0" }} onClick={() => {moveLockedPlate("protein", generatedPlate.protein)}}>{lockedPlate["protein"] ? '🔒' : '🔓'} </span>
-          <b style={{ color: "#b499e0" }}> Protein:</b> <span style={{ fontWeight: lockedPlate["protein"] ? 600 : 300 }}>{lockedPlate["protein"] ?? generatedPlate["protein"]}</span>
+          <span
+            style={{ color: "transparent", textShadow: "0px 0px 0px #b499e0" }}
+            onClick={() => {
+              moveLockedPlate("protein", generatedPlate.protein);
+            }}
+          >
+            {lockedPlate["protein"] ? "🔒" : "🔓"}{" "}
+          </span>
+          <b style={{ color: "#b499e0" }}> Protein:</b>{" "}
+          <span style={{ fontWeight: lockedPlate["protein"] ? 600 : 300 }}>
+            {lockedPlate["protein"] ?? generatedPlate["protein"]}
+          </span>
           <br />
           <br />
-          <span style={{  color: "transparent", textShadow: "0px 0px 0px #679cc2"  }} onClick={() => {moveLockedPlate("dairy", generatedPlate.dairy)}}>{lockedPlate["dairy"] ? '🔒' : '🔓'} </span>
-          <b style={{ color: "#679cc2" }}> Dairy:</b> <span style={{ fontWeight: lockedPlate["dairy"] ? 600 : 300 }}>{lockedPlate["dairy"] ?? generatedPlate["dairy"]}</span>
+          <span
+            style={{ color: "transparent", textShadow: "0px 0px 0px #679cc2" }}
+            onClick={() => {
+              moveLockedPlate("dairy", generatedPlate.dairy);
+            }}
+          >
+            {lockedPlate["dairy"] ? "🔒" : "🔓"}{" "}
+          </span>
+          <b style={{ color: "#679cc2" }}> Dairy:</b>{" "}
+          <span style={{ fontWeight: lockedPlate["dairy"] ? 600 : 300 }}>
+            {lockedPlate["dairy"] ?? generatedPlate["dairy"]}
+          </span>
         </p>
       </section>
       <section className="Generate-container">
