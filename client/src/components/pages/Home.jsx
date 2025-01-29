@@ -11,10 +11,10 @@ const Home = () => {
       <div className="Home-title">🌱 Branch & Bite @ MIT</div>
       <div style={{ width: "80%", margin: "0 auto", textAlign: "center", paddingTop: "10px" }}>
         <p>
-          To navigate this site, we have a button above that lets you click on a dining hall of your
-          choice. Here, you'll be able to see what menu items are available in each food group at
-          the current meal time. You'll also have an option to go to a generate page, where we will
-          randomly select a food combination for you!
+          To navigate this site, click on a dining hall of your choice. Here, you'll be able to 
+          see what menu items are available in each food group at the current meal time. 
+          You also have an option to set dietary restrictions by creating a profile, and
+          go to a generate page, where we will randomly select a food combination for you!
         </p>
       </div>
       <div className="Home-dorms-top-row">

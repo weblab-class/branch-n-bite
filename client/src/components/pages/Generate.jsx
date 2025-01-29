@@ -208,7 +208,7 @@ const Generate = () => {
             const exclusions = userId
               ? (await get("/api/excludes", { userid: userId })).allergies
               : [];
-            generateMeal(selectedDate, "maseeh", selectedMeal, inclusions, exclusions);
+            generateMeal(selectedDate, selectedDorm, selectedMeal, inclusions, exclusions);
           }}
         >
           Regenerate
