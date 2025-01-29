@@ -29,7 +29,12 @@ const Maseeh = () => {
       includes: [],
       excludes: [],
     }).then((foodList) => {
-      setLeftList([]);
+      if(orderedMealList.length === 0) {
+        setLeftList([`${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`]);
+      }
+      else {
+        setLeftList([]);
+      }
       setRightList([]);
     });
   }, [selectedDate, selectedMeal]);
