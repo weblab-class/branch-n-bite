@@ -24,6 +24,7 @@ const Generate = () => {
     dairy: "Loading...",
   }
   const [generatedPlate, setGeneratedPlate] = useState(dummyPlate);
+  const [lockedPlate, setLockedPlate] = useState({});
 
   useEffect(() => {
     get("/api/getAvailableMeals", {
@@ -68,12 +69,11 @@ const Generate = () => {
         protein: plate["protein"] ?? "No protein dishes match your preferences",
         dairy: plate["dairy"] ?? "No dairy dishes match your preferences",
       };
-      console.log(`final plate is ${finalPlate}`);
       setGeneratedPlate(finalPlate);
     });
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {console.log("HI EVERYONE")}, [lockedPlate]);
 
   useEffect(() => {
     async function getUserPrefs() {
@@ -96,6 +96,28 @@ const Generate = () => {
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
+  }
+
+  function moveLockedPlate(meal, foodItem) {
+    let newLockedPlate = { ...lockedPlate };
+    if(newLockedPlate.hasOwnProperty(meal)) {
+      let finalPlate = {
+        fruits: generatedPlate["fruits"] ?? "No fruit dishes match your preferences",
+        vegetables: generatedPlate["vegetables"] ?? "No veggie dishes match your preferences",
+        grains: generatedPlate["grains"] ?? "No grain dishes match your preferences",
+        protein: generatedPlate["protein"] ?? "No protein dishes match your preferences",
+        dairy: generatedPlate["dairy"] ?? "No dairy dishes match your preferences",
+      };
+      finalPlate[meal] = lockedPlate[meal];
+      setGeneratedPlate(finalPlate);
+      delete newLockedPlate[meal];
+    }
+    else {
+      newLockedPlate[meal] = foodItem;
+    }
+    console.log(`Move locked plate ${newLockedPlate.vegetables}`);
+    console.log(`old locked plate ${lockedPlate.vegetables}`);
+    setLockedPlate(newLockedPlate);
   }
 
   return (
@@ -155,19 +177,24 @@ const Generate = () => {
           </div>
         </section>
         <p className="Generate-text">
-          <b style={{ color: "#f97676" }}>Fruit:</b> {generatedPlate.fruits}
+          <span style={{ color: "transparent", textShadow: "0px 0px 0px #f97676" }} onClick={() => {moveLockedPlate("fruits", generatedPlate.fruits)}}>{lockedPlate["fruits"] ? '🔒' : '🔓'} </span>
+          <b style={{ color: "#f97676" }}> Fruit:</b> <span style={{ fontWeight: lockedPlate["fruits"] ? 600 : 300 }}>{lockedPlate["fruits"] ?? generatedPlate.fruits}</span>
           <br />
           <br />
-          <b style={{ color: "#89ba83" }}>Vegetable:</b> {generatedPlate.vegetables}
+          <span style={{ color: "transparent", textShadow: "0px 0px 0px #89ba83" }} onClick={() => {moveLockedPlate("vegetables", generatedPlate.vegetables)}}>{lockedPlate["vegetables"] ? '🔒' : '🔓'} </span>
+          <b style={{ color: "#89ba83" }}> Vegetable:</b> <span style={{ fontWeight: lockedPlate["vegetables"] ? 600 : 300 }}>{lockedPlate["vegetables"] ?? generatedPlate["vegetables"]}</span>
           <br />
           <br />
-          <b style={{ color: "#d9a870" }}>Grain:</b> {generatedPlate.grains}
+          <span style={{ color: "transparent", textShadow: "0px 0px 0px #d9a870" }} onClick={() => {moveLockedPlate("grains", generatedPlate.grains)}}>{lockedPlate["grains"] ? '🔒' : '🔓'} </span>
+          <b style={{ color: "#d9a870" }}> Grain:</b> <span style={{ fontWeight: lockedPlate["grains"] ? 600 : 300 }}>{lockedPlate["grains"] ?? generatedPlate["grains"]}</span>
           <br />
           <br />
-          <b style={{ color: "#b499e0" }}>Protein:</b> {generatedPlate.protein}
+          <span style={{ color: "transparent", textShadow: "0px 0px 0px #b499e0" }} onClick={() => {moveLockedPlate("protein", generatedPlate.protein)}}>{lockedPlate["protein"] ? '🔒' : '🔓'} </span>
+          <b style={{ color: "#b499e0" }}> Protein:</b> <span style={{ fontWeight: lockedPlate["protein"] ? 600 : 300 }}>{lockedPlate["protein"] ?? generatedPlate["protein"]}</span>
           <br />
           <br />
-          <b style={{ color: "#679cc2" }}>Dairy:</b> {generatedPlate.dairy}
+          <span style={{  color: "transparent", textShadow: "0px 0px 0px #679cc2"  }} onClick={() => {moveLockedPlate("dairy", generatedPlate.dairy)}}>{lockedPlate["dairy"] ? '🔒' : '🔓'} </span>
+          <b style={{ color: "#679cc2" }}> Dairy:</b> <span style={{ fontWeight: lockedPlate["dairy"] ? 600 : 300 }}>{lockedPlate["dairy"] ?? generatedPlate["dairy"]}</span>
         </p>
       </section>
       <section className="Generate-container">
