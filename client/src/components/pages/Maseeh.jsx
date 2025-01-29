@@ -29,12 +29,6 @@ const Maseeh = () => {
       includes: [],
       excludes: [],
     }).then((foodList) => {
-      if(orderedMealList.length === 0) {
-        setLeftList([`${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`]);
-      }
-      else {
-        setLeftList([]);
-      }
       setRightList([]);
     });
   }, [selectedDate, selectedMeal]);
@@ -52,8 +46,11 @@ const Maseeh = () => {
       }
       if(orderedMealList.length === 0) {
         setLeftList([`${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`]);
-        setRightList([]);
       }
+      else {
+        setLeftList([]);
+      }
+      setRightList([]);
       setAvailableMeals(orderedMealList)
     });
   }, [selectedDate]);
