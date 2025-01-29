@@ -30,7 +30,7 @@ const Profile = () => {
     get("/api/bio", { userid: userId }).then((bio) => {
       setCurrentBio(bio[0].bio);
     });
-    console.log("It should be recheckmarking");
+    // console.log("It should be recheckmarking");
     get("/api/includes", { userid: userId }).then((includes) => {
       setIncludes(includes.restrictions);
     });
@@ -83,7 +83,7 @@ const Profile = () => {
       const ind = newExcludes.indexOf(restrName);
       newExcludes.splice(ind, 1);
     }
-    console.log(newExcludes);
+    // console.log(newExcludes);
     const body = { userid: userId, excludes: newExcludes };
     setExcludes(newExcludes);
     post("/api/updatedExcludes", body).then(() => {});
