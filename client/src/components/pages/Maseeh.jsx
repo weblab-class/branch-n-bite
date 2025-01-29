@@ -76,7 +76,7 @@ const Maseeh = () => {
         }
         else {
           foodList.push(
-            `${titleCase(currentDorm)}'s dining hall is closed for today. Try another dining hall!`
+            `${titleCase(currentDorm)}'s dining hall is closed for this date. Try another dining hall or date!`
           )
         }
       }
