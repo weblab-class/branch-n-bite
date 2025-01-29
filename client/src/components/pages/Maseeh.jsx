@@ -139,11 +139,13 @@ const Maseeh = () => {
       </div>
       <div className="Maseeh-container">
         <section className="Maseeh-food-list">
-          <ul>
-            {leftList.map((food, index) => (
-              <li key={index}>{food}</li>
-            ))}
-          </ul>
+          {leftList.length > 0 && (
+            <ul>
+              {leftList.map((food, index) => (
+                <li key={index}>{food}</li>
+              ))}
+            </ul>
+          )}
         </section>
         <section className="Plate-grid">
           <div className="Plate-plate-wrapper">
@@ -197,12 +199,13 @@ const Maseeh = () => {
           </div>
         </section>
         <section className="Maseeh-food-list">
-          <ul>
-            {rightList.map((food, index) => (
-              <li key={index}>{food}</li>
-            ))}
-          </ul>
-          {/*console.log("clicked", leftList)*/}
+          {rightList.length > 0 && (
+            <ul>
+              {rightList.map((food, index) => (
+                <li key={index}>{food}</li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
       <div className="Generate-container">
